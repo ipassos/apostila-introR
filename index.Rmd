@@ -1,34 +1,42 @@
 --- 
-title: "A Minimal Book Example"
-author: "Yihui Xie"
+title: "Introdução ao R"
+author: "Iara Passos"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+output: bookdown::gitbook
 documentclass: book
+link-citations: yes
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
-link-citations: yes
-description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+github-repo: rstudio/bookdown-demo
+description: "Apostila - Introdução ao R"
 ---
 
-# Prerequisites
 
-This is a _sample_ book written in **Markdown**. You can use anything that Pandoc's Markdown supports, e.g., a math equation $a^2 + b^2 = c^2$.
+# Introduçao {#intro}
 
-The **bookdown** package can be installed from CRAN or Github:
+Infos sobre o curso
 
-```{r eval=FALSE}
-install.packages("bookdown")
-# or the development version
-# devtools::install_github("rstudio/bookdown")
-```
+## O que é a linguagem R?
 
-Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading `#`.
+R é uma linguagem de programação e um ambiente para implementação de análises estatísticas e gráficos. Um Ambiente de Desenvolvimento Integrado^[https://pt.wikipedia.org/wiki/Ambiente_de_desenvolvimento_integrado] (do inglês, _Integrated Development Environment_, IDE) é um _software_ que contêm ferramentas para auxiliar o desenvolvimento de _softwares_, de modo a otimizar e facilitar esse processo. As principais funções de uma IDE são: edição, compilação, depuração e modelagem. 
 
-To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.name/tinytex/>.
+Foi criado em 1993, por Ross Ihaka e por Robert Gentleman do Departamento de Estatística da Universidade de Auckland na Nova Zelândia, baseado na linguagem de programação e ambiente S, desenvolvido por John Chambers na Bell Laboratories (hoje Lucent Technologies). A partir de 1997 passou a ser desenvolvido por um grupo de colaboradores do mundo todo^[Contributors: https://www.r-project.org/contributors.html]. 
 
-```{r include=FALSE}
-# automatically create a bib database for R packages
-knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown'
-), 'packages.bib')
-```
+### Comunidade
+
+Uma das vantagens da linguagem R é que, por ser Software Livre, tem uma comunidade de usuários muito grande, que contribui melhorando o código e criando documentação e tutoriais para outros usuários. Além do site do [R-Project]{https://www.r-project.org/}, o [R-bloggers]{https://www.r-bloggers.com/} (em inglês) e o [bRbloggers]{https://brbloggers.com.br/} reunem diversos sites/blogs sobre a linguagem R, com tutoriais e informações atualizadas sobre pacotes e códigos. O [Stack Overflow]{https://stackoverflow.com/questions/tagged/r} e uma plataforma que possibilita os usuarios a fazerem perguntas relacionadas a qualquer linguagem de programaçao e obter respostas de outros usuarios. Procurar a sua duvida la pode ser bem util para conseguir avançar no seu codigo. Para uma melhor aprendizagem, é essencial pesquisar documentação, tutoriais e, principalmente, o que tem sido discutido na comunidade de usuários do R ao redor do mundo. Para começar, é bom acompanhar os três sites citados.
+
+## Instalando o R 
+
+A linguagem R é disponibilizada como um Software Livre ^[Licença R Project: https://www.r-project.org/COPYING], sem custos e seu código-fonte é aberto e por ser acessado por qualquer pessoa, sobre os termos da [Free Software Foundation’s GNU General Public License](https://www.gnu.org/). Para que o seu computador seja capaz de interpretar a linguagem R é necessário que você faça download e instale a linguagem no seu computador, seguindo os passos: 
+
+* Acesse o link: https://cran.r-project.org/mirrors.html e escolha um _mirror_ para realizar o _download_, dê preferência um no Brasil. 
+* Na página que abriu escolha o _download_ para o seu sistema operacional (Windows, MacOS ou Linux). 
+* Apos o download abra o arquivo e realize a instalaçao da forma que o seu sistema operacional exige. 
+
+## Instalando o RStudio 
+
+Só a instalação do R é o suficiente para começar a usá-lo, mas há algumas IDEs que melhoram a interface para o usuário, deixando-a mais prática e fácil de utilizar os recursos e ferramentas disponíveis. 
+	Uma das mais utilizadas é o [RStudio](https://rstudio.com/), que também é um software livre. O download^[Há também uma versão que pode ser utilizada pelo navegador do seu computador e acessada via servidor]. Para realizar o download para qualquer sistema operacional acesse o link: https://www.rstudio.com/products/rstudio/download/#download. Escolha o sistema operacional correspondente ao seu computador, faça o download do isntalador e siga a instalação.
+    
