@@ -4,24 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>A Minimal Book Example</title>
-  <meta name="description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <title>Introdução ao R</title>
+  <meta name="description" content="Apostila - Introdução ao R" />
   <meta name="generator" content="bookdown 0.14 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="A Minimal Book Example" />
+  <meta property="og:title" content="Introdução ao R" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
-  
+  <meta property="og:description" content="Apostila - Introdução ao R" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="A Minimal Book Example" />
+  <meta name="twitter:title" content="Introdução ao R" />
   
-  <meta name="twitter:description" content="This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:description" content="Apostila - Introdução ao R" />
   
 
-<meta name="author" content="Yihui Xie" />
+<meta name="author" content="Iara Passos" />
 
 
 <meta name="date" content="2019-11-04" />
@@ -32,7 +32,7 @@
   
   
 
-<link rel="next" href="intro.html"/>
+<link rel="next" href="aula1.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -53,41 +53,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -106,15 +131,34 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="literature.html"><a href="literature.html"><i class="fa fa-check"></i><b>3</b> Literature</a></li>
-<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
-<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
-<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
-<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#o-que-é-a-linguagem-r"><i class="fa fa-check"></i><b>1.1</b> O que é a linguagem R?</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#comunidade"><i class="fa fa-check"></i><b>1.1.1</b> Comunidade</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#instalando-o-r"><i class="fa fa-check"></i><b>1.2</b> Instalando o R</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#instalando-o-rstudio"><i class="fa fa-check"></i><b>1.3</b> Instalando o RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="aula1.html"><a href="aula1.html"><i class="fa fa-check"></i><b>2</b> Aula 1</a><ul>
+<li class="chapter" data-level="2.1" data-path="aula1.html"><a href="aula1.html#janela-de-comando-do-r"><i class="fa fa-check"></i><b>2.1</b> Janela de comando do R</a></li>
+<li class="chapter" data-level="2.2" data-path="aula1.html"><a href="aula1.html#o-r-como-uma-calculadora"><i class="fa fa-check"></i><b>2.2</b> O R como uma calculadora</a></li>
+<li class="chapter" data-level="2.3" data-path="aula1.html"><a href="aula1.html#objetos-e-classes-de-objetos"><i class="fa fa-check"></i><b>2.3</b> Objetos e classes de objetos</a></li>
+<li class="chapter" data-level="2.4" data-path="aula1.html"><a href="aula1.html#ambiente-do-rstudio"><i class="fa fa-check"></i><b>2.4</b> Ambiente do RStudio</a></li>
+<li class="chapter" data-level="2.5" data-path="aula1.html"><a href="aula1.html#pacotes"><i class="fa fa-check"></i><b>2.5</b> Pacotes</a></li>
+<li class="chapter" data-level="2.6" data-path="aula1.html"><a href="aula1.html#como-conseguir-ajuda"><i class="fa fa-check"></i><b>2.6</b> Como conseguir ajuda</a></li>
+<li class="chapter" data-level="2.7" data-path="aula1.html"><a href="aula1.html#vetores"><i class="fa fa-check"></i><b>2.7</b> Vetores</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="aula1.html"><a href="aula1.html#nomeação-de-vetores"><i class="fa fa-check"></i><b>2.7.1</b> Nomeação de vetores</a></li>
+<li class="chapter" data-level="2.7.2" data-path="aula1.html"><a href="aula1.html#operações-com-vetores"><i class="fa fa-check"></i><b>2.7.2</b> Operações com vetores</a></li>
+<li class="chapter" data-level="2.7.3" data-path="aula1.html"><a href="aula1.html#selecionar-elementos-dentro-de-um-vetor"><i class="fa fa-check"></i><b>2.7.3</b> Selecionar elementos dentro de um vetor</a></li>
+<li class="chapter" data-level="2.7.4" data-path="aula1.html"><a href="aula1.html#comparações-de-vetores-e-entre-vetores"><i class="fa fa-check"></i><b>2.7.4</b> Comparações de vetores e entre vetores</a></li>
+<li class="chapter" data-level="2.7.5" data-path="aula1.html"><a href="aula1.html#adição-e-exclusão-de-valores-em-um-vetor"><i class="fa fa-check"></i><b>2.7.5</b> Adição e exclusão de valores em um vetor</a></li>
+<li class="chapter" data-level="2.7.6" data-path="aula1.html"><a href="aula1.html#funções-com-vetores"><i class="fa fa-check"></i><b>2.7.6</b> Funções com vetores</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="aula1.html"><a href="aula1.html#listas-de-exercícios"><i class="fa fa-check"></i><b>2.8</b> Listas de exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="aula-2.html"><a href="aula-2.html"><i class="fa fa-check"></i><b>3</b> Aula 2</a></li>
+<li class="chapter" data-level="4" data-path="aula-3.html"><a href="aula-3.html"><i class="fa fa-check"></i><b>4</b> Aula 3</a></li>
+<li class="chapter" data-level="5" data-path="aula-4.html"><a href="aula-4.html"><i class="fa fa-check"></i><b>5</b> Aula 4</a></li>
+<li class="chapter" data-level="6" data-path="aula-5.html"><a href="aula-5.html"><i class="fa fa-check"></i><b>6</b> Aula 5</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -128,7 +172,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução ao R</a>
           </h1>
         </div>
 
@@ -137,20 +181,46 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title">A Minimal Book Example</h1>
-<p class="author"><em>Yihui Xie</em></p>
+<h1 class="title">Introdução ao R</h1>
+<p class="author"><em>Iara Passos</em></p>
 <p class="date"><em>2019-11-04</em></p>
 </div>
-<div id="prerequisites" class="section level1">
-<h1><span class="header-section-number">Capítulo - 1</span> Prerequisites</h1>
-<p>This is a <em>sample</em> book written in <strong>Markdown</strong>. You can use anything that Pandoc’s Markdown supports, e.g., a math equation <span class="math inline">\(a^2 + b^2 = c^2\)</span>.</p>
-<p>The <strong>bookdown</strong> package can be installed from CRAN or Github:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>)
-<span class="co"># or the development version</span>
-<span class="co"># devtools::install_github(&quot;rstudio/bookdown&quot;)</span></code></pre></div>
-<p>Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading <code>#</code>.</p>
-<p>To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <a href="https://yihui.name/tinytex/" class="uri">https://yihui.name/tinytex/</a>.</p>
+<div id="intro" class="section level1">
+<h1><span class="header-section-number">Capítulo 1</span> Introdução</h1>
+<p>Infos sobre o curso</p>
+<div id="o-que-é-a-linguagem-r" class="section level2">
+<h2><span class="header-section-number">1.1</span> O que é a linguagem R?</h2>
+<p>R é uma linguagem de programação e um ambiente para implementação de análises estatísticas e gráficos. Um Ambiente de Desenvolvimento Integrado<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> (do inglês, <em>Integrated Development Environment</em>, IDE) é um <em>software</em> que contêm ferramentas para auxiliar o desenvolvimento de <em>softwares</em>, de modo a otimizar e facilitar esse processo. As principais funções de uma IDE são: edição, compilação, depuração e modelagem.</p>
+<p>Foi criado em 1993, por Ross Ihaka e por Robert Gentleman do Departamento de Estatística da Universidade de Auckland na Nova Zelândia, baseado na linguagem de programação e ambiente S, desenvolvido por John Chambers na Bell Laboratories (hoje Lucent Technologies). A partir de 1997 passou a ser desenvolvido por um grupo de colaboradores do mundo todo<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
+<div id="comunidade" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Comunidade</h3>
+<p>Uma das vantagens da linguagem R é que, por ser Software Livre, tem uma comunidade de usuários muito grande, que contribui melhorando o código e criando documentação e tutoriais para outros usuários. Além do site do <a href="https://www.r-project.org/">R-Project</a>, o <a href="https://www.r-bloggers.com/">R-bloggers</a> (em inglês) e o <a href="https://brbloggers.com.br/">bRbloggers</a> reúnem diversos sites/blogs sobre a linguagem R, com tutoriais e informações atualizadas sobre pacotes e códigos. O <a href="https://stackoverflow.com/questions/tagged/r">Stack Overflow</a> é uma plataforma que possibilita os usuarios a fazerem perguntas relacionadas a qualquer linguagem de programaçao e obter respostas de outros usuarios. Procurar a sua dúvida lá pode ser bem útil para conseguir avançar no seu código. Para uma melhor aprendizagem, é essencial pesquisar documentação, tutoriais e, principalmente, o que tem sido discutido na comunidade de usuários do R ao redor do mundo. Para começar, é bom acompanhar os três sites citados.</p>
+</div>
+</div>
+<div id="instalando-o-r" class="section level2">
+<h2><span class="header-section-number">1.2</span> Instalando o R</h2>
+<p>A linguagem R é disponibilizada como um Software Livre,<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> sem custos e seu código-fonte é aberto e por ser acessado por qualquer pessoa, sobre os termos da <a href="https://www.gnu.org/">Free Software Foundation’s GNU General Public License</a>. Para que o seu computador seja capaz de interpretar a linguagem R é necessário que você faça download e instale a linguagem no seu computador, seguindo os passos:</p>
+<ul>
+<li>Acesse o link: <a href="https://cran.r-project.org/mirrors.html" class="uri">https://cran.r-project.org/mirrors.html</a> e escolha um <em>mirror</em> para realizar o <em>download</em>, dê preferência um no Brasil.</li>
+<li>Na página que abriu escolha o <em>download</em> para o seu sistema operacional (Windows, MacOS ou Linux).</li>
+<li>Apos o download abra o arquivo e realize a instalaçao da forma que o seu sistema operacional exige.</li>
+</ul>
+</div>
+<div id="instalando-o-rstudio" class="section level2">
+<h2><span class="header-section-number">1.3</span> Instalando o RStudio</h2>
+<p>Só a instalação do R é o suficiente para começar a usá-lo, mas há algumas IDEs que melhoram a interface para o usuário, deixando-a mais prática e fácil de utilizar os recursos e ferramentas disponíveis.
+Uma das mais utilizadas é o <a href="https://rstudio.com/">RStudio</a>, que também é um software livre. O download<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>. Para realizar o download para qualquer sistema operacional acesse o link: <a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a>. Escolha o sistema operacional correspondente ao seu computador, faça o download do isntalador e siga a instalação.</p>
 
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><a href="https://pt.wikipedia.org/wiki/Ambiente_de_desenvolvimento_integrado" class="uri">https://pt.wikipedia.org/wiki/Ambiente_de_desenvolvimento_integrado</a><a href="index.html#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Contributors: <a href="https://www.r-project.org/contributors.html" class="uri">https://www.r-project.org/contributors.html</a><a href="index.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Licença R Project: <a href="https://www.r-project.org/COPYING" class="uri">https://www.r-project.org/COPYING</a><a href="index.html#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Há também uma versão que pode ser utilizada pelo navegador do seu computador e acessada via servidor<a href="index.html#fnref4" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
@@ -158,7 +228,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="aula1.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -190,14 +260,14 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": null,
-"text": null
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"text": "Edit"
 },
 "history": {
 "link": null,
 "text": null
 },
-"download": ["introR.pdf", "introR.epub"],
+"download": ["intro-R.pdf", "intro-R.epub"],
 "toc": {
 "collapse": "subsection"
 }
@@ -205,20 +275,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
