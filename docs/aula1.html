@@ -13,7 +13,7 @@
   
   
   <meta property="og:description" content="Apostila - Introdução ao R" />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta name="github-repo" content="ipassos/apostila-introR" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Capítulo 2 Aula 1 | Introdução ao R" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Iara Passos" />
 
 
-<meta name="date" content="2019-11-04" />
+<meta name="date" content="2019-11-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -128,7 +128,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Apostila Introdução ao R </a></li>
+<li><a href="./">Apostila Introdução ao R</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
@@ -155,7 +155,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.8" data-path="aula1.html"><a href="aula1.html#listas-de-exercícios"><i class="fa fa-check"></i><b>2.8</b> Listas de exercícios</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="aula-2.html"><a href="aula-2.html"><i class="fa fa-check"></i><b>3</b> Aula 2</a></li>
+<li class="chapter" data-level="3" data-path="aula-2.html"><a href="aula-2.html"><i class="fa fa-check"></i><b>3</b> Aula 2</a><ul>
+<li class="chapter" data-level="3.1" data-path="aula-2.html"><a href="aula-2.html#matrizes"><i class="fa fa-check"></i><b>3.1</b> Matrizes</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="aula-2.html"><a href="aula-2.html#seleção-de-elementos-matriz"><i class="fa fa-check"></i><b>3.1.1</b> Seleção de elementos matriz</a></li>
+<li class="chapter" data-level="3.1.2" data-path="aula-2.html"><a href="aula-2.html#operações-com-matrizes"><i class="fa fa-check"></i><b>3.1.2</b> Operações com matrizes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="aula-2.html"><a href="aula-2.html#factors"><i class="fa fa-check"></i><b>3.2</b> Factors</a></li>
+<li class="chapter" data-level="3.3" data-path="aula-2.html"><a href="aula-2.html#dataframes"><i class="fa fa-check"></i><b>3.3</b> Dataframes</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="aula-2.html"><a href="aula-2.html#funções-básicas-para-data-frames"><i class="fa fa-check"></i><b>3.3.1</b> Funções básicas para data frames</a></li>
+<li class="chapter" data-level="3.3.2" data-path="aula-2.html"><a href="aula-2.html#selecionando-elementos-dentro-de-um-dataframe"><i class="fa fa-check"></i><b>3.3.2</b> Selecionando elementos dentro de um dataframe</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="aula-2.html"><a href="aula-2.html#listas"><i class="fa fa-check"></i><b>3.4</b> Listas</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="aula-3.html"><a href="aula-3.html"><i class="fa fa-check"></i><b>4</b> Aula 3</a></li>
 <li class="chapter" data-level="5" data-path="aula-4.html"><a href="aula-4.html"><i class="fa fa-check"></i><b>5</b> Aula 4</a></li>
 <li class="chapter" data-level="6" data-path="aula-5.html"><a href="aula-5.html"><i class="fa fa-check"></i><b>6</b> Aula 5</a></li>
@@ -219,7 +230,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Por fim, a sequência <code>%%</code> retorna a parte inteira da divisão de X por Y. Tente novamente na divisão de 5 por 3. O que aconteceu? Qual a diferença?</p>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercise 2.1  </strong></span>Faça cálculos mais complexos, com várias operações combinadas.
+<span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercício 2.1  </strong></span>Faça cálculos mais complexos, com várias operações combinadas.
 </div>
 
 <p><strong>Importante:</strong> Tente entender como o R faz essas operações. <strong>Atenção nos parênteses!!</strong></p>
@@ -341,7 +352,7 @@ Classe do tipo lógica (booleana), permite apenas armazenamentos de dados lógic
 <p>O R nos retorna a resposta <code>FALSE</code>, pois x não é maior que y. ( <code>x</code> já havia sido definido anteriormente como <code>5</code> e <code>y</code> como <code>25</code>).</p>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-15" class="exercise"><strong>Exercise 2.2  </strong></span>Utilize os outros operadores relacionais para comparar outras variáveis.
+<span id="exr:unnamed-chunk-15" class="exercise"><strong>Exercício 2.2  </strong></span>Utilize os outros operadores relacionais para comparar outras variáveis.
 </div>
 
 <p>Há ainda os operadores lógicos, que baseiam-se na Teoria dos Conjuntos. São eles: <code>&amp;&amp;</code> (<strong>AND/E</strong>), <code>||</code> (<strong>OR/OU</strong>). Utilizando esses operadores podemos combinar perguntas para o R. A seguir, pergunto para o R se x é maior que y <strong>E</strong> se y é maior que 10. De modo que o R irá retornar <code>FALSE</code> se pelo menos uma das condições é <span style="color:red">falsa</span> e ira retornar <code>TRUE</code> se, e somente se, as duas forem <span style="color:green">verdadeiras</span>.</p>
@@ -349,7 +360,7 @@ Classe do tipo lógica (booleana), permite apenas armazenamentos de dados lógic
 <pre><code>## [1] TRUE</code></pre>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercise 2.3  </strong></span>Utilize o operador lógico “OU”. Em quais condições o R retorna <code>FALSE</code> e em quais ele retorna <code>TRUE</code>?
+<span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercício 2.3  </strong></span>Utilize o operador lógico “OU”. Em quais condições o R retorna <code>FALSE</code> e em quais ele retorna <code>TRUE</code>?
 </div>
 
 <p>Por fim, se definirmos uma variável e queremos saber como o R a armazenou podemos utilizar a função <code>class()</code> para descobrir a classe do objeto.</p>
@@ -387,20 +398,20 @@ Classe do tipo lógica (booleana), permite apenas armazenamentos de dados lógic
 <p>A principal característica do vetor é que ele só armazena objetos do mesmo tipo, ou seja, só podemos ter vetores só de <code>interger</code> ou só de <code>numeric</code> ou só de <code>character</code> ou só de <code>logical</code>. Dessa forma, o vetor irá herdar a classe dos objetos que ele contêm. Sendo assim, para termos vetores da classe <code>numeric</code> precisamos criar um vetor com objetos da classe <code>numeric</code> dentro dele.</p>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-19" class="exercise"><strong>Exercise 2.4  </strong></span>Crie um vetor de classe <code>numeric</code>, <code>logical</code> e <code>character</code> e atribua cada um deles a uma variável diferente.
+<span id="exr:unnamed-chunk-19" class="exercise"><strong>Exercício 2.4  </strong></span>Crie um vetor de classe <code>numeric</code>, <code>logical</code> e <code>character</code> e atribua cada um deles a uma variável diferente.
 </div>
 
 <p> </p>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-20" class="exercise"><strong>Exercise 2.5  </strong></span>Pergunte ao R a classe de cada um dos vetores.
+<span id="exr:unnamed-chunk-20" class="exercise"><strong>Exercício 2.5  </strong></span>Pergunte ao R a classe de cada um dos vetores.
 </div>
 
 <p> </p>
 <p>Bom, como o vetor herda as características da classe então podemos fazer operações matemáticas com os vetores numéricos.</p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-21" class="exercise"><strong>Exercise 2.6  </strong></span>Multiplique o seu vetor <code>numeric</code> por um número.</p>
+<p><span id="exr:unnamed-chunk-21" class="exercise"><strong>Exercício 2.6  </strong></span>Multiplique o seu vetor <code>numeric</code> por um número.</p>
 </div>
 
 <p> 
@@ -408,7 +419,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
  
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-22" class="exercise"><strong>Exercise 2.7  </strong></span>Agora crie mais um vetor <code>numeric</code> (do mesmo tamanho) e multiple os dois vetores.
+<span id="exr:unnamed-chunk-22" class="exercise"><strong>Exercício 2.7  </strong></span>Agora crie mais um vetor <code>numeric</code> (do mesmo tamanho) e multiple os dois vetores.
 </div>
 
 <p>O que o R fez?</p>
@@ -416,7 +427,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
  
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-23" class="exercise"><strong>Exercise 2.8  </strong></span>Multiplique dois vetores <code>numeric</code> de tamanhos diferentes.
+<span id="exr:unnamed-chunk-23" class="exercise"><strong>Exercício 2.8  </strong></span>Multiplique dois vetores <code>numeric</code> de tamanhos diferentes.
 </div>
 
 <p> </p>
@@ -459,7 +470,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
  
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-29" class="exercise"><strong>Exercise 2.9  </strong></span>Nomeie o vetor total de sacolas de feira.</p>
+<p><span id="exr:unnamed-chunk-29" class="exercise"><strong>Exercício 2.9  </strong></span>Nomeie o vetor total de sacolas de feira.</p>
 </div>
 
 <p> </p>
@@ -467,13 +478,13 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
  
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-30" class="exercise"><strong>Exercise 2.10  </strong></span>Faça a soma de cada um dos vetores de sacolas utilizando a função <code>sum()</code>. Armazene cada resultado em uma nova variável.</p>
+<p><span id="exr:unnamed-chunk-30" class="exercise"><strong>Exercício 2.10  </strong></span>Faça a soma de cada um dos vetores de sacolas utilizando a função <code>sum()</code>. Armazene cada resultado em uma nova variável.</p>
 </div>
 
 <p> </p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-31" class="exercise"><strong>Exercise 2.11  </strong></span>Descubra o total de itens comprados na feira utilizando a função <code>sum()</code>. Armazene cada resultado em uma nova variável.</p>
+<p><span id="exr:unnamed-chunk-31" class="exercise"><strong>Exercício 2.11  </strong></span>Descubra o total de itens comprados na feira utilizando a função <code>sum()</code>. Armazene cada resultado em uma nova variável.</p>
 </div>
 
 <p> </p>
@@ -485,7 +496,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
 <p> </p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-32" class="exercise"><strong>Exercise 2.12  </strong></span>Selecione o elemento 4 do vetor da sacola 3. Atribua esse valor a uma variável.</p>
+<p><span id="exr:unnamed-chunk-32" class="exercise"><strong>Exercício 2.12  </strong></span>Selecione o elemento 4 do vetor da sacola 3. Atribua esse valor a uma variável.</p>
 </div>
 
 <p> </p>
@@ -493,7 +504,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
 <p> </p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-33" class="exercise"><strong>Exercise 2.13  </strong></span>Selecione do vetor <code>sacola3</code> os valores 1 e 3 e do vetor sacola2 os valores de 2 a 4.</p>
+<p><span id="exr:unnamed-chunk-33" class="exercise"><strong>Exercício 2.13  </strong></span>Selecione do vetor <code>sacola3</code> os valores 1 e 3 e do vetor sacola2 os valores de 2 a 4.</p>
 </div>
 
 <p> </p>
@@ -501,7 +512,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
 <p> </p>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-34" class="exercise"><strong>Exercise 2.14  </strong></span>Selecione a quantidade de laranjas do vetor da sacola 4. Selecione a quantidade de peras e maças do vetor da sacola 5.
+<span id="exr:unnamed-chunk-34" class="exercise"><strong>Exercício 2.14  </strong></span>Selecione a quantidade de laranjas do vetor da sacola 4. Selecione a quantidade de peras e maças do vetor da sacola 5.
 </div>
 
 </div>
@@ -511,7 +522,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
 <p> </p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-35" class="exercise"><strong>Exercise 2.15  </strong></span>Qual dos itens do vetor <code>sacola2</code> são maiores que os itens do vetor <code>sacola4</code>?</p>
+<p><span id="exr:unnamed-chunk-35" class="exercise"><strong>Exercício 2.15  </strong></span>Qual dos itens do vetor <code>sacola2</code> são maiores que os itens do vetor <code>sacola4</code>?</p>
 </div>
 
 <p> </p>
@@ -519,7 +530,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
 <p> </p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-36" class="exercise"><strong>Exercise 2.16  </strong></span>A soma dos itens da <code>sacola3</code> é menor que a soma dos itens da <code>sacola5</code>?</p>
+<p><span id="exr:unnamed-chunk-36" class="exercise"><strong>Exercício 2.16  </strong></span>A soma dos itens da <code>sacola3</code> é menor que a soma dos itens da <code>sacola5</code>?</p>
 </div>
 
 <p> </p>
@@ -527,7 +538,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
 <p> </p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-37" class="exercise"><strong>Exercise 2.17  </strong></span>Veja quais casas do vetor da sacola 5 tem valores maiores ou iguais a 10.</p>
+<p><span id="exr:unnamed-chunk-37" class="exercise"><strong>Exercício 2.17  </strong></span>Veja quais casas do vetor da sacola 5 tem valores maiores ou iguais a 10.</p>
 </div>
 
 <p> </p>
@@ -535,7 +546,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
 <p> </p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-38" class="exercise"><strong>Exercise 2.18  </strong></span>Armazene em uma variável os valores do vetor <code>sacola1</code> que são menores do que 10.</p>
+<p><span id="exr:unnamed-chunk-38" class="exercise"><strong>Exercício 2.18  </strong></span>Armazene em uma variável os valores do vetor <code>sacola1</code> que são menores do que 10.</p>
 </div>
 
 <p> </p>
@@ -571,7 +582,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
 <p> </p>
 
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-40" class="exercise"><strong>Exercise 2.19  </strong></span>Adicione os valores de soma, calculados anteiormente, nos respectivos vetores de sacolas de feira.</p>
+<p><span id="exr:unnamed-chunk-40" class="exercise"><strong>Exercício 2.19  </strong></span>Adicione os valores de soma, calculados anteiormente, nos respectivos vetores de sacolas de feira.</p>
 </div>
 
 <p> </p>
@@ -597,7 +608,7 @@ O que aconteceu? Ele mudou o seu vetor original?</p>
 <p> </p>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-43" class="exercise"><strong>Exercise 2.20  </strong></span>Crie um vetor com uma sequência de numeros iniciando em -20 e indo ate 50 de 5 em 5. Atribua a uma variável.
+<span id="exr:unnamed-chunk-43" class="exercise"><strong>Exercício 2.20  </strong></span>Crie um vetor com uma sequência de numeros iniciando em -20 e indo ate 50 de 5 em 5. Atribua a uma variável.
 </div>
 
 <p> </p>
