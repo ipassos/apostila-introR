@@ -1,6 +1,16 @@
 output_dir: "docs"
-book_filename: "introR"
-delete_merged_file: true
+book_filename: "intro-R"
 language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabela '
+    eq: 'Equação '
+    thm: 'Teorema '
+    def: 'Definição '
+    exm: 'Exemplo '
+    exr: 'Exercício '
+    proof: 'Prova. '
+    solution: 'Solução. '
   ui:
-    chapter_name: "Capítulo - "
+    chapter_name: "Capítulo "
+delete_merged_file: true
