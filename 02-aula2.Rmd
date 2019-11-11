@@ -1,0 +1,302 @@
+# Aula 2
+
+## Matrizes 
+
+Matrizes são vetores (_arrays_) bidimensionais. Justamente por serem vetores, herdam a mesma característica dos vetores: podem ser apenas de uma mesma classe. Para criar uma matriz precisamos utilizar a função `matrix()`, mas atenção é necessário tomar cuidado com o argumento `byrow`. Por padrão a função `matrix()` define o argumento `byrow` como `FALSE` e portanto, preenche a matriz por colunas. Se quisermos que preencher por linhas precisamos atribuir o argumento `byrow` como `TRUE`. Veja a diferença:
+
+```{r}
+matrix(1:30, byrow = FALSE, nrow = 10) 
+```
+
+O comando anterior criou uma matriz de 1 a 30 preenchendo por colunas. Agora alterando o argumento `byrow`:
+
+```{r}
+matrix(1:30, byrow = TRUE, nrow = 10)
+```
+
+Apesar do primeiro e último item das duas matrizes serem os mesmos todos os outros são bem diferentes. O agumento `nrow` define o número de linhas que desejamos na matriz. No caso, como temos 30 numeros e definimos que queremos 10 linhas teremos 3 colunas (30/10 = 3). Se definíssemos 5 linhas teriamos 6 colunas. Como a seguir:
+
+```{r}
+matrix(1:30, byrow = TRUE, nrow = 5)
+```
+
+Utilize sempre múltiplos do número desejado se não o R faz a reciclagem das casas e cria uma matriz maior do que a desejada. Como a seguir: 
+
+```{r}
+matrix(1:30, byrow = TRUE, nrow = 7)
+```
+
+De modo equivalente o argumento `ncol` define o número de colunas da matriz. Os dois argumentos são complemetares, não sendo necessário utilizá-los concomitantemente. 
+
+Vamos criar uma matriz com os vetores que tínhamos anteriormente (sacolas de feira). Primeiro criamos um vetor com todas as sacolas concatenadas:
+
+```{r}
+sacolas <- c(sacola1, sacola2, sacola3, sacola4, sacola5)
+sacolas
+```
+
+Cuidado com a ordem das sacolas!
+
+Depois criamos uma matriz com essas sacolas. Cuidado com o argumento `byrow`! Aqui precisamos que a matriz seja preenchida por linhas, então o argumento `byrow` deve ser verdadeiro! O argumento `nrow` será o número das nossas sacolas. 
+
+```{r}
+matriz_sacola <- matrix(sacolas, byrow = T, nrow = 5)
+matriz_sacola
+```
+
+Veja que agora o R criou um objeto diferente: do tipo `Data`. Isso significa que o R interpreta a matriz de forma diferente dos vetores e objetos simples. Uma outra forma de fazer a matriz é fazer de forma direta o vetor dentro do primeiro argumento: `matrix(c(sacola1, sacola2, sacola3, sacola4, sacola5), byrow = T, nrow = 5)`
+
+Porém ao transformar em matriz perdemos os nomes dos nossos vetores (nossas colunas). Vamos criá-los novamente. 
+
+Para criar os nomes das colunas precisamos utilizar agora a função `colnames`. Precisamos especificar onde vão os nomes pois agora não estamos mais trabalhando com vetores unidimensionais. Para isso podemos reaproveitar o nosso vetor `nomes`, que utilizamos anteriormente.
+
+```{r}
+colnames(matriz_sacola) <- nomes
+```
+
+Dissemos para o R que os nomes das colunas de `matriz_sacola` correspondem ao vetor nomes. 
+
+Agora precisamos definir os nomes das nossas linhas. Para isso utilizamos a função `rownames`. Como não temos nenhum vetor de nomes para linhas vamos fazer direto dentro da função:
+
+```{r}
+rownames(matriz_sacola) <- c("sacola1", "sacola2", "sacola3", "sacola4", "sacola5")
+```
+
+Pronto! Agora temos uma matriz com nomes nas linhas e colunas. 
+
+```{r}
+matriz_sacola
+```
+
+Agora queremos fazer as somas das linhas e das colunas. Esse processo pode ser um pouco confuso, por isso precisamos tomar bastante cuidado!
+
+Primeiro fazemos as somas das linhas, ou seja, criamos um vetor que tem a soma das linhas. Como temos 5 linhas, esse vetor terá 5 elementos. Para isso utilizamos a função `rowSums()` na nossa matriz, criando um vetor de soma:
+
+```{r}
+somaL <- rowSums(matriz_sacola)
+somaL
+```
+
+Esse vetor será correspondente a uma nova **coluna** da nossa matriz. Por isso utilizamos a função `cbind()` para colar essa nova coluna na nossa matriz. A função `cbind()` precisa como primeiro argumento o nome da nossa matriz e como segundo o que vamos colar nela (o vetor somaL). Porém a função não sobrescreve a matriz original, então precisamos atribuir toda a função a matriz original:
+
+```{r}
+matriz_sacola <- cbind(matriz_sacola, somaL)
+matriz_sacola
+```
+
+Agora queremos a soma das colunas. Para isso utilizamos a função `colSums()` e atribuímos ela a um vetor:
+
+```{r}
+somaC <- colSums(matriz_sacola)
+somaC
+```
+
+O vetor `somaC` será correspondente a uma nova **linha** da nossa matriz. Assim, precisamos unir essa linha a nossa matriz. Para isso, utilizamos a função `rbind()`. Da mesma forma que a função `cbind()` funciona, a função `rbind()` não sobrescreve a matriz original. Portanto, precisamos atribuir essa função à matriz original: 
+
+```{r}
+matriz_sacola <- rbind(matriz_sacola, somaC)
+matriz_sacola
+```
+
+> De modo a diminuir os passos é possível unir o passo 1 e 2 da seguinte forma: cbind(rowSums(matriz_sacola), matriz_sacola). E os passos 3 e 4 da seguinte forma: rbind(colSums(matriz_sacola), matriz_sacola). Sempre atribuindo a `matriz_sacola`. 
+
+### Seleção de elementos matriz
+
+Podemos selecionar elementos internos dentro de uma matriz. Para tanto, precisamos indicar o endereço que queremos, como fizemos com a seleção de vetores. Porém dessa vez precisamos indicar o endereço da linha e da coluna. A sintaxe para esse tipo de seleção é: `matrix[x, y]` onde `x` é o número da linha que você quer selecionar e `y` o número da coluna.
+
+&nbsp;
+```{exercise} 
+Selecione o terceiro elemento da segunda coluna da `matriz_sacola`.
+``` 
+&nbsp;
+
+Da mesma forma, podemos selecionar uma coluna ou uma linha inteira da matriz. Para selecionar uma linha inteira deixamos o valor de `y` vazio e se quisermos selecionar uma coluna inteira deixamos o valor de `x` vazio. 
+
+&nbsp;
+```{exercise} 
+Selecione a 5ª linha da `matriz_sacola`.
+``` 
+&nbsp;
+
+&nbsp;
+```{exercise} 
+Selecione a 3ª coluna da `matriz_sacola`.
+``` 
+&nbsp;
+
+### Operações com matrizes
+
+Da mesma forma que fizemos operações com os vetores podemos fazer operações (+, -, /, *, ^, %%, %/%) de matrizes com escalares, com vetores ou com outras matrizes. Apenas temos que tomar cuidado com o tamanho das matrizes. Se elas forem de tamanho diferentes o R irá reciclar (repetir) a matriz menor. 
+
+> O operador `*` não é equivalente a multiplicação matricial das matrizes. Utilizando esse operador o R multiplica o primeiro item da matriz A com o primeiro item da matriz B. Para realizar multiplicação matricial precisamos utilizar o operador `%*%`.
+
+&nbsp;
+```{exercise} 
+Some duas matrizes do mesmo tamanho. Atribua o resultado a uma terceira matriz. 
+``` 
+&nbsp;
+
+&nbsp;
+```{exercise} 
+Some uma matriz com um vetor. Atribua o resultado a uma terceira matriz. 
+``` 
+&nbsp;
+
+## Factors
+
+Factor^[https://www.stat.berkeley.edu/~s133/factors.html] é uma estrutura de dados no R utilizada para armazenar variáveis categóricas. São considerados como uma classe especial de vetores e utilizados, principalmente, em análises estatísticas -- as variáveis categóricas são interpretadas por modelos estatísticos de forma diferente das variáveis contínuas. Assim, quando armazenamos dados como `factors` garantimos que diversas funções presentes nos pacotes do R tratem esses dados de forma correta. 
+
+Ao utilizarmos a função `factor()` o R armazena um vetor de valores inteiros com os correspondentes em rótulos categóricos para serem usados quando o factor é solicitado. 
+
+Por exemplo, se tenho um vetor numerico de 0 e 1 e utilizo a função `factor()` informando ao R que o 0 equivale `masculino` e 1 equivale a `feminino`. Ele irá interpretar os 0 e os 1 do meu vetor com o seus respectivos rótulos:
+
+```{r}
+genero <- c(0, 1, 0, 1, 1, 0, 0, 1)
+genero <- factor(genero, labels = c("feminino", "masculino"))
+```
+
+Da mesma forma, posso inserir um vetor textual e utilizar a função `factor()`, o R irá interpretar todos os diferentes caracteres do vetor como um nível diferente. Desse jeito, precisamos tomar cuidado ao inserir os elementos textuais pois "f" é diferente de "F" e o R interpretaria como 2 níveis diferentes. 
+
+```{r}
+genero <- c("M", "F", "F", "M", "M", "F", "F", "M")
+genero <- factor(genero)
+```
+
+Também podemos fazer factors que sejam ordenados, ou seja, informar que existe uma ordem pré-estabelecida das categorias. Para isso adicionamos o argumento `order = T` e no argumento `levels` inserimos as categorias na ordem desejada:
+
+```{r}
+vetor_satisf <- c("Bom", "Ruim", "Excelente", "Razoável", "Razoável", "Ótimo", "Bom", "Péssimo", "Excelente")
+vetor_satisf <- factor(vetor_satisf, order = TRUE, levels = c("Péssimo", "Ruim", "Razoável", "Bom", "Ótimo", "Excelente"))
+```
+
+> Se informamos que há uma ordem das categorias (`order= TRUE`), mas não especificamos a ordem no argumento `levels` o R irá definir a ordem pela ordem alfabética dos fatores. 
+
+## Dataframes
+
+Como os elementos dentro de uma matriz não podem ser de classes/tipos diferentes precisamos de um outro tipo de objeto para tratar banco de dados quando queremos trabalhar com vários tipos de dados. Um _dataframe_ é capaz de armazenar objetos de classes diferentes e trata as colunas como variáveis e as linhas como observações (casos). Porém, não podemos armazenar objetos de classes diferentes dentro de uma mesma coluna (ou variável).
+
+Para criar um _dataframe_ utilizamos a função `data.frame()`. Podemos indicar vetores ou uma matriz para serem transformados em data frames. Porém, a função `data.frame()` vê os vetores inseridos como colunas. Então, para trnasformar os nossos vetores `sacolas` em data frame precisamos ou primeiro transformar eles em uma matriz e preenchê-lo da maneira correta ou utilizamos a função `transpose()` do pacote `data.table` (dessa forma não teremos os nomes das linhas, das colunas, a soma das linhas ou das colunas). 
+
+```{r}
+data_sacola <- data.frame(matriz_sacola)
+data_sacola
+```
+
+Criamos um data frame com os dados das sacolas que tínhamos mas o nosso maior objetivo é utilizar data frames para banco de dados com classes de objetos diferentes. Vamos, então, criar um data frame com variáveis de diversos tipos. Dentro de cada linha da função `data.frame()` há a criação de uma variavel. As que tem a função `sample()` fazem sorteios dentro dos limites especificados (com repetição), as com a função `factor()` criam variáveis categóricas com a repetição definida no vetor do segundo argumento e a função `paste()` cria uma sequência de `0000` seguida de números de 1 a 30 (o equivalente de um ID de indivíduos). Por fim, a função `colnames()` define os nomes das colunas do nosso banco:
+
+```{r}
+banco <- data.frame(paste("0000", 1:30, sep = ""), 
+                    factor(rep(c("b", "n", "i", "o"), c(10, 10, 6, 4))), 
+                    factor(rep(c("f","m"), c(16,14))), 
+                    sample(c(16:60), 30, replace = T), 
+                    factor(rep(c("superior","tecnico", "medio", "fundamental"), c(5, 8, 12, 5))), 
+                    sample(seq(1000, 30000, by = 1000), 30, replace = T),  
+                    factor(rep(c("solteiro","casado", "viuvo", "separado"), c(10, 10, 2, 8))))  
+colnames(banco) <- c("individuo", "raca", "sexo", "idade", "escol", "renda", "civil") 
+banco
+```
+
+> Como as variáveis idade e renda são construídas a partir de um sorteio aleatório cada vez que o código é rodado são criados resultados diferentes. 
+
+### Funções básicas para data frames
+
+Toda a vez que abrimos um novo data frame é importante utilizarmos 4 funções básicas: `head()`, `tail()`, `str()` e `summary()`.
+
+As funções `head()` e `tail()` mostram, respectivamente, os primeiros e os últimos 6 casos (linhas) do seu banco de dados. Se você quiser aumentar o número de linhas mostrado precisa adicionar o argumento `n = ` e definir a quantidade desejada. 
+
+&nbsp;
+```{exercise} 
+Mostre os 10 primeiros e 10 últimos itens do data frame `banco`.
+``` 
+&nbsp;
+
+A função `str()` retorna a estrutura de cada uma das variáveis do banco: 
+
+```{r}
+str(banco)
+```
+
+E a função `summary()` retorna um resumo de todas as variáveis: 
+
+```{r}
+summary(banco)
+```
+
+Com essas funções conseguimos ver como o R está interpretando cada uma das variáveis. Já vimos, por exemplo, que ele armazenou a variável indivíduo como um `factor`, o que não é o que gostaríamos. Depois veremos como transformar essa variável em texto. 
+
+### Selecionando elementos dentro de um dataframe
+
+Para selecionar elementos dentro de um dataframe podemos trabalhar com a mesma lógica das matrizes. Utilizando os símbolos `[ , ]` para delimitar a linha (ou intervalo de linhas) e a coluna (ou intervalo de colunas).
+
+&nbsp;
+```{exercise} 
+Selecione o elemento que está armazenado na linha 20 e na coluna 4. 
+``` 
+&nbsp;
+
+&nbsp;
+```{exercise} 
+Selecione a linha 10 inteira. Selecione a coluna 2 inteira. 
+``` 
+&nbsp;
+
+Podemos também selecionar um intervalo dentro de uma coluna. Para isso colocamos o intervalo de linhas que queremos (p.ex. `4:15`) e colocamos o número da coluna desejada. Porém, como nomeamos as nossas colunas, podemos colocar o nome da coluna no lugar do número: 
+
+```{r}
+banco[9:20, "renda"]
+```
+
+Da mesma forma, podemos selecionar variáveis de um caso ou de uma seleção de casos: 
+
+```{r}
+banco[c(3, 4, 8), 3:5]
+```
+
+No exemplo anterior selecionamos dos indivíduos 3, 4 e 8 as variáveis de 3 a 5 (`sexo`, `idade` e `escol`).
+
+Porém, os objetos do tipo `data frames` tem uma caracteristica diferente: o R automaticamente lê as colunas como variáveis. Então, podemos indicar as colunas a partir da sintaxe `$`. A função `subset()` nos ajuda a fazer filtragens mais avançadas: 
+
+```{r}
+subset(banco, banco$sexo == "m")
+```
+
+Selecionamos no exemplo anterior apenas os casos que correspondem a seleção `sexo == "m"`, ou seja, serem do sexo `masculino`. Podemos combinar filtragens do banco utilizando os operadores lógicos (& e |) e relacionais (> < >= <= != ==) já aprendidos anteriormente.
+
+&nbsp;
+```{exercise} 
+Atribua a uma nova variável os indivíduos que tem idade menor que 35 anos e não tem nível superior.
+``` 
+&nbsp;
+
+A função `subset()` nos retorna os casos inteiros, mas as vezes apenas queremos saber quais casos correspondem a nossa filtragem. Podemos, então, utilizar a função `which()`. 
+
+```{r}
+which(banco$escol != "superior" & banco$renda > 5000)
+```
+
+Podemos, por fim, ordenar nosso banco a partir de uma variável desejada. Para isso, utilizamos a função `order()` e definimos no argumento se terá a ordem crescente ou decrescente. Essa função nos retorna um vetor com as posições das variáveis na ordem desejada. A partir desse vetor podemos criar um data frame novo.  
+
+```{r}
+ordem_nova <- order(banco$idade, decreasing = "F")
+```
+
+No comando anterior criamos um vetor com as posições que correspondem a ordem do nosso banco a partir da variável idade de forma crescente. 
+
+```{r}
+banco_ord <- banco[ordem_nova, ]
+```
+
+Agora temos um novo banco com a ordem desejada. 
+
+
+## Listas
+
+O último tipo de objeto que iremos ver são as listas, mas antes vamos recapitular os objetos que já vimos: 
+
+* Vetores - são _arrays_ de uma dimensão, podem ter valores `numeric`, `character`, `logical`, `integer` ou `complex`. Porém, os elementos dentro de um vetor sempre devem ter a mesma classe o vetor, portanto, herda essa classe. 
+* Matrizes - são _arrays_ de duas dimensões, podem ter valores `numeric`, `character`, `logical`, `integer` ou `complex`. São criadas a partir dos vetores portanto, herdam a mesma característica: elementos dentro de uma matriz tem sempre a mesma classe/tipo. 
+* Data frames - objetos bidimensionais, podem ter valores `numeric`, `character`, `logical`, `integer` ou `complex` dentro de um mesmo objeto. Porém, os elementos de uma coluna devem ser do mesmo tipo de dado, mas colunas diferentes podem ter tipos diferentes de dados.
+
+As listas, por sua vez, aceitam diferentes tipos de dado, de diferentes tamanhos, características. Podem armazenar objetos de forma ordenada, que podem ser matrizes, vetores, dataframes ou outras listas. Não é necessário que estejam ligados de alguma forma. Listas são um **super data**!
+
+Para criar uma lista utilize a função `list()` e concatene dentro dos parênteses os objetos que quer colocar dentro da lista. 
