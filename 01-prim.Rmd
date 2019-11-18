@@ -1,0 +1,272 @@
+# Primeiros Passos {#prim}
+
+## Janela de comando do R
+
+Abra o R no seu computador. Essa janela é a nossa comunicação com o R. É nesse local que passamos as informações para que sejam interpretadas pela linguagem. A aparência desse ambiente é de um _prompt_ de comando, em que comandos são digitados pelo usuário e ao apertar a tecla `enter` esses comandos são enviados para o R e processados. Ao finalizar o processamento do comando, se o comando solicitar algum retorno, o R pode: a) retornar a saída do comando ou b) retornar uma mensagem de erro (se há algum erro na sintaxe do comando).
+
+> Isso é comum em todas as linguagens de programação. O que realmente acontece é que enviamos os comandos em uma linguagem de alto nível (mais próxima do usuário) e o programa traduz esses comandos para uma linguagem de baixo nível na qual a máquina consegue interpretar. O R, por ser uma linguagem interpretativa, faz esse processo diretamente sem que seja necessária a utilização de compiladores mediando essa tradução. Isso facilita a comunicação com o usuário  
+
+Digite qualquer número na linha de comando e aperte `enter`. Como a seguir:
+
+```{r}
+1456
+```
+
+O R processou essa informação e retornou um resultado. Como apenas inserimos um número, sem nenhum comando ou cálculo, ele retornou apenas o próprio número. 
+
+> O que é importante entendermos aqui é que essa tela de comando é dinâmica, de modo que cada linha é uma entrada e corresponde a uma comunicação com o computador. Dessa forma, não podemos voltar e alterar a linha anterior pois aquele comando já foi enviado e processado.
+
+Se você está em uma linha nova você pode utilizar as setas para cima e para baixo do seu teclado para navegar entre os comandos já utilizados. E, caso queira, apertar `enter` para enviar o comando novamente. 
+
+## O R como uma calculadora
+
+O R, como outras linguagens de programação, pode funcionar como uma calculadora interativa. Assim, podemos fazer contas no console. Por exemplo, para fazer uma soma:
+
+```{r}
+9 + 2 
+```
+
+Agora ele nos retornou o resultado da soma que solicitamos. Teste outras contas básicas utilizando os seguintes símbolos:
+          
+  * "+" adição
+  * "-" subtração 
+  * "*" multiplicação
+  * "/" divisão
+  * "^" potência
+
+> Se você digitar um comando incompleto, como 5 +, e apertar `enter`, o R mostrará um +, o que não tem nada a ver com somar alguma coisa. Isso significa que o R está esperando que você complete o seu comando. Termine o seu comando ou aperte `esc` para recomeçar.
+
+O R ainda tem outros símbolos relacionados a contas matemáticas. A seguinte sequência de caracteres `%%` irá retornar o resto da divisão entre dois números. Por exemplo: 
+
+```{r}
+5 %% 3
+```
+
+Como a divisão de 5 por 3 não é exata, ao solicitarmos o resto da divisão com símbolo `%%` o R retorna 2. Teste uma divisão exata. O que ele retorna?
+
+Por fim, a sequência `%%` retorna a parte inteira da divisão de X por Y. Tente novamente na divisão de 5 por 3. O que aconteceu? Qual a diferença?
+
+```{exercise} 
+Faça cálculos mais complexos, com várias operações combinadas. 
+```
+
+
+**Importante:** Tente entender como o R faz essas operações. **Atenção nos parênteses!!**
+
+> **<span style="color:red">ERROS</span>** Se você digitar um comando que o R não reconhece, ele retornará uma mensagem de erro. 
+**<span style="color:red">NÃO ENTRE EM PÂNICO!</span>** Ele só está avisando que não conseguiu interpretar o comando. Você pode digitar outro comando normalmente em seguida ou corrigir o anterior. 
+
+Aprender esse tipo de funcionalidade no R, apesar de bem básico, é bastante útil para começarmos a aprender as primeiras interações com a linguagem. Porém, obviamente, não é para isso que queremos aprender alguma linguagem de programação, mas sim para automatizar processos, evitar repetições desnecessárias e realizar análises mais avançadas do que operações de soma e multiplicação. 
+
+## Objetos e classes de objetos
+
+Já enviamos informações de números para o R e fizemos operações básicas com ele. Mas e se agora nós enviarmos uma letra ou palavra para ele? Tente fazer isso. 
+
+```{r message=TRUE, warning=TRUE, error = TRUE, paged.print=FALSE}
+a
+
+```
+
+Ele retorna o erro. Preste bem atenção no que está escrito no erro. No caso, ele está nos informando que o objeto `a` não foi encontrado. Para entendermos isso, precisamos entender o que é um **objeto**. 
+
+Um **objeto**^[Para mais informações sobre objetos: https://pt.stackoverflow.com/questions/205482/em-programa%C3%A7%C3%A3o-o-que-%C3%A9-um-objeto], em termos da ciência da computação, é um valor armazenado na memória do computador. Ele pode assumir a forma de variáveis, funções^[https://pt.wikipedia.org/wiki/M%C3%A9todo_(programa%C3%A7%C3%A3o)] ou estruturas de dados^[https://pt.wikipedia.org/wiki/Estrutura_de_dados]. O objeto que importa para nós, por ora, são aqueles que representam variáveis. Nas próximas etapas do curso, trabalharemos com funções mas não iremos considerá-las como objetos. 
+
+> Basicamente, no R, funções são ações realizadas em objetos. Porém, como tudo o que existe no R é um objeto, funções são objetos também. 
+
+Então, se um objeto armazena valores, conseguiremos fazer processos mais avançados e evitar repetições nos nossos códigos daqui pra frente. O objeto mais simples que encontramos no R é aquele que armazena apenas uma informação na memória. 
+
+A primeira coisa que precisamos definir é um nome para esse objeto (ou variável) e para isso precisamos seguir algumas preceitos - obrigatórios ou aconselhados.  
+
+* **Nomes válidos** para variáveis (obrigatório)^[https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-are-valid-names_003f]
+
+  1. **TEM QUE COMEÇAR COM UMA LETRA OU UM PONTO (.)**
+      - exemplo `nome`, `genero23`, `.name` são nomes <span style="color:green">válidos</span>
+      
+  2. **NÃO PODE COMEÇAR COM NÚMEROS** 
+      - exemplo `1x` `0meunome` são nomes <span style="color:red">inválidos</span>
+  
+  3. **SE O PONTO (.) FOR O PRIMEIRO DÍGITO, ELE NÃO PODE SER SEGUIDO DE UM NÚMERO**
+      - exemplo: `.23bananas`, `.45ois` são nomes <span style="color:red">inválidos</span>
+  
+  4. **PODE CONTER UNDERSCORE _, DESDE QUE NÃO SEJA O PRIMEIRO DíGITO**
+      - exemplo: `meu_nome`, `hello_world` são nomes <span style="color:green">válidos</span>
+  
+  5. **NÃO PODE CONTER ESPAÇO EM BRANCO**
+      - exemplo: `meu nome`, `idade jovens` são nomes <span style="color:red">inválidos</span>
+  
+  6. **NÃO PODE SER UMA DAS PALAVRAS RESERVADAS DA LINGUAGEM**
+      -  Palavras reservadas^[https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html] são: `if` `else` `repeat` `while` `function` `for` `in` `next` `break` `TRUE` `FALSE` `NULL` `Inf` `NaN` `NA` `NA_integer_` `NA_real_` `NA_complex_` `NA_character_` são nomes <span style="color:red">inválidos</span>
+  
+  &nbsp;  
+    
+* **Boas práticas** para criação de variáveis
+
+  1. **CAIXA BAIXA** <br>
+  R é `case sensitive`, de modo que ele interpreta como variáveis diferentes `Meu_nome`, `MEU_NOME`, `meu_nome`, `MeU_NoMe` e qualquer outra variação possível. Portanto é recomendado que sejam criadas apenas variáveis em caixa baixa, para evitar confusão. 
+  2. **VARIÁVEIS COM PONTOS** <br>
+  Ainda que seja permitido pela linguagem, é recomendável evitar variáveis como `meu.nome` pois diversos pacotes utilizam `.` no nome das funções. Para fazer com que seu código seja mais fácil de ser lido por você e por outras pessoas, é bom evitar esse tipo de sintaxe no nome das variáveis. 
+  3. **VARIÁVEIS COM NOMES DE FUNÇÕES** <br>
+  Também para evitar confusões, evite utilizar nomes de funções do R como nomes de variáveis, como `mean`, `sum`, etc. 
+  
+  &nbsp;
+  
+  Iremos indicar outras **boas práticas** mais adiante no curso.  
+  
+Bom, agora que já sabemos como podemos nomear nossos objetos, vamos criar nosso primeiro objeto. Para criar um objeto precisamos armazenar algo dentro dele. Para que o R entenda que queremos armazenar algo em uma variável, utilizamos o símbolo `<-`. 
+
+> O R aceita o `=` como atribuição de variável, mas não é recomendado, por poder ser confundido com operadores lógicos e argumentos de funções.
+
+O R interpreta como o nome da variável o lado para o qual a seta está apontando e como valor atribuído o que está no lado oposto. Assim, atribuímos valores a variável x de qualquer um dos modos: `x <- 5` ou `5 -> x`. Porém, para evitar confusão, usaremos aqui sempre o primeiro formato 
+
+Sendo assim, criemos x: 
+
+```{r}
+x <- 5
+```
+
+Como só realizamos a atribuição da variável o R não retornou nada no _prompt_ de comando. Para que ele retorne o que está armazenado dentro de uma variável precisamos pedir para que ele faça isso. Por sorte, a sintaxe do R possibilita que façamos isso de forma simples: apenas digitando o nome da variável e apertando `enter`. 
+
+```{r}
+x
+```
+
+Pronto! Agora pedimos para o R nos mostrar o que é x ou, equivalentemente, o que está armazenado na variável x. 
+Dessa forma, podemos fazer cálculos com x. Por exemplo:
+
+```{r}
+x * 5
+```
+
+E vejam só, podemos armazenar esse resultado em uma nova variável. 
+
+```{r}
+y <- x * 5
+```
+
+Agora temos duas variáveis: uma `x`, que tem armazenada o número 5, e `y`, que tem armazenada o resultado da operação `x` * 5.
+
+Podemos ir além e criar uma variável `z` que armazena a divisão de `x` por `y`. Qual valor estará armazenado em `z`?
+
+Certo! Mas e se agora digitarmos `x <- 10` quanto vai valer x? O que aconteceu?
+
+> ATENÇÃO! Chegamos em uma parte muito importante do curso. Quando re-atribuímos uma variável já existente nós apagamos o valor que estava dentro dela e escrevemos um valor novo.  
+
+Ok! Já sabemos como criar, substituir e fazer contas com variáveis. Só que até agora só trabalhamos com números, mas variáveis podem - e devem - armazenar outros tipos de dados. 
+
+Neste caso precisamos de objetos diferentes, ou seja, de classes e formas de armazenamentos diferentes. O R apresenta **quatro** principais classes de objetos:  `integer`, `numeric`,  `character` e `logical`. Vamos ver cada uma delas:
+
+* `integer` <br>
+  Um objeto de classe `integer` é uma variável numérica que armazena apenas números inteiros (sem pontos flutuantes - os decimais). A diferença para a classe numeric é que a classe integer armazenam números com menos casas e não consegue fazer cálculos com casas decimais. Porem, quando declaramos uma variável numérica o R automaticamente a armazena como tipo `numeric`. É possível forçar a alteração dessa variável para `integer` se a sua variável não for ser utilizada para fazer cálculos e for necessário ocupar menos espaço de armazenamento (por exemplo - ID number). Abreviação: **int**
+
+
+* `numeric` <br>
+  Classe padrão para objetos numéricos. Armazena núumeros inteiros e do tipo double (ou float), ou seja, com casas decimais. Necessários para realização de cálculos matemáticos. Abreviação: **num**
+
+
+* `character` <br>
+  Classe do tipo string que armazena dados textuais. Mesmo que haja uma sequência de números os dados serão lidos como textos. Não é possível fazer operações matemáticas e aplicar funções de variáveis numéricas. Abreviação: **char** 
+
+
+* `logical` <br>
+  Classe do tipo lógica (booleana), permite apenas armazenamentos de dados lógicos (TRUE ou FALSE). Utilizada para fazer operações lógicas com os dados. Também pode ser utilizada como variável binária. Abreviação: **logi**
+
+> Ainda há uma classe de variável para números complexos, utilizada para análises matemáticas mais avançadas mas não utilizaremos nesse curso. 
+
+Agora que já sabemos as classes de objetos. Vamos criar objetos para cada classe. Para criar objetos `integer` basta criar uma variável com números, assim como a variável da classe `numeric`. Porém, automaticamente o R cria variáveis numéricas como da classe `numeric`. Entao, para que forcermos o R a armazenar um número como `integer`, é necessario colocar no final do número a letra L. Assim, `inteiro <- 8L` será do tipo `integer` e não `numeric`. O L só entra para avisar o R que queremos que aquela variável seja de outra classe. Se pedirmos para ele nos retornar a variável armazenada ele irá retornar apenas a parte numérica da variável (sem o `L`).
+
+```{r}
+inteiro <- 8L
+inteiro
+```
+
+Para criar variáveis de classe `character` também precisamos avisar para o R que aquela variável não é do tipo numérico. Sendo assim, não podemos criar a variável da seguinte forma: 
+
+```{r, error = TRUE}
+string <- texto
+```
+
+Para que o R identifique que a variável é da classe `character` precisamos definir o valor entre aspas (" "):
+
+```{r, error = TRUE}
+string <- "texto"
+```
+
+Agora sim, o R interpreta o que está dentro dos parênteses como uma sequência de caracteres. Qualquer sequência de caracteres dentro das aspas será interpretada como um objeto da classe `character`, inclusive números, espaços e caracteres especiais. 
+
+Por fim, para criar uma variável do tipo lógica (que so aceitam `TRUE` e `FALSE`) é necessário atribuir valores `TRUE`, `T`, `FALSE` OU `F`. Atenção: não podem estar entre aspas, se não o R interpreta como `character`.
+
+```{r}
+log <- FALSE
+```
+
+Uma outra forma de utilizar os objetos booleanos é comparando variáveis a partir de `operadores relacionais`. Podemos perguntar para o R se uma variável é **igual** a outra (`==`), **diferente** (`!=`), **maior** ou **menor** (`>` ou `<`) ou **maior/menor ou igual** (`<=` ou `>=`). Como é uma pergunta utilizando sinais de comparação a resposta vai sempre ser do tipo `logical`, ou seja,  `TRUE` e `FALSE`.
+
+Assim, podemos perguntar para o R se x é maior que y:
+
+```{r}
+x > y
+```
+
+> O `!` pode ser combinado com qualquer outro operador: `>!` (não é maior) 
+
+O R nos retorna a resposta `FALSE`, pois x não é maior que y. ( `x` já havia sido definido anteriormente como `5` e `y` como `25`).
+
+```{exercise} 
+Utilize os outros operadores relacionais para comparar outras variáveis. 
+``` 
+
+Há ainda os operadores lógicos, que baseiam-se na Teoria dos Conjuntos. São eles: `&&` (**AND/E**), `||` (**OR/OU**). Utilizando esses operadores podemos combinar perguntas para o R. A seguir, pergunto para o R se x é maior que y **E** se y é maior que 10. De modo que o R irá retornar `FALSE` se pelo menos uma das condições é <span style="color:red">falsa</span> e ira retornar `TRUE` se, e somente se, as duas forem <span style="color:green">verdadeiras</span>.  
+
+```{r}
+x > y || y > 10
+```
+
+```{exercise} 
+Utilize o operador lógico "OU". Em quais condições o R retorna `FALSE` e em quais ele retorna `TRUE`?
+``` 
+
+Por fim, se definirmos uma variável e queremos saber como o R a armazenou podemos utilizar a função `class()` para descobrir a classe do objeto. 
+
+> Atenção! Essa é a primeira vez que utilizamos uma função no R. Funções tem uma sintaxe bem definida e argumentos obrigatórios e opcionais. 
+
+A função `class()` necessita apenas que seja inserido dentro dos parênteses o objeto que queremos saber a classe. Assim, 
+
+```{r}
+class(x)
+```
+
+Perguntamos para o R qual era a classe de x, no qual ele respondeu que x é da classe `numeric`. Faça isso com objetos de outras classes. 
+
+Ainda que possamos fazer várias coisas interessantes com o esse tipo mais simples de objeto, trabalhar com objetos mais complexos nos abre mais possibilidades para análises de dados. Porém, antes de avançarmos nos tipos de objetos, vamos ver algumas outras coisinhas que podem nos ajudar no aprendizado aqui para frente. 
+
+## Ambiente do RStudio
+
+Até agora trabalhamos apenas com o console do R. A vantagem dele é que ele é mais dinâmico e mais rápido, mas temos dificuldades de, por exemplo, ver quais variáveis já temos atribuídas e armazenadas na memória. De fato, se entrarmos com a função `ls()` o R irá retornar todas as variáveis já atribuídas e armazenadas. Porém, isso dificulta um pouco o trabalho da análise de dados pois temos que ficar solicitando a função toda vez que precisamos saber as variáveis armazenadas. 
+
+Para ajudar a comunicação com o usuário foram criadas IDEs (do inglês, _Integrated Development Environment_) para que facilitem algumas visualizações. Após a implementação e disponibilização dessas ferramentas o uso de várias linguagens de programação, inclusive o R, aumentou consideravelmente. Uma delas é o RStudio, software da empresa do mesmo nome que tem desempenhado um papel muito importante dentro da comunidade, criando documentação e ferramentas de aprendizagem para aumentar a utilização do R. 
+
+O ambiente do RStudio dispõe de 4 janelas principais. A janela `console` é a mesma que estávamos trabalhando antes. Ao clicarmos em `File > New File > R Script` criamos um arquivo de `script`. Esse arquivo funciona como um bloco de notas, o R só irá lê-lo se selecionarmos as linhas com os comandos e apertarmos `ctrl+enter`. é importante salvar os arquivos em seu computador com a extensão `.R`. 
+
+Na janela `Environment` são mostradas as variáveis que já estão atribuídas na memória. Por fim, a última janela (canto inferior direito) apresenta na aba `Files` os arquivos que estão na pasta raiz do projeto, na aba `Plots` os gráficos quando solicitamos que o R imprima gráficos na tela, na aba `Packages` os pacotes instalados no computador e na aba `Help` podemos ver a documentação das funções e pacotes (esse precisa de conexão na internet). 
+
+## Pacotes
+
+Quando instalamos o R no computador, apesar de vir com várias funções básicas, essa instalação inicial não comporta todas as possibilidades de funcionalidade do R. Para tanto, existem os pacotes, que são bibliotecas de funções e até mesmo dados que possibilitam complementar ou otimizar tarefas. 
+Há uma infinidade de pacotes criados pela comunidade de usuários (você pode criar um pacote se quiser) que são disponibilizados no site [CRAN](https://cran.r-project.org/). Para instalar um pacote você precisa utilizar o comando `install.packages("nome_pacote")`.
+Mesmo após a instalação é necessário que toda vez que você vai utilizar o pacote utilize o comando `library(nome_pacote)`. As IDEs possibilitam que a busca e a instalação desses pacotes tambem seja mais prática.  
+
+### Citando pacotes
+
+Toda vez que você utilizar algum dos pacotes do R em seu trabalho, relatório ou artigo cite o pacote utilizado. Para ver como citar cada pacote utilize a função `citation(pacote)`:
+
+```{r}
+citation("data.table")
+```
+
+
+## Como conseguir ajuda
+
+Para buscar ajuda você pode ir na aba `Help` do RStudio e procurar o nome da função ou pacote na documentação disponível do R ou ir diretamente no console e digitar `?funçao` (onde função é o nome da função desejada).
+
+Faça buscas na internet e em sites especializados (como o Stackoverflow) para encontrar documentação referente as funções e funcionalidades do R.  
+

@@ -1,0 +1,608 @@
+# Trabalhando com arrays {#arrays}
+
+Bom, depois dessa pequena pausa vamos continuar conhecendo outros tipos de objetos no R. Até agora já trabalhamos com objetos bem simples que armazenam apenas uma informação por vez mas, na maioria das vezes, precisamos conseguir armazenar em uma mesma variável muitas informações ao mesmo tempo. Esses objetos maiores s~ao conhecidos como `arrays`.
+
+## Vetores
+
+Um tipo de objeto um pouco mais complexo é o do tipo `vetor`. A sintaxe para a criação de um vetor é `c()`, onde os itens internos do vetor são separados por virgula. Assim, se criamos um vetor `c(2, 3, 4, 5)`, criamos um vetor de tamanho 4 que armazena os itens 2, 3, 4 e 5. O vetor seria o equivalente a uma linha de uma tabela. 
+
+> A partir de agora passaremos a tratar de tamanhos de objetos. O vetor nada mais é que uma matriz de tamanho 1 x c, ou seja, 1 linha e `c` colunas. 
+
+A principal característica do vetor é que ele só armazena objetos do mesmo tipo, ou seja, só podemos ter vetores só de `interger` ou só de `numeric` ou só de `character` ou só de `logical`. Dessa forma, o vetor irá herdar a classe dos objetos que ele contêm. Sendo assim, para termos vetores da classe `numeric` precisamos criar um vetor com objetos da classe `numeric` dentro dele. 
+
+```{exercise} 
+Crie um vetor de classe `numeric`, `logical` e `character` e atribua cada um deles a uma variável diferente. 
+```
+&nbsp;
+
+```{exercise} 
+Pergunte ao R a classe de cada um dos vetores.
+```
+&nbsp;
+
+Bom, como o vetor herda as características da classe então podemos fazer operações matemáticas com os vetores numéricos. 
+
+```{exercise} 
+Multiplique o seu vetor `numeric` por um número. 
+
+```
+
+&nbsp;
+O que aconteceu? Ele mudou o seu vetor original? 
+
+&nbsp;
+```{exercise} 
+Agora crie mais um vetor `numeric` (do mesmo tamanho) e multiple os dois vetores.
+```
+
+O que o R fez? 
+
+E se tivéssemos vetores de tamanho diferente? 
+
+&nbsp;
+```{exercise} 
+Multiplique dois vetores `numeric` de tamanhos diferentes. 
+```
+
+&nbsp;
+
+O que aconteceu?
+
+> O R, diferente de outras linguagens, quando solicitado que faça operações com vetores de tamanhos diferentes ele faz uma reciclagem: alinha os dois vetores e, caso não possuam o mesmo tamanho, vai repetindo o vetor menor até completar o vetor maior. Outras linguagens não permitiriam a operação e retornariam um erro.
+
+A letra `c` na sintaxe da criação de um vetor vem da palavra `combine` pois o vetor nada mais é do que a combinação de vários objetos na sequência. 
+
+### Nomeação de vetores
+
+Podemos vincular nomes aos vetores com a função `names()`, da seguinte forma:
+
+```{r}
+sacola1 <- c(10, 5, 8, 7)
+names(sacola1) <- c("Laranja", "Pera", "Uva", "Maça")
+```
+
+Agora quando pedimos para ver o vetor nomeado ele aparece da seguinte forma:
+
+```{r}
+sacola1
+```
+
+No caso, como temos apenas uma sacola de feira, o jeito que fizemos faz sentido: atribuímos um vetor e depois usamos a função `names` para nomeá-lo. Mas e se tivermos mais de um vetor de sacolas de feira, com as mesmas características dentro?
+
+```{r}
+sacola2 <- c(5, 9, 7, 6)
+sacola3 <- c(8, 7, 5, 4)
+sacola4 <- c(9, 12, 3, 9)
+sacola5 <- c(5, 3, 10, 12)
+```
+
+Agora faz sentido otimizarmos a nossa função. Para isso criamos um vetor chamado `nomes` e associamos ele a cada uma dos vetores: 
+
+```{r}
+nomes <- c("Laranja", "Pera", "Uva", "Maça")
+names(sacola2) <- nomes
+names(sacola3) <- nomes
+names(sacola4) <- nomes
+names(sacola5) <- nomes
+```
+
+
+Pronto! Conseguimos nomear todos os vetores de forma mais rápida. 
+
+### Operações com vetores
+
+Agora queremos saber qual foi o total de cada fruta comprada. Como já sabemos como fazer operações matemáticas com vetores precisamos apenas somar os vetores correspondentes das nossas sacolas de feira e adicionar em um vetor de soma.
+
+```{r}
+soma_feira <- sacola1 + sacola2 + sacola3 + sacola4 + sacola5
+soma_feira
+```
+
+Agora o nosso vetor `soma_feira` armazena a soma de cada fruta em todas as sacolas de feira. Assim, podemos responder: quantas laranjas foram compradas no total? Qual foi a fruta mais comprada?
+
+O vetor total não é nomeado. Podemos nomeá-lo. Usando a função `names`.
+
+&nbsp;
+```{exercise} 
+Nomeie o vetor total de sacolas de feira.
+
+```
+
+&nbsp;
+
+Mas e se quisermos saber a soma de itens de cada sacola? Nesse caso, fazer operaçóes com vetores não nos ajuda. Em outras linguagens de programação teríamos que programar laços de repetição e laços condicionais para realizar essa operação e, se quiséssemos utilizar em outras situações (reaproveitá-la) teríamos que programar uma função. O R por já vir com varias funções pré-programadas facilita o nosso trabalho. Sendo assim, precisamos apenas utilizar a função `sum()`^[Sum function:  https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/sum] (olhe a documentação da função). 
+
+
+&nbsp;
+```{exercise} 
+Faça a soma de cada um dos vetores de sacolas utilizando a função `sum()`. Armazene cada resultado em uma nova variável. 
+
+```
+
+&nbsp;
+
+```{exercise} 
+Descubra o total de itens comprados na feira utilizando a função `sum()`. Armazene cada resultado em uma nova variável. 
+
+```
+
+&nbsp;
+
+
+### Selecionar elementos dentro de um vetor
+
+Algo útil para fazermos é conseguirmos selecionar elementos dentro dos vetores. Para isso precisamos entender o conceito de `endereçamento`. Por exemplo, o vetor de tamanho quatro tem quatro espaços dentro dele, dentro de cada um desses espaços está armazenado um objeto (um número, um texto ou um objeto de tipo lógico), ou seja, esse vetor tem 4 "endereços" dentro dele. Isso nos facilita pois nem sempre sabemos o que tem dentro do vetor e para descobrirmos não precisamos pedir para o R nos retornar o vetor inteiro (às vezes o vetor é muito grande e esse precedimento se torna inviável).
+
+Para indicarmos que queremos ver algo dentro de um `endereço` utilizamos a sintaxe de `[]`. Para indicarmos um endereço de um vetor utilizamos a sintaxe vetor[x], onde x indica um número de 1 ate n (a maior casa do vetor).
+
+&nbsp;
+
+```{exercise} 
+Selecione o elemento 4 do vetor da sacola 3. Atribua esse valor a uma variável.
+
+```
+
+&nbsp;
+
+Podemos também selecionar mais de um valor do vetor. A sintaxe é indicar dentro dos `[]` a seleção a ser selecionada. Veja que isso indica um novo vetor então a sintaxe também deve seguir a sintaxe de um vetor: `vetor[c(x, y, z)]`. Se os números indicam um intervalo podemos utilizar a sintaxe `vetor[x:y]`.
+
+&nbsp;
+
+```{exercise}
+Selecione do vetor `sacola3` os valores 1 e 3 e do vetor sacola2 os valores de 2 a 4. 
+
+```
+
+&nbsp;
+
+Para vetores nomeados é possível selecionar a partir dos nomes. A lógica é a mesma, mas dentro dos `[]` adicionamos o nome entre `" "` (por ser uma variável de classe textual). Para selecionarmos mais de um nome também fazemos do mesmo jeito. 
+
+&nbsp;
+
+```{exercise} 
+Selecione a quantidade de laranjas do vetor da sacola 4. Selecione a quantidade de peras e maças do vetor da sacola 5. 
+```
+
+### Comparações de vetores e entre vetores
+
+Assim como fizemos comparações entre os objetos criados, podemos fazer comparações entre os vetores. Compare o vetor `sacola1` com o vetor `sacola2`. Quando utilizamos os operadores relacionais entre dois vetores o R retorna a comparação de cada um dos itens, ou seja, a comparação do item 1 do primeiro vetor com o item 1 do segundo vetor e assim por diante. Retornando `TRUE` ou `FALSE` em cada um deles. Em vetores nomeados com os mesmos nomes esse procedimento é ainda mais fácil pois o R nos retorna o resultado das comparações com os nomes dos vetores. 
+
+&nbsp;
+
+```{exercise} 
+Qual dos itens do vetor `sacola2` são maiores que os itens do vetor `sacola4`?
+
+```
+
+&nbsp;
+
+Também podemos fazer essas comparações com a soma de cada sacola. 
+
+&nbsp;
+
+```{exercise} 
+A soma dos itens da `sacola3` é menor que a soma dos itens da `sacola5`?
+
+```
+
+&nbsp;
+
+Podemos utilizar os mesmos sinais de comparação para saber quais os valores de um vetor são maiores que um número, por exemplo. Assim se perguntarmos ao R `vetor > 5` ele irá nos responder elemento por elemento se é ou não maior que cinco (respondendo com operadores lógicos).
+
+&nbsp;
+
+```{exercise} 
+Veja quais casas do vetor da sacola 5 tem valores maiores ou iguais a 10. 
+
+```
+
+&nbsp;
+
+Porém, seria mais útil se tivessemos como retorno os números que correspondem a busca que desejamos. Para isso, precisamos inserir `vetor[vetor > x]`. Aqui o R irá retornar os números que são maiores que x. No caso do vetor nomeado a resposta virá acompanhada dos nomes. Lembre-se que dessa forma não temos como saber quais casas tem os valores retornados, o R retorna os elementos que são `TRUE` no seu vetor mas não indica qual era a posição original. Esse é o nosso primeiro contato um tipo de filtragem dos dados. 
+
+&nbsp;
+
+```{exercise} 
+Armazene em uma variável os valores do vetor `sacola1` que são menores do que 10. 
+
+```
+
+&nbsp;
+
+### Adição e exclusão de valores em um vetor
+
+Podemos adicionar e excluir valores de um vetor existente. Para adicionarmos valores em um vetor podemos fazer de três formas distintas: 
+
+
+* **Por endereçamento direto** - dessa forma precisamos indicar dentro dos colchetes o endereço da última casa mais um:
+  - vetor[x+1] <- 5 
+* **Por endereçamento indireto** - dessa forma não precisamos saber o tamanho do vetor, indicamos a partir da função `length()` o tamanho do vetor `+ 1`
+  - vetor[length(vetor) + 1] <- 9
+* **Por recursividade** - substituímos o vetor original por um novo vetor que tem o vetor original seguido de uma casa antes e/ou depois 
+  - vetor <- c(vetor, 10)
+  - vetor <- c(10, vetor)
+
+> Das duas primeiras formas, se indicamos um número diferente de 1 no endereço o R, diferente de outras linguagens, coloca `NA` nas casas entre a última casa do vetor e a casa nova atribuída. Veja o exemplo a seguir.
+
+```{r}
+vetor1 <- c(1, 2, 4)
+vetor1[5] <- 5
+vetor1
+```
+
+> Como o vetor tinha inicialmente 3 casas e indicamos um valor para uma 5ª casa, o R criou a 5ª casa com o valor indicado, mas precisava para tanto criar uma 4ª casa também. Essa ele incluiu um valor `NA` pois o valor dessa casa não foi indicado. 
+
+&nbsp;
+
+```{exercise} 
+Adicione os valores de soma, calculados anteiormente, nos respectivos vetores de sacolas de feira. 
+
+```
+
+&nbsp;
+
+Por fim, para excluir elementos de um vetor, indicamos por recursividade o vetor dentro de [] os valores que queremos excluir com um traço na frente. Se queremos excluir um intervalo indicamos [-c(x:y)] e se queremos excluir números específicos indicamos [-c(x, y, z)].
+
+
+```{r}
+vetor1 <- vetor1[-c(4)]
+vetor1
+```
+
+> No caso da exclusão não é necessario que seja por recursividade. É possivel atribuir um novo vetor para o procedimento. 
+
+
+### Funções com vetores
+
+Na última parte dessa aula iremos aprender algumas funções úteis para utilizar em vetores. Ainda que possamos criar vetores de sequência utilizando apenas a sintaxe `x:y`, por exemplo as funções `rep()` e `seq()` nos auxiliam a criar sequências mais personalizadas.
+
+```{r}
+#Criando sequências sem as funções rep() ou seq()
+seq1 <- 1:8
+seq1
+seq2 <- 2.5:10
+seq2
+```
+
+A função `seq()` possibilita personalizar outros argumentos para a criação da sequência. O principal argumento é o `by` em que podemos definir o incremento da sequência. Por exemplo, se quero uma sequência de 0 a 10 de 2 em 2 utilizo: `seq(0, 10, by = 2)`. Veja outros argumentos na documentação da função `seq()`. 
+
+&nbsp;
+
+```{exercise} 
+Crie um vetor com uma sequência de numeros iniciando em -20 e indo ate 50 de 5 em 5. Atribua a uma variável.
+```
+
+&nbsp;
+
+A função `rep()` possibilita a criação de sequências de numeros repetidos. Por exemplo, se utilizarmos `rep(5,3)` iremos ter um vetor com o número 5 repetido 3 vezes. 
+
+```{r}
+rep(5,3)
+```
+
+Para ter um intervalo podemos utilizar `rep(x:y, n)`, ou seja, um intervalo que vai de x a y repetido n vezes. 
+
+```{r}
+rep(1:5, 3)
+```
+
+Por fim, podemos criar um intervalo repetindo cada número do intervalo n vezes. 
+
+```{r}
+rep(1:5, each = 3)
+```
+
+Outras funções úteis para aprendermos agora são: 
+
+* mean(x) - cálculo da média do vetor x 
+* var(x) - cálculo da variância do vetor x
+* max(x) - o valor máximo encontrado no vetor x
+* min(x) - o valor mínimo encontrado no vetor x
+* sd(x)  - o desvio padrão do vetor x
+* range(x) - a amplitude do vetor x
+* length(x) - o tamanho do vetor x
+* rev(x) - inverter o vetor x **Atenção: isso não altera o vetor original** 
+
+> Se colocarmos duas ou mais classes diferentes dentro de um mesmo vetor, o R vai forçar que todos os elementos passem a pertencer à mesma classe. Ordem de preferência: character > complex > numeric > integer > logical
+
+
+## Matrizes 
+
+Matrizes são vetores (_arrays_) bidimensionais. Justamente por serem vetores, herdam a mesma característica dos vetores: podem ser apenas de uma mesma classe. Para criar uma matriz precisamos utilizar a função `matrix()`, mas atenção é necessário tomar cuidado com o argumento `byrow`. Por padrão a função `matrix()` define o argumento `byrow` como `FALSE` e portanto, preenche a matriz por colunas. Se quisermos que preencher por linhas precisamos atribuir o argumento `byrow` como `TRUE`. Veja a diferença:
+
+```{r}
+matrix(1:30, byrow = FALSE, nrow = 10) 
+```
+
+O comando anterior criou uma matriz de 1 a 30 preenchendo por colunas. Agora alterando o argumento `byrow`:
+
+```{r}
+matrix(1:30, byrow = TRUE, nrow = 10)
+```
+
+Apesar do primeiro e último item das duas matrizes serem os mesmos todos os outros são bem diferentes. O agumento `nrow` define o número de linhas que desejamos na matriz. No caso, como temos 30 numeros e definimos que queremos 10 linhas teremos 3 colunas (30/10 = 3). Se definíssemos 5 linhas teriamos 6 colunas. Como a seguir:
+
+```{r}
+matrix(1:30, byrow = TRUE, nrow = 5)
+```
+
+Utilize sempre múltiplos do número desejado se não o R faz a reciclagem das casas e cria uma matriz maior do que a desejada. Como a seguir: 
+
+```{r}
+matrix(1:30, byrow = TRUE, nrow = 7)
+```
+
+De modo equivalente o argumento `ncol` define o número de colunas da matriz. Os dois argumentos são complemetares, não sendo necessário utilizá-los concomitantemente. 
+
+Vamos criar uma matriz com os vetores que tínhamos anteriormente (sacolas de feira). Primeiro criamos um vetor com todas as sacolas concatenadas:
+
+```{r}
+sacolas <- c(sacola1, sacola2, sacola3, sacola4, sacola5)
+sacolas
+```
+
+Cuidado com a ordem das sacolas!
+
+Depois criamos uma matriz com essas sacolas. Cuidado com o argumento `byrow`! Aqui precisamos que a matriz seja preenchida por linhas, então o argumento `byrow` deve ser verdadeiro! O argumento `nrow` será o número das nossas sacolas. 
+
+```{r}
+matriz_sacola <- matrix(sacolas, byrow = T, nrow = 5)
+matriz_sacola
+```
+
+Veja que agora o R criou um objeto diferente: do tipo `Data`. Isso significa que o R interpreta a matriz de forma diferente dos vetores e objetos simples. Uma outra forma de fazer a matriz é fazer de forma direta o vetor dentro do primeiro argumento: `matrix(c(sacola1, sacola2, sacola3, sacola4, sacola5), byrow = T, nrow = 5)`
+
+Porém ao transformar em matriz perdemos os nomes dos nossos vetores (nossas colunas). Vamos criá-los novamente. 
+
+Para criar os nomes das colunas precisamos utilizar agora a função `colnames`. Precisamos especificar onde vão os nomes pois agora não estamos mais trabalhando com vetores unidimensionais. Para isso podemos reaproveitar o nosso vetor `nomes`, que utilizamos anteriormente.
+
+```{r}
+colnames(matriz_sacola) <- nomes
+```
+
+Dissemos para o R que os nomes das colunas de `matriz_sacola` correspondem ao vetor nomes. 
+
+Agora precisamos definir os nomes das nossas linhas. Para isso utilizamos a função `rownames`. Como não temos nenhum vetor de nomes para linhas vamos fazer direto dentro da função:
+
+```{r}
+rownames(matriz_sacola) <- c("sacola1", "sacola2", "sacola3", "sacola4", "sacola5")
+```
+
+Pronto! Agora temos uma matriz com nomes nas linhas e colunas. 
+
+```{r}
+matriz_sacola
+```
+
+Agora queremos fazer as somas das linhas e das colunas. Esse processo pode ser um pouco confuso, por isso precisamos tomar bastante cuidado!
+
+Primeiro fazemos as somas das linhas, ou seja, criamos um vetor que tem a soma das linhas. Como temos 5 linhas, esse vetor terá 5 elementos. Para isso utilizamos a função `rowSums()` na nossa matriz, criando um vetor de soma:
+
+```{r}
+somaL <- rowSums(matriz_sacola)
+somaL
+```
+
+Esse vetor será correspondente a uma nova **coluna** da nossa matriz. Por isso utilizamos a função `cbind()` para colar essa nova coluna na nossa matriz. A função `cbind()` precisa como primeiro argumento o nome da nossa matriz e como segundo o que vamos colar nela (o vetor somaL). Porém a função não sobrescreve a matriz original, então precisamos atribuir toda a função a matriz original:
+
+```{r}
+matriz_sacola <- cbind(matriz_sacola, somaL)
+matriz_sacola
+```
+
+Agora queremos a soma das colunas. Para isso utilizamos a função `colSums()` e atribuímos ela a um vetor:
+
+```{r}
+somaC <- colSums(matriz_sacola)
+somaC
+```
+
+O vetor `somaC` será correspondente a uma nova **linha** da nossa matriz. Assim, precisamos unir essa linha a nossa matriz. Para isso, utilizamos a função `rbind()`. Da mesma forma que a função `cbind()` funciona, a função `rbind()` não sobrescreve a matriz original. Portanto, precisamos atribuir essa função à matriz original: 
+
+```{r}
+matriz_sacola <- rbind(matriz_sacola, somaC)
+matriz_sacola
+```
+
+> De modo a diminuir os passos é possível unir o passo 1 e 2 da seguinte forma: cbind(rowSums(matriz_sacola), matriz_sacola). E os passos 3 e 4 da seguinte forma: rbind(colSums(matriz_sacola), matriz_sacola). Sempre atribuindo a `matriz_sacola`. 
+
+### Seleção de elementos matriz
+
+Podemos selecionar elementos internos dentro de uma matriz. Para tanto, precisamos indicar o endereço que queremos, como fizemos com a seleção de vetores. Porém dessa vez precisamos indicar o endereço da linha e da coluna. A sintaxe para esse tipo de seleção é: `matrix[x, y]` onde `x` é o número da linha que você quer selecionar e `y` o número da coluna.
+
+&nbsp;
+```{exercise} 
+Selecione o terceiro elemento da segunda coluna da `matriz_sacola`.
+``` 
+&nbsp;
+
+Da mesma forma, podemos selecionar uma coluna ou uma linha inteira da matriz. Para selecionar uma linha inteira deixamos o valor de `y` vazio e se quisermos selecionar uma coluna inteira deixamos o valor de `x` vazio. 
+
+&nbsp;
+```{exercise} 
+Selecione a 5ª linha da `matriz_sacola`.
+``` 
+&nbsp;
+
+&nbsp;
+```{exercise} 
+Selecione a 3ª coluna da `matriz_sacola`.
+``` 
+&nbsp;
+
+### Operações com matrizes
+
+Da mesma forma que fizemos operações com os vetores podemos fazer operações (+, -, /, *, ^, %%, %/%) de matrizes com escalares, com vetores ou com outras matrizes. Apenas temos que tomar cuidado com o tamanho das matrizes. Se elas forem de tamanho diferentes o R irá reciclar (repetir) a matriz menor. 
+
+> O operador `*` não é equivalente a multiplicação matricial das matrizes. Utilizando esse operador o R multiplica o primeiro item da matriz A com o primeiro item da matriz B. Para realizar multiplicação matricial precisamos utilizar o operador `%*%`.
+
+&nbsp;
+```{exercise} 
+Some duas matrizes do mesmo tamanho. Atribua o resultado a uma terceira matriz. 
+``` 
+&nbsp;
+
+&nbsp;
+```{exercise} 
+Some uma matriz com um vetor. Atribua o resultado a uma terceira matriz. 
+``` 
+&nbsp;
+
+## Factors
+
+Factor^[https://www.stat.berkeley.edu/~s133/factors.html] é uma estrutura de dados no R utilizada para armazenar variáveis categóricas. São considerados como uma classe especial de vetores e utilizados, principalmente, em análises estatísticas -- as variáveis categóricas são interpretadas por modelos estatísticos de forma diferente das variáveis contínuas. Assim, quando armazenamos dados como `factors` garantimos que diversas funções presentes nos pacotes do R tratem esses dados de forma correta. 
+
+Ao utilizarmos a função `factor()` o R armazena um vetor de valores inteiros com os correspondentes em rótulos categóricos para serem usados quando o factor é solicitado. 
+
+Por exemplo, se tenho um vetor numerico de 0 e 1 e utilizo a função `factor()` informando ao R que o 0 equivale `masculino` e 1 equivale a `feminino`. Ele irá interpretar os 0 e os 1 do meu vetor com o seus respectivos rótulos:
+
+```{r}
+genero <- c(0, 1, 0, 1, 1, 0, 0, 1)
+genero <- factor(genero, labels = c("feminino", "masculino"))
+```
+
+Da mesma forma, posso inserir um vetor textual e utilizar a função `factor()`, o R irá interpretar todos os diferentes caracteres do vetor como um nível diferente. Desse jeito, precisamos tomar cuidado ao inserir os elementos textuais pois "f" é diferente de "F" e o R interpretaria como 2 níveis diferentes. 
+
+```{r}
+genero <- c("M", "F", "F", "M", "M", "F", "F", "M")
+genero <- factor(genero)
+```
+
+Também podemos fazer factors que sejam ordenados, ou seja, informar que existe uma ordem pré-estabelecida das categorias. Para isso adicionamos o argumento `order = T` e no argumento `levels` inserimos as categorias na ordem desejada:
+
+```{r}
+vetor_satisf <- c("Bom", "Ruim", "Excelente", "Razoável", "Razoável", "Ótimo", "Bom", "Péssimo", "Excelente")
+vetor_satisf <- factor(vetor_satisf, order = TRUE, levels = c("Péssimo", "Ruim", "Razoável", "Bom", "Ótimo", "Excelente"))
+```
+
+> Se informamos que há uma ordem das categorias (`order= TRUE`), mas não especificamos a ordem no argumento `levels` o R irá definir a ordem pela ordem alfabética dos fatores. 
+
+## Dataframes
+
+Como os elementos dentro de uma matriz não podem ser de classes/tipos diferentes precisamos de um outro tipo de objeto para tratar banco de dados quando queremos trabalhar com vários tipos de dados. Um _dataframe_ é capaz de armazenar objetos de classes diferentes e trata as colunas como variáveis e as linhas como observações (casos). Porém, não podemos armazenar objetos de classes diferentes dentro de uma mesma coluna (ou variável).
+
+Para criar um _dataframe_ utilizamos a função `data.frame()`. Podemos indicar vetores ou uma matriz para serem transformados em data frames. Porém, a função `data.frame()` vê os vetores inseridos como colunas. Então, para trnasformar os nossos vetores `sacolas` em data frame precisamos ou primeiro transformar eles em uma matriz e preenchê-lo da maneira correta ou utilizamos a função `transpose()` do pacote `data.table` (dessa forma não teremos os nomes das linhas, das colunas, a soma das linhas ou das colunas). 
+
+```{r}
+data_sacola <- data.frame(matriz_sacola)
+data_sacola
+```
+
+Criamos um data frame com os dados das sacolas que tínhamos mas o nosso maior objetivo é utilizar data frames para banco de dados com classes de objetos diferentes. Vamos, então, criar um data frame com variáveis de diversos tipos. Dentro de cada linha da função `data.frame()` há a criação de uma variavel. As que tem a função `sample()` fazem sorteios dentro dos limites especificados (com repetição), as com a função `factor()` criam variáveis categóricas com a repetição definida no vetor do segundo argumento e a função `paste()` cria uma sequência de `0000` seguida de números de 1 a 30 (o equivalente de um ID de indivíduos). Por fim, a função `colnames()` define os nomes das colunas do nosso banco:
+
+```{r}
+banco <- data.frame(paste("0000", 1:30, sep = ""), 
+                    factor(rep(c("b", "n", "i", "o"), c(10, 10, 6, 4))), 
+                    factor(rep(c("f","m"), c(16,14))), 
+                    sample(c(16:60), 30, replace = T), 
+                    factor(rep(c("superior","tecnico", "medio", "fundamental"), c(5, 8, 12, 5))), 
+                    sample(seq(1000, 30000, by = 1000), 30, replace = T),  
+                    factor(rep(c("solteiro","casado", "viuvo", "separado"), c(10, 10, 2, 8))))  
+colnames(banco) <- c("individuo", "raca", "sexo", "idade", "escol", "renda", "civil") 
+banco
+```
+
+> Como as variáveis idade e renda são construídas a partir de um sorteio aleatório cada vez que o código é rodado são criados resultados diferentes. 
+
+### Funções básicas para data frames
+
+Toda a vez que abrimos um novo data frame é importante utilizarmos 4 funções básicas: `head()`, `tail()`, `str()` e `summary()`.
+
+As funções `head()` e `tail()` mostram, respectivamente, os primeiros e os últimos 6 casos (linhas) do seu banco de dados. Se você quiser aumentar o número de linhas mostrado precisa adicionar o argumento `n = ` e definir a quantidade desejada. 
+
+&nbsp;
+```{exercise} 
+Mostre os 10 primeiros e 10 últimos itens do data frame `banco`.
+``` 
+&nbsp;
+
+A função `str()` retorna a estrutura de cada uma das variáveis do banco: 
+
+```{r}
+str(banco)
+```
+
+E a função `summary()` retorna um resumo de todas as variáveis: 
+
+```{r}
+summary(banco)
+```
+
+Com essas funções conseguimos ver como o R está interpretando cada uma das variáveis. Já vimos, por exemplo, que ele armazenou a variável indivíduo como um `factor`, o que não é o que gostaríamos. Depois veremos como transformar essa variável em texto. 
+
+### Selecionando elementos dentro de um dataframe
+
+Para selecionar elementos dentro de um dataframe podemos trabalhar com a mesma lógica das matrizes. Utilizando os símbolos `[ , ]` para delimitar a linha (ou intervalo de linhas) e a coluna (ou intervalo de colunas).
+
+&nbsp;
+```{exercise} 
+Selecione o elemento que está armazenado na linha 20 e na coluna 4. 
+``` 
+&nbsp;
+
+&nbsp;
+```{exercise} 
+Selecione a linha 10 inteira. Selecione a coluna 2 inteira. 
+``` 
+&nbsp;
+
+Podemos também selecionar um intervalo dentro de uma coluna. Para isso colocamos o intervalo de linhas que queremos (p.ex. `4:15`) e colocamos o número da coluna desejada. Porém, como nomeamos as nossas colunas, podemos colocar o nome da coluna no lugar do número: 
+
+```{r}
+banco[9:20, "renda"]
+```
+
+Da mesma forma, podemos selecionar variáveis de um caso ou de uma seleção de casos: 
+
+```{r}
+banco[c(3, 4, 8), 3:5]
+```
+
+No exemplo anterior selecionamos dos indivíduos 3, 4 e 8 as variáveis de 3 a 5 (`sexo`, `idade` e `escol`).
+
+Porém, os objetos do tipo `data frames` tem uma caracteristica diferente: o R automaticamente lê as colunas como variáveis. Então, podemos indicar as colunas a partir da sintaxe `$`. A função `subset()` nos ajuda a fazer filtragens mais avançadas: 
+
+```{r}
+subset(banco, banco$sexo == "m")
+```
+
+Selecionamos no exemplo anterior apenas os casos que correspondem a seleção `sexo == "m"`, ou seja, serem do sexo `masculino`. Podemos combinar filtragens do banco utilizando os operadores lógicos (& e |) e relacionais (> < >= <= != ==) já aprendidos anteriormente.
+
+&nbsp;
+```{exercise} 
+Atribua a uma nova variável os indivíduos que tem idade menor que 35 anos e não tem nível superior.
+``` 
+&nbsp;
+
+A função `subset()` nos retorna os casos inteiros, mas as vezes apenas queremos saber quais casos correspondem a nossa filtragem. Podemos, então, utilizar a função `which()`. 
+
+```{r}
+which(banco$escol != "superior" & banco$renda > 5000)
+```
+
+Podemos, por fim, ordenar nosso banco a partir de uma variável desejada. Para isso, utilizamos a função `order()` e definimos no argumento se terá a ordem crescente ou decrescente. Essa função nos retorna um vetor com as posições das variáveis na ordem desejada. A partir desse vetor podemos criar um data frame novo.  
+
+```{r}
+ordem_nova <- order(banco$idade, decreasing = "F")
+```
+
+No comando anterior criamos um vetor com as posições que correspondem a ordem do nosso banco a partir da variável idade de forma crescente. 
+
+```{r}
+banco_ord <- banco[ordem_nova, ]
+```
+
+Agora temos um novo banco com a ordem desejada. 
+
+
+## Listas
+
+O último tipo de objeto que iremos ver são as listas, mas antes vamos recapitular os objetos que já vimos: 
+
+* Vetores - são _arrays_ de uma dimensão, podem ter valores `numeric`, `character`, `logical`, `integer` ou `complex`. Porém, os elementos dentro de um vetor sempre devem ter a mesma classe o vetor, portanto, herda essa classe. 
+* Matrizes - são _arrays_ de duas dimensões, podem ter valores `numeric`, `character`, `logical`, `integer` ou `complex`. São criadas a partir dos vetores portanto, herdam a mesma característica: elementos dentro de uma matriz tem sempre a mesma classe/tipo. 
+* Data frames - objetos bidimensionais, podem ter valores `numeric`, `character`, `logical`, `integer` ou `complex` dentro de um mesmo objeto. Porém, os elementos de uma coluna devem ser do mesmo tipo de dado, mas colunas diferentes podem ter tipos diferentes de dados.
+
+As listas, por sua vez, aceitam diferentes tipos de dado, de diferentes tamanhos, características. Podem armazenar objetos de forma ordenada, que podem ser matrizes, vetores, dataframes ou outras listas. Não é necessário que estejam ligados de alguma forma. Listas são um **super data**!
+
+Para criar uma lista utilize a função `list()` e concatene dentro dos parênteses os objetos que quer colocar dentro da lista. 

@@ -1,0 +1,309 @@
+# Introdução ao Tidyverse {#tidy}
+
+```{r include=FALSE}
+library(tidyr)
+library(dplyr)
+library(stringr)
+library(lubridate)
+```
+
+Os pacotes `tidyverse` são uma coleção de pacotes criados por Hadley Wickham e sua equipe (na RStudio)^[Tidy Data: https://vita.had.co.nz/papers/tidy-data.html] para facilitar o tratamento e visualização dos dados. Aqui, iremos ver alguns desses pacotes nos próximos capítulos. Para darmos início aos pacotes `tidyverse` precisamos instalá-los. Para instalar todos os pacotes do `tidyverse` utilize o comando `install.packages("tidyverse")` ou apenas os pacotes desejados. Aqui iremos utilizar os pacotes `tidyr`, `dplyr`, `stringr` e `lubridate`. Depois de instalados chame os pacotes com a função `library()`. 
+
+Antes de começarmos vamos só entender o que os criadores do `tidyverse` consideram como `tidydata`. A ideia de um banco de dados "tidy" é um banco de dados que tem:
+
+1 - Cada variável forma uma coluna; <br>
+2 - Cada observação forma uma linha;  <br>
+3 - Cada tipo de observação forma uma tabela (ou banco de dados) <br>
+
+Parece um pouco óbvio isso, mas certamente você já viu bancos de dados assim: 
+
+|   Nome  | Preto | Amarelo | Castanho | Outro |
+|:-------:|:-----:|:-------:|:--------:|:-----:|
+|   Joao  |   0   |    1    |     0    |   0   |
+|   Luiz  |   1   |    0    |     0    |   0   |
+| Fabiana |   0   |    0    |     1    |   0   |
+| Marcela |   1   |    0    |     0    |   0   |
+
+
+Esse mesmo banco em um formato `tidy` ficaria: 
+
+|   Nome  | Cor de cabelo |
+|:-------:|:-------------:|
+|   Joao  |    Amarelo    |
+|   Luiz  |     Preto     |
+| Fabiana |    Castanho   |
+| Marcela |     Preto     |
+
+Aqui iremos apresentar algumas das ferramentas dos pacotes do `tidyverse` para transformar os bancos em `tidydata`. 
+
+Primeiramente, iremos utilizar o banco [Países](https://raw.githubusercontent.com/ipassos/material-introR/master/banco.csv). Salve o arquivo `.csv` em seu computador e importe-o para o R sem considerar strings como factors e lendo as cédulas em branco como NA (no subcapítulo \@ref(impor) há algumas instruções para importação de banco de dados).
+
+```{r include=FALSE}
+paises <- read.csv("banco.csv", na.strings = "", stringsAsFactors = FALSE, header = TRUE, encoding = "UTF-8")
+```
+
+Após importar o banco `Países` veja a estrutura e o resumo do banco.
+
+```{r}
+summary(paises)
+```
+
+## Verificação de NAs
+
+Primeiro iremos verificar se o R identificou se há `missings` (NAs) no nosso banco (lembre-se que importamos as cédulas em branco como NAs). Para isso iremos utilizar 3 funções. A função `is.na()` retorna `TRUE` (quando não é NA) e `FALSE` (quando é NA) para todos elementos do banco. Não é muito útil, mas poderemos utilizá-la combinada com outras funções. Combinando com a função `any()` descobrimos se há algum NA no nosso banco: 
+
+```{r}
+any(is.na(paises))
+```
+
+Mas seria melhor se tivéssemos mais informações. Combinando `is.na()` com a função `sum()` descobrimos quantos NAs temos no nosso banco: 
+
+```{r}
+sum(is.na(paises))
+```
+
+## Criando tidydata com o pacote tidyr
+
+O nosso banco países tem um grande problema: temos diversas variáveis com nomes de anos fazendo com que o nosso banco tenha muitas variáveis. Lembrando do exemplo do começo do capítulo o certo seria termos uma variável `ano` com o número do ano correspondente e uma varíavel `valor` com o valor correspondente do ano. Isso faria com que a quantidade de linhas do nosso banco seja multiplicada por 30 pois iremos repetir cada país 30 vezes (uma para cada ano). 
+
+Poderíamos fazer essa alteração na mão utilizando editores de planilhas ou, com linguagens de programação, usando laços lógicos e de repetição. Por sorte, o pacote `tidyr` nos ajuda nesse sentido. A função `gather()` faz exatamente o que queremos. O primeiro argumento da função `gather` é o banco que iremos transformar. Depois, o nome da coluna em que juntaremos todas as outras (as 30 colunas com informações dos anos, no nosso caso) e o nome da coluna que tem os valores correspondentes da coluna anterior (no caso criamos a coluna `valor`). Por fim, informamos quais são as colunas que não irão sofrer alteração com a seguinte sintaxe: `-c(coluna1, coluna2)`. A seguir fazemos a transformação atribuindo ao banco `pais_tidy`: 
+
+```{r}
+pais_tidy <- gather(paises, ano, valor, -c(pais, codigo, continente, date))
+```
+
+Veja como o nosso banco `pais_tidy` ficou:
+
+```{r}
+summary(pais_tidy)
+```
+
+Agora temos um banco `tidy`. Veja a diferença entre as dimensões do banco `paises` e do banco `pais_tidy`:
+
+```{r echo=FALSE}
+knitr::kable(cbind(c("n_rows", "n_cols"), dim(paises), dim(pais_tidy)),
+             col.names = c(" ", "paises", "pais_tidy"))
+```
+
+Bom, também podemos fazer o processo inverso de transformar o banco em um `tidydata`. No caso, revertiríamos ao que era originalmente o nosso banco `paises`. Para isso utilizamos a função `spread()`. Nela, informamos no primeiro argumento o banco que iremos retirar as nossas informações (no caso é o banco `pais_tidy`). Depois informamos qual a colunas que iremos separar e várias colunas (`ano` no nosso caso) e a coluna que contem os valores dessa coluna (`valor` no nosso caso): 
+
+```{r}
+pais_wide <- spread(pais_tidy, ano, valor)
+```
+
+Veja a primeira linha do nosso banco `pais_wide`:
+
+```{r echo=FALSE}
+head(pais_wide, n = 1)
+```
+
+Outras funcionalidades do `tidyr` é criar bancos unindo e separando colunas de um banco já existente. Por exemplo, se eu quero um banco que tenha as colunas `pais` e `codigo` do meu banco `paises` unidas em uma coluna só posso unir essas colunas utilizando a função `unite()`. Informo no primeiro argumento o nome do meu banco original, depois o nome da coluna nova (a união das colunas) e as colunas que quero unir na sequência desejada. Depois informo com qual símbolo devo separar as informações na nova coluna.  
+
+```{r}
+pais_unido <- unite(paises, pais_cod, pais, codigo, sep = "/")
+```
+
+A primeira linha do meu banco: 
+
+```{r echo=FALSE}
+head(pais_unido, n = 1)
+```
+
+Para fazer o processo contrário da função `unite()` utilizo a função `separate()`. Primeiro informo qual banco será separado, depois o nome da coluna a ser separada (argumento `col =`), depois o nome das colunas a serem criadas no argumento `into = c()` e o caracter na qual a função irá separar a coluna no argumento `sep = ` (no caso é o símbolo `/`):
+
+```{r}
+pais_sep <- separate(pais_unido, col = pais_cod, into = c("pais", "cod"), sep = "/")
+```
+
+A primeira linha do nosso banco: 
+
+```{r echo=FALSE}
+head(pais_sep, n = 1)
+```
+
+## Manipulação de strings
+
+O pacote `stringr` tem várias ferramentas para nos ajudar na manipulação de strings. O nosso banco `paises` veio com vários erros na coluna `pais`. Alguns nomes de países tem espaços antes e/ou depois do nome do país. A função `str_trim()` ajuda a retirar esses espaços de forma automatizada. Atribuímos o resultado da função ao próprio banco. 
+
+> Preste muita atenção ao realizar funções sobrescrevendo o banco original 
+
+
+```{r}
+pais_tidy$pais <- str_trim(pais_tidy$pais)
+```
+
+Veja que a função limpou os nomes dos países no banco `pais_tidy`.
+
+```{exercise} 
+Realize a limpeza dos nomes nos outros bancos criados a partir do banco `paises`.
+```
+
+Uma outra função útil é a `str_pad()`, que adiciona strings a uma coluna de um banco de dados. Por exemplo, se quisermos adicionar o caracter `X` depois das siglas do continente na coluna `continente` do banco `pais_unido`. Atribuímos a coluna do banco desejado a função `str_pad()` com o primeiro argumento a referência da coluna desejada, depois no argumento `width = ` informamos qual vai ser o tamanho dessa nova `string` (no caso as siglas já tinham o tamanho 2, com a adição de um novo caracter era irá passar a ter tamanho 3), o argumento `side =` informa onde a string irá (left ou right) e o argumento `pad =` informa qual a sequência de caracteres que iremos adicionar:
+
+```{r}
+pais_unido$continente <- str_pad(pais_unido$continente, width = 3, side = "right", pad = "X")
+```
+
+Resultando em:
+
+```{r echo=FALSE}
+head(pais_unido, n = 2)
+```
+
+Outra funcionalidade é detectar onde em um banco uma série de caracteres se encontra com a função `str_detect()`: 
+
+```{r}
+str_detect(pais_sep$continente, "NA")
+```
+
+Podemos também substituir uma série de caracteres com a função `str_replace()`. Por exemplo, substituíremos na coluna `continente` do banco `pais_sep` todas os lugares que forem `NA` por `North America`:
+
+
+```{r}
+pais_sep$continente <- str_replace(pais_sep$continente, "NA", "North America")
+```
+
+Por fim, precisamos retirar da coluna `ano` em `pais_tidy` a string `X` que foi herdada do nome das colunas de `pais`. Para isso utilizamos a função `str_remove()`:
+
+```{r}
+pais_tidy$ano <- str_remove(pais_tidy$ano, "X")
+```
+
+> A função `str_remove` remove apenas o primeiro correspondente que ela encontra. Se a coluna tivesse mais de um "X" e quiséssemos remover todos os "X" da coluna deveríamos utilizar a função `str_remove_all()`.
+
+Por fim, nas funções `base` do R temos duas funções que nos são úteis para tratar com strings: `tolower()` e `toupper()`. A primeira faz com que todos os caracteres sejam transformados em caixa baixa e a segunda em caixa alta. 
+
+Veja a função `tolower()` na coluna `continente` do banco `pais_wide`:
+
+```{r}
+pais_wide$continente <- tolower(pais_wide$continente) 
+head(pais_wide)
+```
+
+E a função `toupper()` na coluna `pais` do banco `pais_sep`:
+
+```{r}
+pais_sep$pais <- toupper(pais_sep$pais)
+head(pais_sep)
+
+```
+
+
+## Identificando erros no banco 
+
+Alguns dos valores do nosso banco estão com erros (provavelmente por erro de digitação). Vamos dar uma olhada no `boxplot` da coluna valor: 
+
+```{r echo=FALSE}
+boxplot(pais_tidy$valor, horizontal = TRUE)
+```
+
+Os valores das colunas do banco `paises` foram gerados entre `200` e `800`. Portanto, a partir do boxplot podemos ver que há algo errado com o nosso banco. Vamos dar uma olhada no resumo das variáveis:
+
+```{r echo=FALSE}
+summary(pais_tidy$valor)
+```
+
+> O banco `paises` foi criado para ilustração dessa apostila. Ainda que pareça muito simples o exemplo podemos ter casos na realidade de situações em que idade de indivíduos, por exemplo, aparece como `200` no lugar de `20`. 
+
+Vamos verificar quais são esses elementos: 
+
+```{r}
+subset(pais_tidy, pais_tidy$valor > 800)
+```
+
+Bom, pelo que podemos ver aparentemente foi um erro de digitação. Todos os casos tem um `0` a mais. Como estamos tratando de números e é simplesmente um `0` no final, vamos dividir todos os casos por `10`. Primeiro criamos um vetor com um endereço dos elementos que correspondem a busca (`pais_tidy$valor > 800`). Depois, substituímos esses valores por eles mesmos dividos por 10: 
+
+```{r}
+replace <- which(pais_tidy$valor > 800)
+pais_tidy$valor[c(replace)] <- pais_tidy$valor[c(replace)]/10
+```
+
+Vamos ver como eles ficaram?
+
+```{r}
+pais_tidy[c(replace), ]
+```
+
+E como será que o boxplot estará agora?
+
+```{r echo=FALSE}
+boxplot(pais_tidy$valor, horizontal = TRUE)
+```
+
+Pronto! Eliminamos todos os erros da variável `ano`. 
+
+
+## Trabalhando com data e hora 
+
+O `tidyverse` também possui ótimas ferramentas para trabalharmos com datas e hora. O pacote `lubridate` agrega essas ferramentas. A coluna `date` do nosso banco `pais_tidy` não está sendo lida pelo R como uma data, mas sim como um conjunto de caracteres:
+
+```{r}
+class(pais_tidy$date)
+```
+
+Bom, isso é um problema para análises futuras. Vamos então indicar para o R qual formato está a data do nosso banco. Se você der uma olhada no banco `pais_tidy` verá que as datas estão da seguinte maneira: dd/mm/aa (em português). Para o R entender que isso é um formato de data precisamos indicar para ele. Assim, utilizamos as funções de formato de data do pacote `lubridate`. No caso, a função será `dmy` indicando que o formato é `day`, `month` e `year`:
+
+```{r}
+pais_tidy$date <- dmy(pais_tidy$date) 
+```
+
+Veja agora como está a estrutura da nossa variável `date`:
+
+```{r}
+str(pais_tidy)
+```
+
+Agora as datas foram convertidas para o formato que o R entende como data:
+
+```{r}
+class(pais_tidy$date)
+```
+
+Veja o resumo das nossas variáveis: 
+
+```{r}
+summary(pais_tidy)
+```
+
+Podemos também informar outros formatos de datas. Utilizando a mesma função mas com a abreviação do mês: 
+
+```{r}
+dmy("17 Nov 2015")
+```
+
+Utilizando o formato com as horas, minutos e segundos:
+
+```{r}
+mdy_hms("July 15, 2012 12:56:09")
+```
+
+> Trabalhar com datas é bem mais complicado do que foi demonstrado aqui. Para mais informações veja o capítulo sobre datas e hora do livro ["R for Data Science"](https://r4ds.had.co.nz/dates-and-times.html)
+
+
+## Ajustes finais
+
+Depois de todas essas alterações, para o nosso banco ficar pronto para análise vamos converter as variáveis `pais`, `codigo`, `continente` e `ano`. As três primeiras iremos transformar em `factor`:
+
+```{r}
+pais_tidy$pais <- factor(pais_tidy$pais)
+pais_tidy$codigo <- factor(pais_tidy$codigo)
+pais_tidy$continente <- factor(pais_tidy$continente)
+```
+
+Por fim, vamos criar uma variável `ano2` (cópia de `ano`) que será convertida em `factor` e vamos converter a variável `ano` em `numeric`: 
+
+```{r}
+pais_tidy$ano2 <- pais_tidy$ano
+pais_tidy$ano2 <- factor(pais_tidy$ano2)
+pais_tidy$ano <- as.numeric(pais_tidy$ano)
+```
+
+Agora o nosso banco estará assim:
+
+```{r echo=FALSE}
+summary(pais_tidy)
+```
+
+
+
+

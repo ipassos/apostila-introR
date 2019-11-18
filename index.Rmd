@@ -1,7 +1,7 @@
 --- 
 title: "Introdução ao R"
 author: "Iara Passos"
-date: "`r Sys.Date()`"
+date: "Novembro de 2019"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
@@ -13,9 +13,9 @@ description: "Apostila - Introdução ao R"
 ---
 
 
-# Introduçao {#intro}
+# Introdução {#intro}
 
-Infos sobre o curso
+A ideia dessa apostila é que seja utilizada como complemento das aulas, junto com as listas de exercícios disponibilizadas. 
 
 ## O que é a linguagem R?
 
@@ -25,7 +25,7 @@ Foi criado em 1993, por Ross Ihaka e por Robert Gentleman do Departamento de Est
 
 ### Comunidade
 
-Uma das vantagens da linguagem R é que, por ser Software Livre, tem uma comunidade de usuários muito grande, que contribui melhorando o código e criando documentação e tutoriais para outros usuários. Além do site do [R-Project]{https://www.r-project.org/}, o [R-bloggers]{https://www.r-bloggers.com/} (em inglês) e o [bRbloggers]{https://brbloggers.com.br/} reunem diversos sites/blogs sobre a linguagem R, com tutoriais e informações atualizadas sobre pacotes e códigos. O [Stack Overflow]{https://stackoverflow.com/questions/tagged/r} e uma plataforma que possibilita os usuarios a fazerem perguntas relacionadas a qualquer linguagem de programaçao e obter respostas de outros usuarios. Procurar a sua duvida la pode ser bem util para conseguir avançar no seu codigo. Para uma melhor aprendizagem, é essencial pesquisar documentação, tutoriais e, principalmente, o que tem sido discutido na comunidade de usuários do R ao redor do mundo. Para começar, é bom acompanhar os três sites citados.
+Uma das vantagens da linguagem R é que, por ser Software Livre, tem uma comunidade de usuários muito grande, que contribui melhorando o código e criando documentação e tutoriais para outros usuários. Além do site do [R-Project](https://www.r-project.org/), o [R-bloggers](https://www.r-bloggers.com/) (em inglês) e o [bRbloggers](https://brbloggers.com.br/) reúnem diversos sites/blogs sobre a linguagem R, com tutoriais e informações atualizadas sobre pacotes e códigos. O [Stack Overflow](https://stackoverflow.com/questions/tagged/r) é uma plataforma que possibilita os usuarios a fazerem perguntas relacionadas a qualquer linguagem de programaçao e obter respostas de outros usuarios. Procurar a sua dúvida lá pode ser bem útil para conseguir avançar no seu código. Para uma melhor aprendizagem, é essencial pesquisar documentação, tutoriais e, principalmente, o que tem sido discutido na comunidade de usuários do R ao redor do mundo. Para começar, é bom acompanhar os três sites citados.
 
 ## Instalando o R 
 
@@ -38,5 +38,5 @@ A linguagem R é disponibilizada como um Software Livre ^[Licença R Project: ht
 ## Instalando o RStudio 
 
 Só a instalação do R é o suficiente para começar a usá-lo, mas há algumas IDEs que melhoram a interface para o usuário, deixando-a mais prática e fácil de utilizar os recursos e ferramentas disponíveis. 
-	Uma das mais utilizadas é o [RStudio](https://rstudio.com/), que também é um software livre. O download^[Há também uma versão que pode ser utilizada pelo navegador do seu computador e acessada via servidor]. Para realizar o download para qualquer sistema operacional acesse o link: https://www.rstudio.com/products/rstudio/download/#download. Escolha o sistema operacional correspondente ao seu computador, faça o download do isntalador e siga a instalação.
+Uma das mais utilizadas é o [RStudio](https://rstudio.com/), que também é um software livre. O download^[Há também uma versão que pode ser utilizada pelo navegador do seu computador e acessada via servidor]. Para realizar o download para qualquer sistema operacional acesse o link: https://www.rstudio.com/products/rstudio/download/#download. Escolha o sistema operacional correspondente ao seu computador, faça o download do isntalador e siga a instalação.
     
