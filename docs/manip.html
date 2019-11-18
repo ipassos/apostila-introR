@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 4 Manipulando e analisando data frames | Introdução ao R</title>
+  <meta name="description" content="Apostila - Introdução ao R" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 4 Manipulando e analisando data frames | Introdução ao R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Apostila - Introdução ao R" />
+  <meta name="github-repo" content="ipassos/apostila-introR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 4 Manipulando e analisando data frames | Introdução ao R" />
+  
+  <meta name="twitter:description" content="Apostila - Introdução ao R" />
+  
+
+<meta name="author" content="Iara Passos" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="arrays.html"/>
+<link rel="next" href="tidy.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Apostila Introdução ao R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#o-que-é-a-linguagem-r"><i class="fa fa-check"></i><b>1.1</b> O que é a linguagem R?</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#comunidade"><i class="fa fa-check"></i><b>1.1.1</b> Comunidade</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#instalando-o-r"><i class="fa fa-check"></i><b>1.2</b> Instalando o R</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#instalando-o-rstudio"><i class="fa fa-check"></i><b>1.3</b> Instalando o RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="prim.html"><a href="prim.html"><i class="fa fa-check"></i><b>2</b> Primeiros Passos</a><ul>
+<li class="chapter" data-level="2.1" data-path="prim.html"><a href="prim.html#janela-de-comando-do-r"><i class="fa fa-check"></i><b>2.1</b> Janela de comando do R</a></li>
+<li class="chapter" data-level="2.2" data-path="prim.html"><a href="prim.html#o-r-como-uma-calculadora"><i class="fa fa-check"></i><b>2.2</b> O R como uma calculadora</a></li>
+<li class="chapter" data-level="2.3" data-path="prim.html"><a href="prim.html#objetos-e-classes-de-objetos"><i class="fa fa-check"></i><b>2.3</b> Objetos e classes de objetos</a></li>
+<li class="chapter" data-level="2.4" data-path="prim.html"><a href="prim.html#ambiente-do-rstudio"><i class="fa fa-check"></i><b>2.4</b> Ambiente do RStudio</a></li>
+<li class="chapter" data-level="2.5" data-path="prim.html"><a href="prim.html#pacotes"><i class="fa fa-check"></i><b>2.5</b> Pacotes</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="prim.html"><a href="prim.html#citando-pacotes"><i class="fa fa-check"></i><b>2.5.1</b> Citando pacotes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="prim.html"><a href="prim.html#como-conseguir-ajuda"><i class="fa fa-check"></i><b>2.6</b> Como conseguir ajuda</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="arrays.html"><a href="arrays.html"><i class="fa fa-check"></i><b>3</b> Trabalhando com arrays</a><ul>
+<li class="chapter" data-level="3.1" data-path="arrays.html"><a href="arrays.html#vetores"><i class="fa fa-check"></i><b>3.1</b> Vetores</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="arrays.html"><a href="arrays.html#nomeação-de-vetores"><i class="fa fa-check"></i><b>3.1.1</b> Nomeação de vetores</a></li>
+<li class="chapter" data-level="3.1.2" data-path="arrays.html"><a href="arrays.html#operações-com-vetores"><i class="fa fa-check"></i><b>3.1.2</b> Operações com vetores</a></li>
+<li class="chapter" data-level="3.1.3" data-path="arrays.html"><a href="arrays.html#selecionar-elementos-dentro-de-um-vetor"><i class="fa fa-check"></i><b>3.1.3</b> Selecionar elementos dentro de um vetor</a></li>
+<li class="chapter" data-level="3.1.4" data-path="arrays.html"><a href="arrays.html#comparações-de-vetores-e-entre-vetores"><i class="fa fa-check"></i><b>3.1.4</b> Comparações de vetores e entre vetores</a></li>
+<li class="chapter" data-level="3.1.5" data-path="arrays.html"><a href="arrays.html#adição-e-exclusão-de-valores-em-um-vetor"><i class="fa fa-check"></i><b>3.1.5</b> Adição e exclusão de valores em um vetor</a></li>
+<li class="chapter" data-level="3.1.6" data-path="arrays.html"><a href="arrays.html#funções-com-vetores"><i class="fa fa-check"></i><b>3.1.6</b> Funções com vetores</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="arrays.html"><a href="arrays.html#matrizes"><i class="fa fa-check"></i><b>3.2</b> Matrizes</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="arrays.html"><a href="arrays.html#seleção-de-elementos-matriz"><i class="fa fa-check"></i><b>3.2.1</b> Seleção de elementos matriz</a></li>
+<li class="chapter" data-level="3.2.2" data-path="arrays.html"><a href="arrays.html#operações-com-matrizes"><i class="fa fa-check"></i><b>3.2.2</b> Operações com matrizes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="arrays.html"><a href="arrays.html#factors"><i class="fa fa-check"></i><b>3.3</b> Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="arrays.html"><a href="arrays.html#dataframes"><i class="fa fa-check"></i><b>3.4</b> Dataframes</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="arrays.html"><a href="arrays.html#funções-básicas-para-data-frames"><i class="fa fa-check"></i><b>3.4.1</b> Funções básicas para data frames</a></li>
+<li class="chapter" data-level="3.4.2" data-path="arrays.html"><a href="arrays.html#selecionando-elementos-dentro-de-um-dataframe"><i class="fa fa-check"></i><b>3.4.2</b> Selecionando elementos dentro de um dataframe</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="arrays.html"><a href="arrays.html#listas"><i class="fa fa-check"></i><b>3.5</b> Listas</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="manip.html"><a href="manip.html"><i class="fa fa-check"></i><b>4</b> Manipulando e analisando data frames</a><ul>
+<li class="chapter" data-level="4.1" data-path="manip.html"><a href="manip.html#arrumando-o-banco-de-dados"><i class="fa fa-check"></i><b>4.1</b> Arrumando o banco de dados</a></li>
+<li class="chapter" data-level="4.2" data-path="manip.html"><a href="manip.html#criando-variáveis-novas"><i class="fa fa-check"></i><b>4.2</b> Criando variáveis novas</a></li>
+<li class="chapter" data-level="4.3" data-path="manip.html"><a href="manip.html#gráficos-base-do-r"><i class="fa fa-check"></i><b>4.3</b> Gráficos base do R</a></li>
+<li class="chapter" data-level="4.4" data-path="manip.html"><a href="manip.html#impor"><i class="fa fa-check"></i><b>4.4</b> Importação e exportação de bancos de dados</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tidy.html"><a href="tidy.html"><i class="fa fa-check"></i><b>5</b> Introdução ao Tidyverse</a><ul>
+<li class="chapter" data-level="5.1" data-path="tidy.html"><a href="tidy.html#verificação-de-nas"><i class="fa fa-check"></i><b>5.1</b> Verificação de NAs</a></li>
+<li class="chapter" data-level="5.2" data-path="tidy.html"><a href="tidy.html#criando-tidydata-com-o-pacote-tidyr"><i class="fa fa-check"></i><b>5.2</b> Criando tidydata com o pacote tidyr</a></li>
+<li class="chapter" data-level="5.3" data-path="tidy.html"><a href="tidy.html#manipulação-de-strings"><i class="fa fa-check"></i><b>5.3</b> Manipulação de strings</a></li>
+<li class="chapter" data-level="5.4" data-path="tidy.html"><a href="tidy.html#identificando-erros-no-banco"><i class="fa fa-check"></i><b>5.4</b> Identificando erros no banco</a></li>
+<li class="chapter" data-level="5.5" data-path="tidy.html"><a href="tidy.html#trabalhando-com-data-e-hora"><i class="fa fa-check"></i><b>5.5</b> Trabalhando com data e hora</a></li>
+<li class="chapter" data-level="5.6" data-path="tidy.html"><a href="tidy.html#ajustes-finais"><i class="fa fa-check"></i><b>5.6</b> Ajustes finais</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>6</b> Gráficos com ggplot2</a></li>
+<li class="chapter" data-level="7" data-path="mark.html"><a href="mark.html"><i class="fa fa-check"></i><b>7</b> Relatórios com Markdown</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução ao R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="manip" class="section level1">
+<h1><span class="header-section-number">Capítulo 4</span> Manipulando e analisando data frames</h1>
+<p>Agora que já conhecemos todos os tipos de objetos no R, vamos começar a trabalhar com bancos de dados. Aqui iremos trabalhar com os dados dos passageiros do Titanic que estão disponíveis no pacote <code>Stat2Data</code>. Então, a primeira coisa que precisamos fazer é instalar o pacote via comando <code>install.packages(&quot;Stat2Data&quot;)</code>. Após a instalação precisamos chamar o pacote e depois precisamos baixar o banco que iremos utilizar:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" data-line-number="1"><span class="kw">library</span>(Stat2Data)</a>
+<a class="sourceLine" id="cb96-2" data-line-number="2"><span class="kw">data</span>(<span class="st">&quot;Titanic&quot;</span>)</a></code></pre></div>
+<p>A primeira coisa que fazemos quando abrimos um banco de dados novo é ver como ele está organizado, quais são suas variavei e se ele tem muitos erros. Para isso é útil utilizarmos as funções <code>head()</code> e <code>tail()</code>. Como padrão elas mostram as seis primeiras e seis últimas linhas do banco. Caso, desejem que o R mostre mais itens é possível utilizar o argumento <code>n =</code> dentro da função e inserir o número desejado.</p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-84" class="exercise"><strong>Exercício 4.1  </strong></span>Veja os primeiros 10 casos e últimos 10 casos do banco Titanic.
+</div>
+
+<p> </p>
+<p>Depois de vermos como está o começo (head) e o final (tail) do nosso banco, utilizamos duas outras funções que nos mostrarão como está estruturado o banco e um resumo de como estão as variáveis.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1"><span class="kw">str</span>(Titanic) </a></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    1313 obs. of  6 variables:
+##  $ Name    : Factor w/ 1310 levels &quot;Abbing, Mr Anthony&quot;,..: 22 25 26 27 24 31 45 46 50 54 ...
+##  $ PClass  : Factor w/ 4 levels &quot;*&quot;,&quot;1st&quot;,&quot;2nd&quot;,..: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ Age     : num  29 2 30 25 0.92 47 63 39 58 71 ...
+##  $ Sex     : Factor w/ 2 levels &quot;female&quot;,&quot;male&quot;: 1 1 2 1 2 2 1 2 1 2 ...
+##  $ Survived: int  1 0 0 0 1 1 1 0 1 0 ...
+##  $ SexCode : int  1 1 0 1 0 0 1 0 1 0 ...</code></pre>
+<p>A função <code>str()</code>, de <em>structure</em> nos mostra a estrutura do nosso banco. Aqui já conseguimos ver que temos seis variáveis e as classes de cada uma delas. Já conseguimos identificar alguns problemas no nosso banco. Você consegue identificá-los?</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1"><span class="kw">summary</span>(Titanic)</a></code></pre></div>
+<pre><code>##                            Name      PClass         Age       
+##  Carlsson, Mr Frans Olof     :   2   *  :  1   Min.   : 0.17  
+##  Connolly, Miss Kate         :   2   1st:322   1st Qu.:21.00  
+##  Kelly, Mr James             :   2   2nd:279   Median :28.00  
+##  Abbing, Mr Anthony          :   1   3rd:711   Mean   :30.40  
+##  Abbott, Master Eugene Joseph:   1             3rd Qu.:39.00  
+##  Abbott, Mr Rossmore Edward  :   1             Max.   :71.00  
+##  (Other)                     :1304             NA&#39;s   :557    
+##      Sex         Survived         SexCode      
+##  female:462   Min.   :0.0000   Min.   :0.0000  
+##  male  :851   1st Qu.:0.0000   1st Qu.:0.0000  
+##               Median :0.0000   Median :0.0000  
+##               Mean   :0.3427   Mean   :0.3519  
+##               3rd Qu.:1.0000   3rd Qu.:1.0000  
+##               Max.   :1.0000   Max.   :1.0000  
+## </code></pre>
+<p>A função <code>summary()</code>, mostra um resumo das nossas variáveis. Conseguimos identificar outros problemas no nosso banco. Quais?</p>
+<blockquote>
+<p>Cada banco de dados terá erros e problemas diferentes. Aqui, iremos trabalhar alguns desses possíveis erros como exemplo.</p>
+</blockquote>
+<div id="arrumando-o-banco-de-dados" class="section level2">
+<h2><span class="header-section-number">4.1</span> Arrumando o banco de dados</h2>
+<p>Podemos identificar os seguintes problemas no banco Titanic:</p>
+<p>1 - A variável <code>Name</code> está sendo lida pelo R como um factor enquanto deveria estar sendo lida como um <code>char</code> <br>
+2 - A variável <code>PClass</code> tem um elemento atribuído como <code>*</code> sendo lido como um dos fatores, precisamos transformá-lo em <code>NA</code> <br>
+3 - A variável <code>Age</code> tem valores menores do que 1 com decimais. é melhor transformar esses valores em <code>0</code> <br>
+4 - As variáveis <code>Survived</code> e <code>SexCode</code> estão sendo lidas como <code>numeric</code>, precisamos lê-las como <code>factor</code> <br></p>
+<p>Vamos resolver cada um dos problemas a seguir.</p>
+<p>Primeiro, transformamos as variáveis que precisam ser transformadas em outras classes. Para mudar a classe de uma variável utilizamos as funções da família <code>as.classe()</code> (onde “classe” é a classe para qual queremos transformar). A seguir transformamos a variável <code>Name</code> em <code>char</code> substituindo a coluna original:</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1">Titanic<span class="op">$</span>Name &lt;-<span class="st"> </span><span class="kw">as.character</span>(Titanic<span class="op">$</span>Name)</a></code></pre></div>
+<blockquote>
+<p>Quando fazemos a alteração da variável do modo acima estamos substituindo a coluna original. Caso isso não seja o desejado é necessário mudar o nome da coluna na atribuição. Se a coluna não existir o R irá criar uma coluna nova com esse nome.</p>
+</blockquote>
+<p>E transformamos as variáveis <code>Survived</code> e <code>SexCode</code> em factor:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" data-line-number="1">Titanic<span class="op">$</span>Survived &lt;-<span class="st"> </span><span class="kw">as.factor</span>(Titanic<span class="op">$</span>Survived) </a>
+<a class="sourceLine" id="cb102-2" data-line-number="2">Titanic<span class="op">$</span>SexCode &lt;-<span class="st"> </span><span class="kw">as.factor</span>(Titanic<span class="op">$</span>SexCode) </a></code></pre></div>
+<p>Agora vamos resolver o problema com a variável <code>PClass</code>. Para descobrirmos qual elemento tem o valor <code>*</code> precisamos utilizar a função <code>which()</code> da seguinte forma:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="kw">which</span>(Titanic<span class="op">$</span>PClass <span class="op">==</span><span class="st"> &quot;*&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] 457</code></pre>
+<p>Agora sabemos que o elemento <code>457</code> armazena na variável <code>PClass</code> o elemento <code>*</code>.</p>
+<p>Vamos dar uma olhada no elemento <code>457</code> inteiro?</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" data-line-number="1">Titanic[<span class="dv">457</span>, ]</a></code></pre></div>
+<pre><code>##                    Name PClass Age  Sex Survived SexCode
+## 457 Jacobsohn Mr Samuel      *  NA male        0       0</code></pre>
+<p>Para substituir o valor dentro da <code>PClass</code> utilizamos o seguinte comando:</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1">Titanic<span class="op">$</span>PClass[Titanic<span class="op">$</span>PClass <span class="op">==</span><span class="st"> &quot;*&quot;</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></a></code></pre></div>
+<p>Vamos verificar novamente o elemento <code>457</code>:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" data-line-number="1">Titanic[<span class="dv">457</span>, ]</a></code></pre></div>
+<pre><code>##                    Name PClass Age  Sex Survived SexCode
+## 457 Jacobsohn Mr Samuel   &lt;NA&gt;  NA male        0       0</code></pre>
+<p>Fizemos a substituição, mas se pedirmos novamente o resumo das variáveis veremos que o factor <code>*</code> ainda estará lá, ainda que nos informe que nenhum caso corresponde a esse <code>factor</code>:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" data-line-number="1"><span class="kw">summary</span>(Titanic)</a></code></pre></div>
+<pre><code>##      Name            PClass         Age            Sex      Survived
+##  Length:1313        *   :  0   Min.   : 0.17   female:462   0:863   
+##  Class :character   1st :322   1st Qu.:21.00   male  :851   1:450   
+##  Mode  :character   2nd :279   Median :28.00                        
+##                     3rd :711   Mean   :30.40                        
+##                     NA&#39;s:  1   3rd Qu.:39.00                        
+##                                Max.   :71.00                        
+##                                NA&#39;s   :557                          
+##  SexCode
+##  0:851  
+##  1:462  
+##         
+##         
+##         
+##         
+## </code></pre>
+<p>Precisamos atualizar os fatores da <code>PClass</code>:</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb112-1" data-line-number="1">Titanic<span class="op">$</span>PClass &lt;-<span class="st"> </span><span class="kw">factor</span>(Titanic<span class="op">$</span>PClass) </a></code></pre></div>
+<p>Agora sim:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" data-line-number="1"><span class="kw">summary</span>(Titanic)</a></code></pre></div>
+<pre><code>##      Name            PClass         Age            Sex      Survived
+##  Length:1313        1st :322   Min.   : 0.17   female:462   0:863   
+##  Class :character   2nd :279   1st Qu.:21.00   male  :851   1:450   
+##  Mode  :character   3rd :711   Median :28.00                        
+##                     NA&#39;s:  1   Mean   :30.40                        
+##                                3rd Qu.:39.00                        
+##                                Max.   :71.00                        
+##                                NA&#39;s   :557                          
+##  SexCode
+##  0:851  
+##  1:462  
+##         
+##         
+##         
+##         
+## </code></pre>
+<p>Bom, agora só falta arrumarmos a variável idade.</p>
+<p>Primeiro vamos descobrir quais elementos tem o valor menor do que 1:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" data-line-number="1"><span class="kw">which</span>(Titanic<span class="op">$</span>Age <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>## [1]   5 359 545 617 752 764</code></pre>
+<p>Seria bom se também pudéssemos dar uma olhadas nesses elementos, já que não são tantos. Lembram da função <code>subset()</code>?</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" data-line-number="1"><span class="kw">subset</span>(Titanic, Titanic<span class="op">$</span>Age <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>)</a></code></pre></div>
+<pre><code>##                                       Name PClass  Age    Sex Survived
+## 5            Allison, Master Hudson Trevor    1st 0.92   male        1
+## 359           Caldwell, Master Alden Gates    2nd 0.83   male        1
+## 545         Richards, Master George Sidney    2nd 0.80   male        1
+## 617                     Aks, Master Philip    3rd 0.83   male        1
+## 752 Danbom, Master Gilbert Sigvard Emanuel    3rd 0.33   male        0
+## 764 Dean, Miss Elizabeth Gladys (Millvena)    3rd 0.17 female        1
+##     SexCode
+## 5         0
+## 359       0
+## 545       0
+## 617       0
+## 752       0
+## 764       1</code></pre>
+<p>Vamos utilizar a mesma lógica da substituição de <code>PClass</code> para substituir as idades menores que 1 por 0:</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" data-line-number="1">Titanic<span class="op">$</span>Age[Titanic<span class="op">$</span>Age <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">0</span> </a></code></pre></div>
+<p>Agora que arrumamos tudo que precisavamos arrumar no banco, vamos dar uma olhada no nosso banco:</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" data-line-number="1"><span class="kw">summary</span>(Titanic)</a></code></pre></div>
+<pre><code>##      Name            PClass         Age            Sex      Survived
+##  Length:1313        1st :322   Min.   : 0.00   female:462   0:863   
+##  Class :character   2nd :279   1st Qu.:21.00   male  :851   1:450   
+##  Mode  :character   3rd :711   Median :28.00                        
+##                     NA&#39;s:  1   Mean   :30.39                        
+##                                3rd Qu.:39.00                        
+##                                Max.   :71.00                        
+##                                NA&#39;s   :557                          
+##  SexCode
+##  0:851  
+##  1:462  
+##         
+##         
+##         
+##         
+## </code></pre>
+</div>
+<div id="criando-variáveis-novas" class="section level2">
+<h2><span class="header-section-number">4.2</span> Criando variáveis novas</h2>
+<p>Podemos criar uma variável nova transformando a variável <code>Age</code> em categorias. Para isso precisamos utilizar a função <code>cut()</code>. Iremos cortar a nossa variável em 5 categorias: <code>até 15 anos</code>, <code>de 15 a 30 anos</code>, <code>de 30 a 40 anos</code>, <code>de 40 a 60 anos</code> e <code>mais de 60 anos</code>. Precisamos identificar no argumento <code>breaks</code> os limites do intervalos desejados a partir de um vetor ou inserir o número de intervalos (nesse caso a função irá definir os cortes, depois será necessário mudar os nomes dos cortes). Para criar uma variável nova precisamos atribuir a função em uma coluna do banco <code>Titanic</code> que ainda não existe (o R irá criá-la com a atribuição desejada):</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" data-line-number="1">Titanic<span class="op">$</span>AgeCat &lt;-<span class="st"> </span><span class="kw">cut</span>(Titanic<span class="op">$</span>Age, </a>
+<a class="sourceLine" id="cb122-2" data-line-number="2">                        <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="op">-</span><span class="ot">Inf</span>,<span class="dv">15</span>,<span class="dv">30</span>,<span class="dv">40</span>,<span class="dv">60</span>,<span class="dv">75</span>),</a>
+<a class="sourceLine" id="cb122-3" data-line-number="3">                        <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;Até 15&quot;</span>, <span class="st">&quot;De 15 a 30&quot;</span>, </a>
+<a class="sourceLine" id="cb122-4" data-line-number="4">                                   <span class="st">&quot;De 30 a 40&quot;</span>, <span class="st">&quot;De 40 a 60&quot;</span>, <span class="st">&quot;Mais de 60&quot;</span>))</a></code></pre></div>
+<p>Vamos dar uma olhada no nosso banco:</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" data-line-number="1"><span class="kw">summary</span>(Titanic)</a></code></pre></div>
+<pre><code>##      Name            PClass         Age            Sex      Survived
+##  Length:1313        1st :322   Min.   : 0.00   female:462   0:863   
+##  Class :character   2nd :279   1st Qu.:21.00   male  :851   1:450   
+##  Mode  :character   3rd :711   Median :28.00                        
+##                     NA&#39;s:  1   Mean   :30.39                        
+##                                3rd Qu.:39.00                        
+##                                Max.   :71.00                        
+##                                NA&#39;s   :557                          
+##  SexCode        AgeCat   
+##  0:851   Até 15    : 73  
+##  1:462   De 15 a 30:359  
+##          De 30 a 40:150  
+##          De 40 a 60:152  
+##          Mais de 60: 22  
+##          NA&#39;s      :557  
+## </code></pre>
+<blockquote>
+<p>Caso precise remover alguma coluna do banco utilize a seguinte lógica: <code>banco &lt;- banco[,-x]</code> onde o x é o número da coluna que queremos excluir. Se quiser excluir mais de uma coluna utilize <code>-c(x, y, z)</code> (para colunas separadas) ou <code>-[x:y]</code> (para intervalos de coluna)</p>
+</blockquote>
+<p>##Tabelas de frequência e de contigência</p>
+<p>Algo muito comum nas primeiras análises com bancos de dados são as tabelas de frequências. Com elas podemos ver como estão distribuídos nossos dados. A função <code>table()</code> retorna a frequência absoluta da variável desejada:</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" data-line-number="1">freq_class &lt;-<span class="st"> </span><span class="kw">table</span>(Titanic<span class="op">$</span>PClass)</a>
+<a class="sourceLine" id="cb125-2" data-line-number="2">freq_class</a></code></pre></div>
+<pre><code>## 
+## 1st 2nd 3rd 
+## 322 279 711</code></pre>
+<p>Se quisermos saber a frequência relativa utilizamos a função <code>prop.table()</code> junto com a função anterior (ou atribuímos a função <code>table()</code> a uma variável e depois utilizamos <code>prop.table()</code> nessa variável).</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" data-line-number="1"><span class="kw">prop.table</span>(<span class="kw">table</span>(Titanic<span class="op">$</span>PClass))</a></code></pre></div>
+<pre><code>## 
+##       1st       2nd       3rd 
+## 0.2454268 0.2126524 0.5419207</code></pre>
+<p>Outra tabela importante é a tabela de contigência (ou tabela cruzada), em que queremos ver a frequência das ocorrências dos cruzamentos das varia’veis, considerando suas categorias. As funções <code>table()</code> e <code>ftable()</code> retornam as tabelas de contingência em uma matriz. Para o cruzamento de duas variáveis o resultado da utilização das duas funções são bem parecidas:</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" data-line-number="1">class_sex &lt;-<span class="st"> </span><span class="kw">table</span>(Titanic<span class="op">$</span>PClass, Titanic<span class="op">$</span>Sex)</a>
+<a class="sourceLine" id="cb129-2" data-line-number="2">class_sex</a></code></pre></div>
+<pre><code>##      
+##       female male
+##   1st    143  179
+##   2nd    107  172
+##   3rd    212  499</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb131-1" data-line-number="1"><span class="kw">ftable</span>(Titanic<span class="op">$</span>PClass, Titanic<span class="op">$</span>Sex)</a></code></pre></div>
+<pre><code>##      female male
+##                 
+## 1st     143  179
+## 2nd     107  172
+## 3rd     212  499</code></pre>
+<p>Porém, quando queremos cruzar mais de duas variáveis vemos diferenças relevantes entre os resultados das funções:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb133-1" data-line-number="1"><span class="kw">table</span>(Titanic<span class="op">$</span>PClass, Titanic<span class="op">$</span>Sex, Titanic<span class="op">$</span>Survived)</a></code></pre></div>
+<pre><code>## , ,  = 0
+## 
+##      
+##       female male
+##   1st      9  120
+##   2nd     13  147
+##   3rd    132  441
+## 
+## , ,  = 1
+## 
+##      
+##       female male
+##   1st    134   59
+##   2nd     94   25
+##   3rd     80   58</code></pre>
+<p>A função <code>table()</code> separa a última variável inserida e mostra as tabelas cruzadas com as outras variáveis para cada uma das categorias da variável três. De forma diferente, a função <code>ftable()</code> retorna uma tabela organizada com as três variáveis:</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb135-1" data-line-number="1"><span class="kw">ftable</span>(Titanic<span class="op">$</span>PClass, Titanic<span class="op">$</span>Sex, Titanic<span class="op">$</span>Survived)</a></code></pre></div>
+<pre><code>##               0   1
+##                    
+## 1st female    9 134
+##     male    120  59
+## 2nd female   13  94
+##     male    147  25
+## 3rd female  132  80
+##     male    441  58</code></pre>
+<p>Ainda, podemos utilizar a função <code>ftable()</code> com a função <code>xtabs()</code> para termos uma tabela de contingência com os nomes corretos das variáveis.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" data-line-number="1"><span class="kw">ftable</span>(<span class="kw">xtabs</span>(<span class="op">~</span>PClass<span class="op">+</span>Sex<span class="op">+</span>Survived, <span class="dt">data =</span> Titanic))</a></code></pre></div>
+<pre><code>##               Survived   0   1
+## PClass Sex                    
+## 1st    female            9 134
+##        male            120  59
+## 2nd    female           13  94
+##        male            147  25
+## 3rd    female          132  80
+##        male            441  58</code></pre>
+<p>Agora, se queremos ver a as tabelas de contingências com os valores relativos das frequências precisamos utilizar as funções <code>ftable()</code> e <code>prop.table()</code> conjuntamente, mas adicionamos um <code>1</code> para o percentual na linha e um <code>2</code> para o percentual na coluna:</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb139-1" data-line-number="1"><span class="kw">prop.table</span>(<span class="kw">ftable</span>(Titanic<span class="op">$</span>Sex,Titanic<span class="op">$</span>Survived),<span class="dv">1</span>)<span class="op">*</span><span class="dv">100</span></a></code></pre></div>
+<pre><code>##                0        1
+##                          
+## female  33.33333 66.66667
+## male    83.31375 16.68625</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb141-1" data-line-number="1"><span class="kw">prop.table</span>(<span class="kw">ftable</span>(Titanic<span class="op">$</span>Sex,Titanic<span class="op">$</span>Survived),<span class="dv">2</span>)<span class="op">*</span><span class="dv">100</span></a></code></pre></div>
+<pre><code>##                0        1
+##                          
+## female  17.84473 68.44444
+## male    82.15527 31.55556</code></pre>
+<p>Novamente, <code>table()</code> e <code>ftable()</code> funcionam da mesma forma quando tratamos de duas variáveis, mas quando estamos trabalhando com mais de duas variáveis ftable() retorna uma tabela mais organizada:</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb143-1" data-line-number="1"><span class="kw">prop.table</span>(<span class="kw">ftable</span>(Titanic<span class="op">$</span>Sex,Titanic<span class="op">$</span>Survived,Titanic<span class="op">$</span>PClass),<span class="dv">1</span>)<span class="op">*</span><span class="dv">100</span></a></code></pre></div>
+<pre><code>##                 1st       2nd       3rd
+##                                        
+## female 0   5.844156  8.441558 85.714286
+##        1  43.506494 30.519481 25.974026
+## male   0  16.949153 20.762712 62.288136
+##        1  41.549296 17.605634 40.845070</code></pre>
+<p>Agora, com a tabela <code>class_sex</code> que criamos anteriormente podemos fazer testes de independência utilizando as funções <code>chisq.test()</code> e <code>fisher.test()</code>, por exemplo. A função <code>summary()</code> também pode ser utilizada para o teste do chi-quadrado:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb145-1" data-line-number="1"><span class="kw">summary</span>(class_sex)</a></code></pre></div>
+<pre><code>## Number of cases in table: 1312 
+## Number of factors: 2 
+## Test for independence of all factors:
+##  Chisq = 22.217, df = 2, p-value = 1.499e-05</code></pre>
+</div>
+<div id="gráficos-base-do-r" class="section level2">
+<h2><span class="header-section-number">4.3</span> Gráficos base do R</h2>
+<p>Agora veremos rapidamente a construção de alguns gráficos do pacote base do R e algumas das personalizações possíveis. Iremos ver no capítulo {#ggplot} como fazer gráficos com o pacote <code>ggplot2</code>, mas por ora os gráficos base serão suficientes.</p>
+<blockquote>
+<p>No geral, todas as personalizações apresentadas nos gráficos são possíveis de serem feitas nos outros gráficos, respeitando os limites de cada tipo de gráficos. Há uma infinidade de adaptações possíveis para cada gráfico, para saber como realizá-las leia a documentação referente a cada função de gráfico no <code>help</code> ou procure tutoriais e documentações na internet.</p>
+</blockquote>
+<p>Para gerar histogramas utilizamos a função <code>hist()</code>, podemos delimitar a extensão dos eixos <code>x</code> e <code>y</code> com os argumentos <code>xlim</code> e <code>ylim</code>, dentro precisamos colocar um vetor com os limites desejados. Para adicionar um título para os gráficos definimos o argumento <code>main</code>. Ainda podemos definir a cor e espessura das linhas dos eixos com <code>col</code> e <code>lwd</code>:</p>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
+<p>Para as variáveis categóricas geramos gráficos de barras com a função <code>barplot()</code> a partir da tabela de frequências da variável:</p>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
+<p>A função <code>boxplot()</code> possibilita a criação de boxplots. Podemos rotacionar os gráficos com o argumento <code>horizontal = TRUE</code>:</p>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
+<p>Podemos também realizar gráficos com duas variáveis categóricas combinadas. Com os argumentos <code>xlab</code> e <code>ylab</code> adicionamos os nomes dos eixos <code>x</code> e <code>y</code>:</p>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<p>A partir da frequência da variável <code>PClass</code> que atribuímos anteriormente podemos realizar um gráfico de pizza, com a função <code>pie()</code>:</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" data-line-number="1"><span class="kw">pie</span>(freq_class, <span class="dt">main =</span> <span class="st">&quot;Frequência das variável PClass&quot;</span>)</a></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+<p>A partir da tabela de contigência das variáveis <code>Sex</code> e <code>Survived</code> podemos criar o gráfico de barras empilhadas. Adicionamos ainda a função <code>legend()</code> para adicionar a legenda das cores da variável <code>Sex</code>. Com o argumento da legenda <code>horiz = TRUE</code> dizemos que queremos que a legenda esteja na horizontal (uma categoria ao lado da outra), o argumento <code>pch</code> informa o código do símbolo que desejamos utilizar na legenda<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>, <code>inset</code> informa onde queremos colocar a legenda em relação a margem e <code>bty</code> como queremos a caixa da legenda (no caso deixamos a caixa sem borda e sem preenchimento). Ainda, a localização da legenda pode ser: <code>bottomright</code>, <code>bottom</code>, <code>bottomleft</code>, <code>left</code>, <code>topleft</code>, <code>top</code>, <code>topright</code>, <code>right</code> ou <code>center</code>.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" data-line-number="1"><span class="kw">barplot</span>(<span class="kw">table</span>(Titanic<span class="op">$</span>Sex, Titanic<span class="op">$</span>Survived), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1000</span>), <span class="dt">xlab =</span> <span class="st">&quot;Survived&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;Distribuição&quot;</span>, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;red&quot;</span>)) </a>
+<a class="sourceLine" id="cb148-2" data-line-number="2"><span class="kw">legend</span>(<span class="st">&quot;top&quot;</span>, <span class="kw">c</span>(<span class="st">&quot;Female&quot;</span>, <span class="st">&quot;Male&quot;</span>), <span class="dt">horiz =</span> <span class="ot">TRUE</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">pch =</span> <span class="dv">16</span>, <span class="dt">inset =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">bty =</span> <span class="st">&quot;n&quot;</span>)</a></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<p>Por fim, podemos combinar diversos gráfico em uma mesma imagem. Para isso precisamos primeiro utilizar a função <code>par</code>, com o argumento <code>mfrow</code> informando a quantidade de linhas e colunas que queremos adicionar na nossa imagem. Aqui utilizaremos 1 linha com 2 colunas pois queremos 2 gráficos um do lado do outro. E o argumento <code>oma</code> informa o tamanho das margens externas da figura na ordem inferior, esquerda, superior e direita. Depois, nas linhas abaixo inserimos os gráficos desejados:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb149-2" data-line-number="2"><span class="kw">plot</span>(Titanic<span class="op">$</span>Survived, Titanic<span class="op">$</span>Sex, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;Dark Blue&quot;</span>, <span class="st">&quot;Yellow&quot;</span>))</a>
+<a class="sourceLine" id="cb149-3" data-line-number="3"><span class="kw">plot</span>(Titanic<span class="op">$</span>Survived, Titanic<span class="op">$</span>PClass, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;Gray&quot;</span>, <span class="st">&quot;Dark Blue&quot;</span>, <span class="st">&quot;Red&quot;</span>))</a></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
+</div>
+<div id="impor" class="section level2">
+<h2><span class="header-section-number">4.4</span> Importação e exportação de bancos de dados</h2>
+<p>Os bancos de dados disponibilizados no R são muito úteis mas também precisamos importar nossos bancos de dados para análise. O R possui diversas funcionalidades para importação dos mais diversos tipos de bancos de dados (.csv, .xlsx, .sav, etc). Aqui iremos ver como importar e exportar bancos <code>.csv</code>.</p>
+<p>Para tanto precisamos utilizar as funções <code>read.csv()</code> para importar e <code>write.csv()</code> para exportar. O formato padrão de importação é:
+read.csv(“nomebanco.csv”, na.strings = &quot;“, stringsAsFactors = FALSE, header = TRUE, encoding =”UTF-8&quot;)</p>
+<p>Onde,</p>
+<ul>
+<li><code>nomebanco</code> é o nome do arquivo que você deseja importar. Se o arquivo não está no diretório raiz do seu projeto, é necessário colocar todo o endereço (Atenção que no Windows é necessário inverter as barras do endereço). é necessário a extensão do arquivo.</li>
+<li><code>na.strings</code> é a indicação para o R de qual string ele deve ler como NA. Se você não sabe como está configurado o seu banco utilize &quot;&quot; neste argumento. Assim o R irá ler apenas os locais em branco como NA</li>
+<li><code>header</code> é a indicação de que o seu banco tem um cabeçalho. Assim, o R irá ler a primeira linha como nome das colunas. Se o seu banco não tem cabeçalho atribua <code>FALSE</code> a esse argumento</li>
+<li><code>encoding</code> é a indicação da codificação do seu banco. Geralmente no Brasil utilizamos o <code>UTF-8</code></li>
+</ul>
+<blockquote>
+<p>Atenção! Se o seu banco está comfigurado com <code>,</code> como padrão de separação para decimais dos números é necessário utilizar a função <code>read.csv2()</code></p>
+</blockquote>
+<p>Para exportar um banco já trabalhado no R utilize o seguinte comando:</p>
+<p>write.csv(banco, file = “nomearquivo.csv”, na = “NA”)</p>
+<p>Onde,</p>
+<ul>
+<li><code>banco</code> é o nome do banco no R que você deseja exportar</li>
+<li><code>file</code> é o nome do arquivo que você deseja criar. Será salvo automaticamente na pasta raiz do seu projeto a não ser que você indique um outro endereço. é necessário a extensão do arquivo.</li>
+<li><code>na</code> é a indicação de como estão os NAs no seu banco.</li>
+</ul>
+<blockquote>
+<p>Atenção! Se você deseja que seu banco seja salvo no padrão de seperação de decimais com <code>,</code> é necessário utilizar a função <code>write.csv2()</code></p>
+</blockquote>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="12">
+<li id="fn12"><p>Add Points to a Plot: <a href="https://www.rdocumentation.org/packages/graphics/versions/3.6.1/topics/points" class="uri">https://www.rdocumentation.org/packages/graphics/versions/3.6.1/topics/points</a><a href="manip.html#fnref12" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="arrays.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tidy.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-manip.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["intro-R.pdf", "intro-R.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

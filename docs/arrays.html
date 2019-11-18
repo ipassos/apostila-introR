@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Trabalhando com arrays | Introdução ao R</title>
+  <meta name="description" content="Apostila - Introdução ao R" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Trabalhando com arrays | Introdução ao R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Apostila - Introdução ao R" />
+  <meta name="github-repo" content="ipassos/apostila-introR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Trabalhando com arrays | Introdução ao R" />
+  
+  <meta name="twitter:description" content="Apostila - Introdução ao R" />
+  
+
+<meta name="author" content="Iara Passos" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="prim.html"/>
+<link rel="next" href="manip.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Apostila Introdução ao R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#o-que-é-a-linguagem-r"><i class="fa fa-check"></i><b>1.1</b> O que é a linguagem R?</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#comunidade"><i class="fa fa-check"></i><b>1.1.1</b> Comunidade</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#instalando-o-r"><i class="fa fa-check"></i><b>1.2</b> Instalando o R</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#instalando-o-rstudio"><i class="fa fa-check"></i><b>1.3</b> Instalando o RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="prim.html"><a href="prim.html"><i class="fa fa-check"></i><b>2</b> Primeiros Passos</a><ul>
+<li class="chapter" data-level="2.1" data-path="prim.html"><a href="prim.html#janela-de-comando-do-r"><i class="fa fa-check"></i><b>2.1</b> Janela de comando do R</a></li>
+<li class="chapter" data-level="2.2" data-path="prim.html"><a href="prim.html#o-r-como-uma-calculadora"><i class="fa fa-check"></i><b>2.2</b> O R como uma calculadora</a></li>
+<li class="chapter" data-level="2.3" data-path="prim.html"><a href="prim.html#objetos-e-classes-de-objetos"><i class="fa fa-check"></i><b>2.3</b> Objetos e classes de objetos</a></li>
+<li class="chapter" data-level="2.4" data-path="prim.html"><a href="prim.html#ambiente-do-rstudio"><i class="fa fa-check"></i><b>2.4</b> Ambiente do RStudio</a></li>
+<li class="chapter" data-level="2.5" data-path="prim.html"><a href="prim.html#pacotes"><i class="fa fa-check"></i><b>2.5</b> Pacotes</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="prim.html"><a href="prim.html#citando-pacotes"><i class="fa fa-check"></i><b>2.5.1</b> Citando pacotes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="prim.html"><a href="prim.html#como-conseguir-ajuda"><i class="fa fa-check"></i><b>2.6</b> Como conseguir ajuda</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="arrays.html"><a href="arrays.html"><i class="fa fa-check"></i><b>3</b> Trabalhando com arrays</a><ul>
+<li class="chapter" data-level="3.1" data-path="arrays.html"><a href="arrays.html#vetores"><i class="fa fa-check"></i><b>3.1</b> Vetores</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="arrays.html"><a href="arrays.html#nomeação-de-vetores"><i class="fa fa-check"></i><b>3.1.1</b> Nomeação de vetores</a></li>
+<li class="chapter" data-level="3.1.2" data-path="arrays.html"><a href="arrays.html#operações-com-vetores"><i class="fa fa-check"></i><b>3.1.2</b> Operações com vetores</a></li>
+<li class="chapter" data-level="3.1.3" data-path="arrays.html"><a href="arrays.html#selecionar-elementos-dentro-de-um-vetor"><i class="fa fa-check"></i><b>3.1.3</b> Selecionar elementos dentro de um vetor</a></li>
+<li class="chapter" data-level="3.1.4" data-path="arrays.html"><a href="arrays.html#comparações-de-vetores-e-entre-vetores"><i class="fa fa-check"></i><b>3.1.4</b> Comparações de vetores e entre vetores</a></li>
+<li class="chapter" data-level="3.1.5" data-path="arrays.html"><a href="arrays.html#adição-e-exclusão-de-valores-em-um-vetor"><i class="fa fa-check"></i><b>3.1.5</b> Adição e exclusão de valores em um vetor</a></li>
+<li class="chapter" data-level="3.1.6" data-path="arrays.html"><a href="arrays.html#funções-com-vetores"><i class="fa fa-check"></i><b>3.1.6</b> Funções com vetores</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="arrays.html"><a href="arrays.html#matrizes"><i class="fa fa-check"></i><b>3.2</b> Matrizes</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="arrays.html"><a href="arrays.html#seleção-de-elementos-matriz"><i class="fa fa-check"></i><b>3.2.1</b> Seleção de elementos matriz</a></li>
+<li class="chapter" data-level="3.2.2" data-path="arrays.html"><a href="arrays.html#operações-com-matrizes"><i class="fa fa-check"></i><b>3.2.2</b> Operações com matrizes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="arrays.html"><a href="arrays.html#factors"><i class="fa fa-check"></i><b>3.3</b> Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="arrays.html"><a href="arrays.html#dataframes"><i class="fa fa-check"></i><b>3.4</b> Dataframes</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="arrays.html"><a href="arrays.html#funções-básicas-para-data-frames"><i class="fa fa-check"></i><b>3.4.1</b> Funções básicas para data frames</a></li>
+<li class="chapter" data-level="3.4.2" data-path="arrays.html"><a href="arrays.html#selecionando-elementos-dentro-de-um-dataframe"><i class="fa fa-check"></i><b>3.4.2</b> Selecionando elementos dentro de um dataframe</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="arrays.html"><a href="arrays.html#listas"><i class="fa fa-check"></i><b>3.5</b> Listas</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="manip.html"><a href="manip.html"><i class="fa fa-check"></i><b>4</b> Manipulando e analisando data frames</a><ul>
+<li class="chapter" data-level="4.1" data-path="manip.html"><a href="manip.html#arrumando-o-banco-de-dados"><i class="fa fa-check"></i><b>4.1</b> Arrumando o banco de dados</a></li>
+<li class="chapter" data-level="4.2" data-path="manip.html"><a href="manip.html#criando-variáveis-novas"><i class="fa fa-check"></i><b>4.2</b> Criando variáveis novas</a></li>
+<li class="chapter" data-level="4.3" data-path="manip.html"><a href="manip.html#gráficos-base-do-r"><i class="fa fa-check"></i><b>4.3</b> Gráficos base do R</a></li>
+<li class="chapter" data-level="4.4" data-path="manip.html"><a href="manip.html#impor"><i class="fa fa-check"></i><b>4.4</b> Importação e exportação de bancos de dados</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tidy.html"><a href="tidy.html"><i class="fa fa-check"></i><b>5</b> Introdução ao Tidyverse</a><ul>
+<li class="chapter" data-level="5.1" data-path="tidy.html"><a href="tidy.html#verificação-de-nas"><i class="fa fa-check"></i><b>5.1</b> Verificação de NAs</a></li>
+<li class="chapter" data-level="5.2" data-path="tidy.html"><a href="tidy.html#criando-tidydata-com-o-pacote-tidyr"><i class="fa fa-check"></i><b>5.2</b> Criando tidydata com o pacote tidyr</a></li>
+<li class="chapter" data-level="5.3" data-path="tidy.html"><a href="tidy.html#manipulação-de-strings"><i class="fa fa-check"></i><b>5.3</b> Manipulação de strings</a></li>
+<li class="chapter" data-level="5.4" data-path="tidy.html"><a href="tidy.html#identificando-erros-no-banco"><i class="fa fa-check"></i><b>5.4</b> Identificando erros no banco</a></li>
+<li class="chapter" data-level="5.5" data-path="tidy.html"><a href="tidy.html#trabalhando-com-data-e-hora"><i class="fa fa-check"></i><b>5.5</b> Trabalhando com data e hora</a></li>
+<li class="chapter" data-level="5.6" data-path="tidy.html"><a href="tidy.html#ajustes-finais"><i class="fa fa-check"></i><b>5.6</b> Ajustes finais</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>6</b> Gráficos com ggplot2</a></li>
+<li class="chapter" data-level="7" data-path="mark.html"><a href="mark.html"><i class="fa fa-check"></i><b>7</b> Relatórios com Markdown</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução ao R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="arrays" class="section level1">
+<h1><span class="header-section-number">Capítulo 3</span> Trabalhando com arrays</h1>
+<p>Bom, depois dessa pequena pausa vamos continuar conhecendo outros tipos de objetos no R. Até agora já trabalhamos com objetos bem simples que armazenam apenas uma informação por vez mas, na maioria das vezes, precisamos conseguir armazenar em uma mesma variável muitas informações ao mesmo tempo. Esses objetos maiores s~ao conhecidos como <code>arrays</code>.</p>
+<div id="vetores" class="section level2">
+<h2><span class="header-section-number">3.1</span> Vetores</h2>
+<p>Um tipo de objeto um pouco mais complexo é o do tipo <code>vetor</code>. A sintaxe para a criação de um vetor é <code>c()</code>, onde os itens internos do vetor são separados por virgula. Assim, se criamos um vetor <code>c(2, 3, 4, 5)</code>, criamos um vetor de tamanho 4 que armazena os itens 2, 3, 4 e 5. O vetor seria o equivalente a uma linha de uma tabela.</p>
+<blockquote>
+<p>A partir de agora passaremos a tratar de tamanhos de objetos. O vetor nada mais é que uma matriz de tamanho 1 x c, ou seja, 1 linha e <code>c</code> colunas.</p>
+</blockquote>
+<p>A principal característica do vetor é que ele só armazena objetos do mesmo tipo, ou seja, só podemos ter vetores só de <code>interger</code> ou só de <code>numeric</code> ou só de <code>character</code> ou só de <code>logical</code>. Dessa forma, o vetor irá herdar a classe dos objetos que ele contêm. Sendo assim, para termos vetores da classe <code>numeric</code> precisamos criar um vetor com objetos da classe <code>numeric</code> dentro dele.</p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-20" class="exercise"><strong>Exercício 3.1  </strong></span>Crie um vetor de classe <code>numeric</code>, <code>logical</code> e <code>character</code> e atribua cada um deles a uma variável diferente.
+</div>
+
+<p> </p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-21" class="exercise"><strong>Exercício 3.2  </strong></span>Pergunte ao R a classe de cada um dos vetores.
+</div>
+
+<p> </p>
+<p>Bom, como o vetor herda as características da classe então podemos fazer operações matemáticas com os vetores numéricos.</p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-22" class="exercise"><strong>Exercício 3.3  </strong></span>Multiplique o seu vetor <code>numeric</code> por um número.</p>
+</div>
+
+<p> 
+O que aconteceu? Ele mudou o seu vetor original?</p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-23" class="exercise"><strong>Exercício 3.4  </strong></span>Agora crie mais um vetor <code>numeric</code> (do mesmo tamanho) e multiple os dois vetores.
+</div>
+
+<p>O que o R fez?</p>
+<p>E se tivéssemos vetores de tamanho diferente?</p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-24" class="exercise"><strong>Exercício 3.5  </strong></span>Multiplique dois vetores <code>numeric</code> de tamanhos diferentes.
+</div>
+
+<p> </p>
+<p>O que aconteceu?</p>
+<blockquote>
+<p>O R, diferente de outras linguagens, quando solicitado que faça operações com vetores de tamanhos diferentes ele faz uma reciclagem: alinha os dois vetores e, caso não possuam o mesmo tamanho, vai repetindo o vetor menor até completar o vetor maior. Outras linguagens não permitiriam a operação e retornariam um erro.</p>
+</blockquote>
+<p>A letra <code>c</code> na sintaxe da criação de um vetor vem da palavra <code>combine</code> pois o vetor nada mais é do que a combinação de vários objetos na sequência.</p>
+<div id="nomeação-de-vetores" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Nomeação de vetores</h3>
+<p>Podemos vincular nomes aos vetores com a função <code>names()</code>, da seguinte forma:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">sacola1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">7</span>)</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="kw">names</span>(sacola1) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Laranja&quot;</span>, <span class="st">&quot;Pera&quot;</span>, <span class="st">&quot;Uva&quot;</span>, <span class="st">&quot;Maça&quot;</span>)</a></code></pre></div>
+<p>Agora quando pedimos para ver o vetor nomeado ele aparece da seguinte forma:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">sacola1</a></code></pre></div>
+<pre><code>## Laranja    Pera     Uva    Maça 
+##      10       5       8       7</code></pre>
+<p>No caso, como temos apenas uma sacola de feira, o jeito que fizemos faz sentido: atribuímos um vetor e depois usamos a função <code>names</code> para nomeá-lo. Mas e se tivermos mais de um vetor de sacolas de feira, com as mesmas características dentro?</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">sacola2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">sacola3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb32-3" data-line-number="3">sacola4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">3</span>, <span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb32-4" data-line-number="4">sacola5 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">12</span>)</a></code></pre></div>
+<p>Agora faz sentido otimizarmos a nossa função. Para isso criamos um vetor chamado <code>nomes</code> e associamos ele a cada uma dos vetores:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">nomes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Laranja&quot;</span>, <span class="st">&quot;Pera&quot;</span>, <span class="st">&quot;Uva&quot;</span>, <span class="st">&quot;Maça&quot;</span>)</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="kw">names</span>(sacola2) &lt;-<span class="st"> </span>nomes</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3"><span class="kw">names</span>(sacola3) &lt;-<span class="st"> </span>nomes</a>
+<a class="sourceLine" id="cb33-4" data-line-number="4"><span class="kw">names</span>(sacola4) &lt;-<span class="st"> </span>nomes</a>
+<a class="sourceLine" id="cb33-5" data-line-number="5"><span class="kw">names</span>(sacola5) &lt;-<span class="st"> </span>nomes</a></code></pre></div>
+<p>Pronto! Conseguimos nomear todos os vetores de forma mais rápida.</p>
+</div>
+<div id="operações-com-vetores" class="section level3">
+<h3><span class="header-section-number">3.1.2</span> Operações com vetores</h3>
+<p>Agora queremos saber qual foi o total de cada fruta comprada. Como já sabemos como fazer operações matemáticas com vetores precisamos apenas somar os vetores correspondentes das nossas sacolas de feira e adicionar em um vetor de soma.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">soma_feira &lt;-<span class="st"> </span>sacola1 <span class="op">+</span><span class="st"> </span>sacola2 <span class="op">+</span><span class="st"> </span>sacola3 <span class="op">+</span><span class="st"> </span>sacola4 <span class="op">+</span><span class="st"> </span>sacola5</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">soma_feira</a></code></pre></div>
+<pre><code>## Laranja    Pera     Uva    Maça 
+##      37      36      33      38</code></pre>
+<p>Agora o nosso vetor <code>soma_feira</code> armazena a soma de cada fruta em todas as sacolas de feira. Assim, podemos responder: quantas laranjas foram compradas no total? Qual foi a fruta mais comprada?</p>
+<p>O vetor total não é nomeado. Podemos nomeá-lo. Usando a função <code>names</code>.</p>
+ 
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-30" class="exercise"><strong>Exercício 3.6  </strong></span>Nomeie o vetor total de sacolas de feira.</p>
+</div>
+
+<p> </p>
+<p>Mas e se quisermos saber a soma de itens de cada sacola? Nesse caso, fazer operaçóes com vetores não nos ajuda. Em outras linguagens de programação teríamos que programar laços de repetição e laços condicionais para realizar essa operação e, se quiséssemos utilizar em outras situações (reaproveitá-la) teríamos que programar uma função. O R por já vir com varias funções pré-programadas facilita o nosso trabalho. Sendo assim, precisamos apenas utilizar a função <code>sum()</code><a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> (olhe a documentação da função).</p>
+ 
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-31" class="exercise"><strong>Exercício 3.7  </strong></span>Faça a soma de cada um dos vetores de sacolas utilizando a função <code>sum()</code>. Armazene cada resultado em uma nova variável.</p>
+</div>
+
+<p> </p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-32" class="exercise"><strong>Exercício 3.8  </strong></span>Descubra o total de itens comprados na feira utilizando a função <code>sum()</code>. Armazene cada resultado em uma nova variável.</p>
+</div>
+
+<p> </p>
+</div>
+<div id="selecionar-elementos-dentro-de-um-vetor" class="section level3">
+<h3><span class="header-section-number">3.1.3</span> Selecionar elementos dentro de um vetor</h3>
+<p>Algo útil para fazermos é conseguirmos selecionar elementos dentro dos vetores. Para isso precisamos entender o conceito de <code>endereçamento</code>. Por exemplo, o vetor de tamanho quatro tem quatro espaços dentro dele, dentro de cada um desses espaços está armazenado um objeto (um número, um texto ou um objeto de tipo lógico), ou seja, esse vetor tem 4 “endereços” dentro dele. Isso nos facilita pois nem sempre sabemos o que tem dentro do vetor e para descobrirmos não precisamos pedir para o R nos retornar o vetor inteiro (às vezes o vetor é muito grande e esse precedimento se torna inviável).</p>
+<p>Para indicarmos que queremos ver algo dentro de um <code>endereço</code> utilizamos a sintaxe de <code>[]</code>. Para indicarmos um endereço de um vetor utilizamos a sintaxe vetor[x], onde x indica um número de 1 ate n (a maior casa do vetor).</p>
+<p> </p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-33" class="exercise"><strong>Exercício 3.9  </strong></span>Selecione o elemento 4 do vetor da sacola 3. Atribua esse valor a uma variável.</p>
+</div>
+
+<p> </p>
+<p>Podemos também selecionar mais de um valor do vetor. A sintaxe é indicar dentro dos <code>[]</code> a seleção a ser selecionada. Veja que isso indica um novo vetor então a sintaxe também deve seguir a sintaxe de um vetor: <code>vetor[c(x, y, z)]</code>. Se os números indicam um intervalo podemos utilizar a sintaxe <code>vetor[x:y]</code>.</p>
+<p> </p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-34" class="exercise"><strong>Exercício 3.10  </strong></span>Selecione do vetor <code>sacola3</code> os valores 1 e 3 e do vetor sacola2 os valores de 2 a 4.</p>
+</div>
+
+<p> </p>
+<p>Para vetores nomeados é possível selecionar a partir dos nomes. A lógica é a mesma, mas dentro dos <code>[]</code> adicionamos o nome entre <code>&quot; &quot;</code> (por ser uma variável de classe textual). Para selecionarmos mais de um nome também fazemos do mesmo jeito.</p>
+<p> </p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-35" class="exercise"><strong>Exercício 3.11  </strong></span>Selecione a quantidade de laranjas do vetor da sacola 4. Selecione a quantidade de peras e maças do vetor da sacola 5.
+</div>
+
+</div>
+<div id="comparações-de-vetores-e-entre-vetores" class="section level3">
+<h3><span class="header-section-number">3.1.4</span> Comparações de vetores e entre vetores</h3>
+<p>Assim como fizemos comparações entre os objetos criados, podemos fazer comparações entre os vetores. Compare o vetor <code>sacola1</code> com o vetor <code>sacola2</code>. Quando utilizamos os operadores relacionais entre dois vetores o R retorna a comparação de cada um dos itens, ou seja, a comparação do item 1 do primeiro vetor com o item 1 do segundo vetor e assim por diante. Retornando <code>TRUE</code> ou <code>FALSE</code> em cada um deles. Em vetores nomeados com os mesmos nomes esse procedimento é ainda mais fácil pois o R nos retorna o resultado das comparações com os nomes dos vetores.</p>
+<p> </p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-36" class="exercise"><strong>Exercício 3.12  </strong></span>Qual dos itens do vetor <code>sacola2</code> são maiores que os itens do vetor <code>sacola4</code>?</p>
+</div>
+
+<p> </p>
+<p>Também podemos fazer essas comparações com a soma de cada sacola.</p>
+<p> </p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-37" class="exercise"><strong>Exercício 3.13  </strong></span>A soma dos itens da <code>sacola3</code> é menor que a soma dos itens da <code>sacola5</code>?</p>
+</div>
+
+<p> </p>
+<p>Podemos utilizar os mesmos sinais de comparação para saber quais os valores de um vetor são maiores que um número, por exemplo. Assim se perguntarmos ao R <code>vetor &gt; 5</code> ele irá nos responder elemento por elemento se é ou não maior que cinco (respondendo com operadores lógicos).</p>
+<p> </p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-38" class="exercise"><strong>Exercício 3.14  </strong></span>Veja quais casas do vetor da sacola 5 tem valores maiores ou iguais a 10.</p>
+</div>
+
+<p> </p>
+<p>Porém, seria mais útil se tivessemos como retorno os números que correspondem a busca que desejamos. Para isso, precisamos inserir <code>vetor[vetor &gt; x]</code>. Aqui o R irá retornar os números que são maiores que x. No caso do vetor nomeado a resposta virá acompanhada dos nomes. Lembre-se que dessa forma não temos como saber quais casas tem os valores retornados, o R retorna os elementos que são <code>TRUE</code> no seu vetor mas não indica qual era a posição original. Esse é o nosso primeiro contato um tipo de filtragem dos dados.</p>
+<p> </p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-39" class="exercise"><strong>Exercício 3.15  </strong></span>Armazene em uma variável os valores do vetor <code>sacola1</code> que são menores do que 10.</p>
+</div>
+
+<p> </p>
+</div>
+<div id="adição-e-exclusão-de-valores-em-um-vetor" class="section level3">
+<h3><span class="header-section-number">3.1.5</span> Adição e exclusão de valores em um vetor</h3>
+<p>Podemos adicionar e excluir valores de um vetor existente. Para adicionarmos valores em um vetor podemos fazer de três formas distintas:</p>
+<ul>
+<li><strong>Por endereçamento direto</strong> - dessa forma precisamos indicar dentro dos colchetes o endereço da última casa mais um:
+<ul>
+<li>vetor[x+1] &lt;- 5</li>
+</ul></li>
+<li><strong>Por endereçamento indireto</strong> - dessa forma não precisamos saber o tamanho do vetor, indicamos a partir da função <code>length()</code> o tamanho do vetor <code>+ 1</code>
+<ul>
+<li>vetor[length(vetor) + 1] &lt;- 9</li>
+</ul></li>
+<li><strong>Por recursividade</strong> - substituímos o vetor original por um novo vetor que tem o vetor original seguido de uma casa antes e/ou depois
+<ul>
+<li>vetor &lt;- c(vetor, 10)</li>
+<li>vetor &lt;- c(10, vetor)</li>
+</ul></li>
+</ul>
+<blockquote>
+<p>Das duas primeiras formas, se indicamos um número diferente de 1 no endereço o R, diferente de outras linguagens, coloca <code>NA</code> nas casas entre a última casa do vetor e a casa nova atribuída. Veja o exemplo a seguir.</p>
+</blockquote>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">vetor1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">vetor1[<span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">5</span></a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">vetor1</a></code></pre></div>
+<pre><code>## [1]  1  2  4 NA  5</code></pre>
+<blockquote>
+<p>Como o vetor tinha inicialmente 3 casas e indicamos um valor para uma 5ª casa, o R criou a 5ª casa com o valor indicado, mas precisava para tanto criar uma 4ª casa também. Essa ele incluiu um valor <code>NA</code> pois o valor dessa casa não foi indicado.</p>
+</blockquote>
+<p> </p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-41" class="exercise"><strong>Exercício 3.16  </strong></span>Adicione os valores de soma, calculados anteiormente, nos respectivos vetores de sacolas de feira.</p>
+</div>
+
+<p> </p>
+<p>Por fim, para excluir elementos de um vetor, indicamos por recursividade o vetor dentro de [] os valores que queremos excluir com um traço na frente. Se queremos excluir um intervalo indicamos [-c(x:y)] e se queremos excluir números específicos indicamos [-c(x, y, z)].</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">vetor1 &lt;-<span class="st"> </span>vetor1[<span class="op">-</span><span class="kw">c</span>(<span class="dv">4</span>)]</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">vetor1</a></code></pre></div>
+<pre><code>## [1] 1 2 4 5</code></pre>
+<blockquote>
+<p>No caso da exclusão não é necessario que seja por recursividade. É possivel atribuir um novo vetor para o procedimento.</p>
+</blockquote>
+</div>
+<div id="funções-com-vetores" class="section level3">
+<h3><span class="header-section-number">3.1.6</span> Funções com vetores</h3>
+<p>Na última parte dessa aula iremos aprender algumas funções úteis para utilizar em vetores. Ainda que possamos criar vetores de sequência utilizando apenas a sintaxe <code>x:y</code>, por exemplo as funções <code>rep()</code> e <code>seq()</code> nos auxiliam a criar sequências mais personalizadas.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co">#Criando sequências sem as funções rep() ou seq()</span></a>
+<a class="sourceLine" id="cb40-2" data-line-number="2">seq1 &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3">seq1</a></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5 6 7 8</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1">seq2 &lt;-<span class="st"> </span><span class="fl">2.5</span><span class="op">:</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">seq2</a></code></pre></div>
+<pre><code>## [1] 2.5 3.5 4.5 5.5 6.5 7.5 8.5 9.5</code></pre>
+<p>A função <code>seq()</code> possibilita personalizar outros argumentos para a criação da sequência. O principal argumento é o <code>by</code> em que podemos definir o incremento da sequência. Por exemplo, se quero uma sequência de 0 a 10 de 2 em 2 utilizo: <code>seq(0, 10, by = 2)</code>. Veja outros argumentos na documentação da função <code>seq()</code>.</p>
+<p> </p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-44" class="exercise"><strong>Exercício 3.17  </strong></span>Crie um vetor com uma sequência de numeros iniciando em -20 e indo ate 50 de 5 em 5. Atribua a uma variável.
+</div>
+
+<p> </p>
+<p>A função <code>rep()</code> possibilita a criação de sequências de numeros repetidos. Por exemplo, se utilizarmos <code>rep(5,3)</code> iremos ter um vetor com o número 5 repetido 3 vezes.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">rep</span>(<span class="dv">5</span>,<span class="dv">3</span>)</a></code></pre></div>
+<pre><code>## [1] 5 5 5</code></pre>
+<p>Para ter um intervalo podemos utilizar <code>rep(x:y, n)</code>, ou seja, um intervalo que vai de x a y repetido n vezes.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>##  [1] 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5</code></pre>
+<p>Por fim, podemos criar um intervalo repetindo cada número do intervalo n vezes.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">each =</span> <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>##  [1] 1 1 1 2 2 2 3 3 3 4 4 4 5 5 5</code></pre>
+<p>Outras funções úteis para aprendermos agora são:</p>
+<ul>
+<li>mean(x) - cálculo da média do vetor x</li>
+<li>var(x) - cálculo da variância do vetor x</li>
+<li>max(x) - o valor máximo encontrado no vetor x</li>
+<li>min(x) - o valor mínimo encontrado no vetor x</li>
+<li>sd(x) - o desvio padrão do vetor x</li>
+<li>range(x) - a amplitude do vetor x</li>
+<li>length(x) - o tamanho do vetor x</li>
+<li>rev(x) - inverter o vetor x <strong>Atenção: isso não altera o vetor original</strong></li>
+</ul>
+<blockquote>
+<p>Se colocarmos duas ou mais classes diferentes dentro de um mesmo vetor, o R vai forçar que todos os elementos passem a pertencer à mesma classe. Ordem de preferência: character &gt; complex &gt; numeric &gt; integer &gt; logical</p>
+</blockquote>
+</div>
+</div>
+<div id="matrizes" class="section level2">
+<h2><span class="header-section-number">3.2</span> Matrizes</h2>
+<p>Matrizes são vetores (<em>arrays</em>) bidimensionais. Justamente por serem vetores, herdam a mesma característica dos vetores: podem ser apenas de uma mesma classe. Para criar uma matriz precisamos utilizar a função <code>matrix()</code>, mas atenção é necessário tomar cuidado com o argumento <code>byrow</code>. Por padrão a função <code>matrix()</code> define o argumento <code>byrow</code> como <code>FALSE</code> e portanto, preenche a matriz por colunas. Se quisermos que preencher por linhas precisamos atribuir o argumento <code>byrow</code> como <code>TRUE</code>. Veja a diferença:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>, <span class="dt">byrow =</span> <span class="ot">FALSE</span>, <span class="dt">nrow =</span> <span class="dv">10</span>) </a></code></pre></div>
+<pre><code>##       [,1] [,2] [,3]
+##  [1,]    1   11   21
+##  [2,]    2   12   22
+##  [3,]    3   13   23
+##  [4,]    4   14   24
+##  [5,]    5   15   25
+##  [6,]    6   16   26
+##  [7,]    7   17   27
+##  [8,]    8   18   28
+##  [9,]    9   19   29
+## [10,]   10   20   30</code></pre>
+<p>O comando anterior criou uma matriz de 1 a 30 preenchendo por colunas. Agora alterando o argumento <code>byrow</code>:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>, <span class="dt">nrow =</span> <span class="dv">10</span>)</a></code></pre></div>
+<pre><code>##       [,1] [,2] [,3]
+##  [1,]    1    2    3
+##  [2,]    4    5    6
+##  [3,]    7    8    9
+##  [4,]   10   11   12
+##  [5,]   13   14   15
+##  [6,]   16   17   18
+##  [7,]   19   20   21
+##  [8,]   22   23   24
+##  [9,]   25   26   27
+## [10,]   28   29   30</code></pre>
+<p>Apesar do primeiro e último item das duas matrizes serem os mesmos todos os outros são bem diferentes. O agumento <code>nrow</code> define o número de linhas que desejamos na matriz. No caso, como temos 30 numeros e definimos que queremos 10 linhas teremos 3 colunas (30/10 = 3). Se definíssemos 5 linhas teriamos 6 colunas. Como a seguir:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>, <span class="dt">nrow =</span> <span class="dv">5</span>)</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6]
+## [1,]    1    2    3    4    5    6
+## [2,]    7    8    9   10   11   12
+## [3,]   13   14   15   16   17   18
+## [4,]   19   20   21   22   23   24
+## [5,]   25   26   27   28   29   30</code></pre>
+<p>Utilize sempre múltiplos do número desejado se não o R faz a reciclagem das casas e cria uma matriz maior do que a desejada. Como a seguir:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">matrix</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">30</span>, <span class="dt">byrow =</span> <span class="ot">TRUE</span>, <span class="dt">nrow =</span> <span class="dv">7</span>)</a></code></pre></div>
+<pre><code>## Warning in matrix(1:30, byrow = TRUE, nrow = 7): data length [30] is not a
+## sub-multiple or multiple of the number of rows [7]</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]    6    7    8    9   10
+## [3,]   11   12   13   14   15
+## [4,]   16   17   18   19   20
+## [5,]   21   22   23   24   25
+## [6,]   26   27   28   29   30
+## [7,]    1    2    3    4    5</code></pre>
+<p>De modo equivalente o argumento <code>ncol</code> define o número de colunas da matriz. Os dois argumentos são complemetares, não sendo necessário utilizá-los concomitantemente.</p>
+<p>Vamos criar uma matriz com os vetores que tínhamos anteriormente (sacolas de feira). Primeiro criamos um vetor com todas as sacolas concatenadas:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">sacolas &lt;-<span class="st"> </span><span class="kw">c</span>(sacola1, sacola2, sacola3, sacola4, sacola5)</a>
+<a class="sourceLine" id="cb59-2" data-line-number="2">sacolas</a></code></pre></div>
+<pre><code>## Laranja    Pera     Uva    Maça Laranja    Pera     Uva    Maça Laranja 
+##      10       5       8       7       5       9       7       6       8 
+##    Pera     Uva    Maça Laranja    Pera     Uva    Maça Laranja    Pera 
+##       7       5       4       9      12       3       9       5       3 
+##     Uva    Maça 
+##      10      12</code></pre>
+<p>Cuidado com a ordem das sacolas!</p>
+<p>Depois criamos uma matriz com essas sacolas. Cuidado com o argumento <code>byrow</code>! Aqui precisamos que a matriz seja preenchida por linhas, então o argumento <code>byrow</code> deve ser verdadeiro! O argumento <code>nrow</code> será o número das nossas sacolas.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">matriz_sacola &lt;-<span class="st"> </span><span class="kw">matrix</span>(sacolas, <span class="dt">byrow =</span> T, <span class="dt">nrow =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2">matriz_sacola</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]   10    5    8    7
+## [2,]    5    9    7    6
+## [3,]    8    7    5    4
+## [4,]    9   12    3    9
+## [5,]    5    3   10   12</code></pre>
+<p>Veja que agora o R criou um objeto diferente: do tipo <code>Data</code>. Isso significa que o R interpreta a matriz de forma diferente dos vetores e objetos simples. Uma outra forma de fazer a matriz é fazer de forma direta o vetor dentro do primeiro argumento: <code>matrix(c(sacola1, sacola2, sacola3, sacola4, sacola5), byrow = T, nrow = 5)</code></p>
+<p>Porém ao transformar em matriz perdemos os nomes dos nossos vetores (nossas colunas). Vamos criá-los novamente.</p>
+<p>Para criar os nomes das colunas precisamos utilizar agora a função <code>colnames</code>. Precisamos especificar onde vão os nomes pois agora não estamos mais trabalhando com vetores unidimensionais. Para isso podemos reaproveitar o nosso vetor <code>nomes</code>, que utilizamos anteriormente.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">colnames</span>(matriz_sacola) &lt;-<span class="st"> </span>nomes</a></code></pre></div>
+<p>Dissemos para o R que os nomes das colunas de <code>matriz_sacola</code> correspondem ao vetor nomes.</p>
+<p>Agora precisamos definir os nomes das nossas linhas. Para isso utilizamos a função <code>rownames</code>. Como não temos nenhum vetor de nomes para linhas vamos fazer direto dentro da função:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="kw">rownames</span>(matriz_sacola) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;sacola1&quot;</span>, <span class="st">&quot;sacola2&quot;</span>, <span class="st">&quot;sacola3&quot;</span>, <span class="st">&quot;sacola4&quot;</span>, <span class="st">&quot;sacola5&quot;</span>)</a></code></pre></div>
+<p>Pronto! Agora temos uma matriz com nomes nas linhas e colunas.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">matriz_sacola</a></code></pre></div>
+<pre><code>##         Laranja Pera Uva Maça
+## sacola1      10    5   8    7
+## sacola2       5    9   7    6
+## sacola3       8    7   5    4
+## sacola4       9   12   3    9
+## sacola5       5    3  10   12</code></pre>
+<p>Agora queremos fazer as somas das linhas e das colunas. Esse processo pode ser um pouco confuso, por isso precisamos tomar bastante cuidado!</p>
+<p>Primeiro fazemos as somas das linhas, ou seja, criamos um vetor que tem a soma das linhas. Como temos 5 linhas, esse vetor terá 5 elementos. Para isso utilizamos a função <code>rowSums()</code> na nossa matriz, criando um vetor de soma:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">somaL &lt;-<span class="st"> </span><span class="kw">rowSums</span>(matriz_sacola)</a>
+<a class="sourceLine" id="cb67-2" data-line-number="2">somaL</a></code></pre></div>
+<pre><code>## sacola1 sacola2 sacola3 sacola4 sacola5 
+##      30      27      24      33      30</code></pre>
+<p>Esse vetor será correspondente a uma nova <strong>coluna</strong> da nossa matriz. Por isso utilizamos a função <code>cbind()</code> para colar essa nova coluna na nossa matriz. A função <code>cbind()</code> precisa como primeiro argumento o nome da nossa matriz e como segundo o que vamos colar nela (o vetor somaL). Porém a função não sobrescreve a matriz original, então precisamos atribuir toda a função a matriz original:</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">matriz_sacola &lt;-<span class="st"> </span><span class="kw">cbind</span>(matriz_sacola, somaL)</a>
+<a class="sourceLine" id="cb69-2" data-line-number="2">matriz_sacola</a></code></pre></div>
+<pre><code>##         Laranja Pera Uva Maça somaL
+## sacola1      10    5   8    7    30
+## sacola2       5    9   7    6    27
+## sacola3       8    7   5    4    24
+## sacola4       9   12   3    9    33
+## sacola5       5    3  10   12    30</code></pre>
+<p>Agora queremos a soma das colunas. Para isso utilizamos a função <code>colSums()</code> e atribuímos ela a um vetor:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">somaC &lt;-<span class="st"> </span><span class="kw">colSums</span>(matriz_sacola)</a>
+<a class="sourceLine" id="cb71-2" data-line-number="2">somaC</a></code></pre></div>
+<pre><code>## Laranja    Pera     Uva    Maça   somaL 
+##      37      36      33      38     144</code></pre>
+<p>O vetor <code>somaC</code> será correspondente a uma nova <strong>linha</strong> da nossa matriz. Assim, precisamos unir essa linha a nossa matriz. Para isso, utilizamos a função <code>rbind()</code>. Da mesma forma que a função <code>cbind()</code> funciona, a função <code>rbind()</code> não sobrescreve a matriz original. Portanto, precisamos atribuir essa função à matriz original:</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">matriz_sacola &lt;-<span class="st"> </span><span class="kw">rbind</span>(matriz_sacola, somaC)</a>
+<a class="sourceLine" id="cb73-2" data-line-number="2">matriz_sacola</a></code></pre></div>
+<pre><code>##         Laranja Pera Uva Maça somaL
+## sacola1      10    5   8    7    30
+## sacola2       5    9   7    6    27
+## sacola3       8    7   5    4    24
+## sacola4       9   12   3    9    33
+## sacola5       5    3  10   12    30
+## somaC        37   36  33   38   144</code></pre>
+<blockquote>
+<p>De modo a diminuir os passos é possível unir o passo 1 e 2 da seguinte forma: cbind(rowSums(matriz_sacola), matriz_sacola). E os passos 3 e 4 da seguinte forma: rbind(colSums(matriz_sacola), matriz_sacola). Sempre atribuindo a <code>matriz_sacola</code>.</p>
+</blockquote>
+<div id="seleção-de-elementos-matriz" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Seleção de elementos matriz</h3>
+<p>Podemos selecionar elementos internos dentro de uma matriz. Para tanto, precisamos indicar o endereço que queremos, como fizemos com a seleção de vetores. Porém dessa vez precisamos indicar o endereço da linha e da coluna. A sintaxe para esse tipo de seleção é: <code>matrix[x, y]</code> onde <code>x</code> é o número da linha que você quer selecionar e <code>y</code> o número da coluna.</p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-61" class="exercise"><strong>Exercício 3.18  </strong></span>Selecione o terceiro elemento da segunda coluna da <code>matriz_sacola</code>.
+</div>
+
+<p> </p>
+<p>Da mesma forma, podemos selecionar uma coluna ou uma linha inteira da matriz. Para selecionar uma linha inteira deixamos o valor de <code>y</code> vazio e se quisermos selecionar uma coluna inteira deixamos o valor de <code>x</code> vazio.</p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-62" class="exercise"><strong>Exercício 3.19  </strong></span>Selecione a 5ª linha da <code>matriz_sacola</code>.
+</div>
+
+<p> </p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-63" class="exercise"><strong>Exercício 3.20  </strong></span>Selecione a 3ª coluna da <code>matriz_sacola</code>.
+</div>
+
+<p> </p>
+</div>
+<div id="operações-com-matrizes" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Operações com matrizes</h3>
+<p>Da mesma forma que fizemos operações com os vetores podemos fazer operações (+, -, /, *, ^, %%, %/%) de matrizes com escalares, com vetores ou com outras matrizes. Apenas temos que tomar cuidado com o tamanho das matrizes. Se elas forem de tamanho diferentes o R irá reciclar (repetir) a matriz menor.</p>
+<blockquote>
+<p>O operador <code>*</code> não é equivalente a multiplicação matricial das matrizes. Utilizando esse operador o R multiplica o primeiro item da matriz A com o primeiro item da matriz B. Para realizar multiplicação matricial precisamos utilizar o operador <code>%*%</code>.</p>
+</blockquote>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-64" class="exercise"><strong>Exercício 3.21  </strong></span>Some duas matrizes do mesmo tamanho. Atribua o resultado a uma terceira matriz.
+</div>
+
+<p> </p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-65" class="exercise"><strong>Exercício 3.22  </strong></span>Some uma matriz com um vetor. Atribua o resultado a uma terceira matriz.
+</div>
+
+<p> </p>
+</div>
+</div>
+<div id="factors" class="section level2">
+<h2><span class="header-section-number">3.3</span> Factors</h2>
+<p>Factor<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> é uma estrutura de dados no R utilizada para armazenar variáveis categóricas. São considerados como uma classe especial de vetores e utilizados, principalmente, em análises estatísticas – as variáveis categóricas são interpretadas por modelos estatísticos de forma diferente das variáveis contínuas. Assim, quando armazenamos dados como <code>factors</code> garantimos que diversas funções presentes nos pacotes do R tratem esses dados de forma correta.</p>
+<p>Ao utilizarmos a função <code>factor()</code> o R armazena um vetor de valores inteiros com os correspondentes em rótulos categóricos para serem usados quando o factor é solicitado.</p>
+<p>Por exemplo, se tenho um vetor numerico de 0 e 1 e utilizo a função <code>factor()</code> informando ao R que o 0 equivale <code>masculino</code> e 1 equivale a <code>feminino</code>. Ele irá interpretar os 0 e os 1 do meu vetor com o seus respectivos rótulos:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1">genero &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb75-2" data-line-number="2">genero &lt;-<span class="st"> </span><span class="kw">factor</span>(genero, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;feminino&quot;</span>, <span class="st">&quot;masculino&quot;</span>))</a></code></pre></div>
+<p>Da mesma forma, posso inserir um vetor textual e utilizar a função <code>factor()</code>, o R irá interpretar todos os diferentes caracteres do vetor como um nível diferente. Desse jeito, precisamos tomar cuidado ao inserir os elementos textuais pois “f” é diferente de “F” e o R interpretaria como 2 níveis diferentes.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1">genero &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>)</a>
+<a class="sourceLine" id="cb76-2" data-line-number="2">genero &lt;-<span class="st"> </span><span class="kw">factor</span>(genero)</a></code></pre></div>
+<p>Também podemos fazer factors que sejam ordenados, ou seja, informar que existe uma ordem pré-estabelecida das categorias. Para isso adicionamos o argumento <code>order = T</code> e no argumento <code>levels</code> inserimos as categorias na ordem desejada:</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1">vetor_satisf &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Bom&quot;</span>, <span class="st">&quot;Ruim&quot;</span>, <span class="st">&quot;Excelente&quot;</span>, <span class="st">&quot;Razoável&quot;</span>, <span class="st">&quot;Razoável&quot;</span>, <span class="st">&quot;Ótimo&quot;</span>, <span class="st">&quot;Bom&quot;</span>, <span class="st">&quot;Péssimo&quot;</span>, <span class="st">&quot;Excelente&quot;</span>)</a>
+<a class="sourceLine" id="cb77-2" data-line-number="2">vetor_satisf &lt;-<span class="st"> </span><span class="kw">factor</span>(vetor_satisf, <span class="dt">order =</span> <span class="ot">TRUE</span>, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;Péssimo&quot;</span>, <span class="st">&quot;Ruim&quot;</span>, <span class="st">&quot;Razoável&quot;</span>, <span class="st">&quot;Bom&quot;</span>, <span class="st">&quot;Ótimo&quot;</span>, <span class="st">&quot;Excelente&quot;</span>))</a></code></pre></div>
+<blockquote>
+<p>Se informamos que há uma ordem das categorias (<code>order= TRUE</code>), mas não especificamos a ordem no argumento <code>levels</code> o R irá definir a ordem pela ordem alfabética dos fatores.</p>
+</blockquote>
+</div>
+<div id="dataframes" class="section level2">
+<h2><span class="header-section-number">3.4</span> Dataframes</h2>
+<p>Como os elementos dentro de uma matriz não podem ser de classes/tipos diferentes precisamos de um outro tipo de objeto para tratar banco de dados quando queremos trabalhar com vários tipos de dados. Um <em>dataframe</em> é capaz de armazenar objetos de classes diferentes e trata as colunas como variáveis e as linhas como observações (casos). Porém, não podemos armazenar objetos de classes diferentes dentro de uma mesma coluna (ou variável).</p>
+<p>Para criar um <em>dataframe</em> utilizamos a função <code>data.frame()</code>. Podemos indicar vetores ou uma matriz para serem transformados em data frames. Porém, a função <code>data.frame()</code> vê os vetores inseridos como colunas. Então, para trnasformar os nossos vetores <code>sacolas</code> em data frame precisamos ou primeiro transformar eles em uma matriz e preenchê-lo da maneira correta ou utilizamos a função <code>transpose()</code> do pacote <code>data.table</code> (dessa forma não teremos os nomes das linhas, das colunas, a soma das linhas ou das colunas).</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" data-line-number="1">data_sacola &lt;-<span class="st"> </span><span class="kw">data.frame</span>(matriz_sacola)</a>
+<a class="sourceLine" id="cb78-2" data-line-number="2">data_sacola</a></code></pre></div>
+<pre><code>##         Laranja Pera Uva Maça somaL
+## sacola1      10    5   8    7    30
+## sacola2       5    9   7    6    27
+## sacola3       8    7   5    4    24
+## sacola4       9   12   3    9    33
+## sacola5       5    3  10   12    30
+## somaC        37   36  33   38   144</code></pre>
+<p>Criamos um data frame com os dados das sacolas que tínhamos mas o nosso maior objetivo é utilizar data frames para banco de dados com classes de objetos diferentes. Vamos, então, criar um data frame com variáveis de diversos tipos. Dentro de cada linha da função <code>data.frame()</code> há a criação de uma variavel. As que tem a função <code>sample()</code> fazem sorteios dentro dos limites especificados (com repetição), as com a função <code>factor()</code> criam variáveis categóricas com a repetição definida no vetor do segundo argumento e a função <code>paste()</code> cria uma sequência de <code>0000</code> seguida de números de 1 a 30 (o equivalente de um ID de indivíduos). Por fim, a função <code>colnames()</code> define os nomes das colunas do nosso banco:</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1">banco &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">paste</span>(<span class="st">&quot;0000&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">30</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>), </a>
+<a class="sourceLine" id="cb80-2" data-line-number="2">                    <span class="kw">factor</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;b&quot;</span>, <span class="st">&quot;n&quot;</span>, <span class="st">&quot;i&quot;</span>, <span class="st">&quot;o&quot;</span>), <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">6</span>, <span class="dv">4</span>))), </a>
+<a class="sourceLine" id="cb80-3" data-line-number="3">                    <span class="kw">factor</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;f&quot;</span>,<span class="st">&quot;m&quot;</span>), <span class="kw">c</span>(<span class="dv">16</span>,<span class="dv">14</span>))), </a>
+<a class="sourceLine" id="cb80-4" data-line-number="4">                    <span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">16</span><span class="op">:</span><span class="dv">60</span>), <span class="dv">30</span>, <span class="dt">replace =</span> T), </a>
+<a class="sourceLine" id="cb80-5" data-line-number="5">                    <span class="kw">factor</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;superior&quot;</span>,<span class="st">&quot;tecnico&quot;</span>, <span class="st">&quot;medio&quot;</span>, <span class="st">&quot;fundamental&quot;</span>), <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">12</span>, <span class="dv">5</span>))), </a>
+<a class="sourceLine" id="cb80-6" data-line-number="6">                    <span class="kw">sample</span>(<span class="kw">seq</span>(<span class="dv">1000</span>, <span class="dv">30000</span>, <span class="dt">by =</span> <span class="dv">1000</span>), <span class="dv">30</span>, <span class="dt">replace =</span> T),  </a>
+<a class="sourceLine" id="cb80-7" data-line-number="7">                    <span class="kw">factor</span>(<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;solteiro&quot;</span>,<span class="st">&quot;casado&quot;</span>, <span class="st">&quot;viuvo&quot;</span>, <span class="st">&quot;separado&quot;</span>), <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">2</span>, <span class="dv">8</span>))))  </a>
+<a class="sourceLine" id="cb80-8" data-line-number="8"><span class="kw">colnames</span>(banco) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;individuo&quot;</span>, <span class="st">&quot;raca&quot;</span>, <span class="st">&quot;sexo&quot;</span>, <span class="st">&quot;idade&quot;</span>, <span class="st">&quot;escol&quot;</span>, <span class="st">&quot;renda&quot;</span>, <span class="st">&quot;civil&quot;</span>) </a>
+<a class="sourceLine" id="cb80-9" data-line-number="9">banco</a></code></pre></div>
+<pre><code>##    individuo raca sexo idade       escol renda    civil
+## 1      00001    b    f    20    superior 18000 solteiro
+## 2      00002    b    f    49    superior 26000 solteiro
+## 3      00003    b    f    27    superior  4000 solteiro
+## 4      00004    b    f    53    superior 22000 solteiro
+## 5      00005    b    f    35    superior  1000 solteiro
+## 6      00006    b    f    26     tecnico 11000 solteiro
+## 7      00007    b    f    51     tecnico  3000 solteiro
+## 8      00008    b    f    21     tecnico 24000 solteiro
+## 9      00009    b    f    20     tecnico  2000 solteiro
+## 10    000010    b    f    16     tecnico 25000 solteiro
+## 11    000011    n    f    17     tecnico 28000   casado
+## 12    000012    n    f    21     tecnico 25000   casado
+## 13    000013    n    f    47     tecnico 29000   casado
+## 14    000014    n    f    31       medio 14000   casado
+## 15    000015    n    f    52       medio  1000   casado
+## 16    000016    n    f    27       medio 25000   casado
+## 17    000017    n    m    41       medio  1000   casado
+## 18    000018    n    m    20       medio  8000   casado
+## 19    000019    n    m    60       medio 22000   casado
+## 20    000020    n    m    31       medio 15000   casado
+## 21    000021    i    m    41       medio 19000    viuvo
+## 22    000022    i    m    35       medio 26000    viuvo
+## 23    000023    i    m    47       medio  7000 separado
+## 24    000024    i    m    31       medio 30000 separado
+## 25    000025    i    m    54       medio 14000 separado
+## 26    000026    i    m    32 fundamental  7000 separado
+## 27    000027    o    m    39 fundamental 23000 separado
+## 28    000028    o    m    24 fundamental 17000 separado
+## 29    000029    o    m    33 fundamental 27000 separado
+## 30    000030    o    m    36 fundamental 12000 separado</code></pre>
+<blockquote>
+<p>Como as variáveis idade e renda são construídas a partir de um sorteio aleatório cada vez que o código é rodado são criados resultados diferentes.</p>
+</blockquote>
+<div id="funções-básicas-para-data-frames" class="section level3">
+<h3><span class="header-section-number">3.4.1</span> Funções básicas para data frames</h3>
+<p>Toda a vez que abrimos um novo data frame é importante utilizarmos 4 funções básicas: <code>head()</code>, <code>tail()</code>, <code>str()</code> e <code>summary()</code>.</p>
+<p>As funções <code>head()</code> e <code>tail()</code> mostram, respectivamente, os primeiros e os últimos 6 casos (linhas) do seu banco de dados. Se você quiser aumentar o número de linhas mostrado precisa adicionar o argumento <code>n =</code> e definir a quantidade desejada.</p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-71" class="exercise"><strong>Exercício 3.23  </strong></span>Mostre os 10 primeiros e 10 últimos itens do data frame <code>banco</code>.
+</div>
+
+<p> </p>
+<p>A função <code>str()</code> retorna a estrutura de cada uma das variáveis do banco:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="kw">str</span>(banco)</a></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    30 obs. of  7 variables:
+##  $ individuo: Factor w/ 30 levels &quot;00001&quot;,&quot;000010&quot;,..: 1 12 23 25 26 27 28 29 30 2 ...
+##  $ raca     : Factor w/ 4 levels &quot;b&quot;,&quot;i&quot;,&quot;n&quot;,&quot;o&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ sexo     : Factor w/ 2 levels &quot;f&quot;,&quot;m&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ idade    : int  20 49 27 53 35 26 51 21 20 16 ...
+##  $ escol    : Factor w/ 4 levels &quot;fundamental&quot;,..: 3 3 3 3 3 4 4 4 4 4 ...
+##  $ renda    : num  18000 26000 4000 22000 1000 11000 3000 24000 2000 25000 ...
+##  $ civil    : Factor w/ 4 levels &quot;casado&quot;,&quot;separado&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...</code></pre>
+<p>E a função <code>summary()</code> retorna um resumo de todas as variáveis:</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="kw">summary</span>(banco)</a></code></pre></div>
+<pre><code>##    individuo  raca   sexo       idade               escol   
+##  00001  : 1   b:10   f:16   Min.   :16.00   fundamental: 5  
+##  000010 : 1   i: 6   m:14   1st Qu.:24.50   medio      :12  
+##  000011 : 1   n:10          Median :32.50   superior   : 5  
+##  000012 : 1   o: 4          Mean   :34.57   tecnico    : 8  
+##  000013 : 1                 3rd Qu.:45.50                   
+##  000014 : 1                 Max.   :60.00                   
+##  (Other):24                                                 
+##      renda            civil   
+##  Min.   : 1000   casado  :10  
+##  1st Qu.: 7250   separado: 8  
+##  Median :17500   solteiro:10  
+##  Mean   :16200   viuvo   : 2  
+##  3rd Qu.:25000                
+##  Max.   :30000                
+## </code></pre>
+<p>Com essas funções conseguimos ver como o R está interpretando cada uma das variáveis. Já vimos, por exemplo, que ele armazenou a variável indivíduo como um <code>factor</code>, o que não é o que gostaríamos. Depois veremos como transformar essa variável em texto.</p>
+</div>
+<div id="selecionando-elementos-dentro-de-um-dataframe" class="section level3">
+<h3><span class="header-section-number">3.4.2</span> Selecionando elementos dentro de um dataframe</h3>
+<p>Para selecionar elementos dentro de um dataframe podemos trabalhar com a mesma lógica das matrizes. Utilizando os símbolos <code>[ , ]</code> para delimitar a linha (ou intervalo de linhas) e a coluna (ou intervalo de colunas).</p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-74" class="exercise"><strong>Exercício 3.24  </strong></span>Selecione o elemento que está armazenado na linha 20 e na coluna 4.
+</div>
+
+<p> </p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-75" class="exercise"><strong>Exercício 3.25  </strong></span>Selecione a linha 10 inteira. Selecione a coluna 2 inteira.
+</div>
+
+<p> </p>
+<p>Podemos também selecionar um intervalo dentro de uma coluna. Para isso colocamos o intervalo de linhas que queremos (p.ex. <code>4:15</code>) e colocamos o número da coluna desejada. Porém, como nomeamos as nossas colunas, podemos colocar o nome da coluna no lugar do número:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" data-line-number="1">banco[<span class="dv">9</span><span class="op">:</span><span class="dv">20</span>, <span class="st">&quot;renda&quot;</span>]</a></code></pre></div>
+<pre><code>##  [1]  2000 25000 28000 25000 29000 14000  1000 25000  1000  8000 22000
+## [12] 15000</code></pre>
+<p>Da mesma forma, podemos selecionar variáveis de um caso ou de uma seleção de casos:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" data-line-number="1">banco[<span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">8</span>), <span class="dv">3</span><span class="op">:</span><span class="dv">5</span>]</a></code></pre></div>
+<pre><code>##   sexo idade    escol
+## 3    f    27 superior
+## 4    f    53 superior
+## 8    f    21  tecnico</code></pre>
+<p>No exemplo anterior selecionamos dos indivíduos 3, 4 e 8 as variáveis de 3 a 5 (<code>sexo</code>, <code>idade</code> e <code>escol</code>).</p>
+<p>Porém, os objetos do tipo <code>data frames</code> tem uma caracteristica diferente: o R automaticamente lê as colunas como variáveis. Então, podemos indicar as colunas a partir da sintaxe <code>$</code>. A função <code>subset()</code> nos ajuda a fazer filtragens mais avançadas:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" data-line-number="1"><span class="kw">subset</span>(banco, banco<span class="op">$</span>sexo <span class="op">==</span><span class="st"> &quot;m&quot;</span>)</a></code></pre></div>
+<pre><code>##    individuo raca sexo idade       escol renda    civil
+## 17    000017    n    m    41       medio  1000   casado
+## 18    000018    n    m    20       medio  8000   casado
+## 19    000019    n    m    60       medio 22000   casado
+## 20    000020    n    m    31       medio 15000   casado
+## 21    000021    i    m    41       medio 19000    viuvo
+## 22    000022    i    m    35       medio 26000    viuvo
+## 23    000023    i    m    47       medio  7000 separado
+## 24    000024    i    m    31       medio 30000 separado
+## 25    000025    i    m    54       medio 14000 separado
+## 26    000026    i    m    32 fundamental  7000 separado
+## 27    000027    o    m    39 fundamental 23000 separado
+## 28    000028    o    m    24 fundamental 17000 separado
+## 29    000029    o    m    33 fundamental 27000 separado
+## 30    000030    o    m    36 fundamental 12000 separado</code></pre>
+<p>Selecionamos no exemplo anterior apenas os casos que correspondem a seleção <code>sexo == &quot;m&quot;</code>, ou seja, serem do sexo <code>masculino</code>. Podemos combinar filtragens do banco utilizando os operadores lógicos (&amp; e |) e relacionais (&gt; &lt; &gt;= &lt;= != ==) já aprendidos anteriormente.</p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-79" class="exercise"><strong>Exercício 3.26  </strong></span>Atribua a uma nova variável os indivíduos que tem idade menor que 35 anos e não tem nível superior.
+</div>
+
+<p> </p>
+<p>A função <code>subset()</code> nos retorna os casos inteiros, mas as vezes apenas queremos saber quais casos correspondem a nossa filtragem. Podemos, então, utilizar a função <code>which()</code>.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" data-line-number="1"><span class="kw">which</span>(banco<span class="op">$</span>escol <span class="op">!=</span><span class="st"> &quot;superior&quot;</span> <span class="op">&amp;</span><span class="st"> </span>banco<span class="op">$</span>renda <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span>)</a></code></pre></div>
+<pre><code>##  [1]  6  8 10 11 12 13 14 16 18 19 20 21 22 23 24 25 26 27 28 29 30</code></pre>
+<p>Podemos, por fim, ordenar nosso banco a partir de uma variável desejada. Para isso, utilizamos a função <code>order()</code> e definimos no argumento se terá a ordem crescente ou decrescente. Essa função nos retorna um vetor com as posições das variáveis na ordem desejada. A partir desse vetor podemos criar um data frame novo.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" data-line-number="1">ordem_nova &lt;-<span class="st"> </span><span class="kw">order</span>(banco<span class="op">$</span>idade, <span class="dt">decreasing =</span> <span class="st">&quot;F&quot;</span>)</a></code></pre></div>
+<p>No comando anterior criamos um vetor com as posições que correspondem a ordem do nosso banco a partir da variável idade de forma crescente.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">banco_ord &lt;-<span class="st"> </span>banco[ordem_nova, ]</a></code></pre></div>
+<p>Agora temos um novo banco com a ordem desejada.</p>
+</div>
+</div>
+<div id="listas" class="section level2">
+<h2><span class="header-section-number">3.5</span> Listas</h2>
+<p>O último tipo de objeto que iremos ver são as listas, mas antes vamos recapitular os objetos que já vimos:</p>
+<ul>
+<li>Vetores - são <em>arrays</em> de uma dimensão, podem ter valores <code>numeric</code>, <code>character</code>, <code>logical</code>, <code>integer</code> ou <code>complex</code>. Porém, os elementos dentro de um vetor sempre devem ter a mesma classe o vetor, portanto, herda essa classe.</li>
+<li>Matrizes - são <em>arrays</em> de duas dimensões, podem ter valores <code>numeric</code>, <code>character</code>, <code>logical</code>, <code>integer</code> ou <code>complex</code>. São criadas a partir dos vetores portanto, herdam a mesma característica: elementos dentro de uma matriz tem sempre a mesma classe/tipo.</li>
+<li>Data frames - objetos bidimensionais, podem ter valores <code>numeric</code>, <code>character</code>, <code>logical</code>, <code>integer</code> ou <code>complex</code> dentro de um mesmo objeto. Porém, os elementos de uma coluna devem ser do mesmo tipo de dado, mas colunas diferentes podem ter tipos diferentes de dados.</li>
+</ul>
+<p>As listas, por sua vez, aceitam diferentes tipos de dado, de diferentes tamanhos, características. Podem armazenar objetos de forma ordenada, que podem ser matrizes, vetores, dataframes ou outras listas. Não é necessário que estejam ligados de alguma forma. Listas são um <strong>super data</strong>!</p>
+<p>Para criar uma lista utilize a função <code>list()</code> e concatene dentro dos parênteses os objetos que quer colocar dentro da lista.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="10">
+<li id="fn10"><p>Sum function: <a href="https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/sum" class="uri">https://www.rdocumentation.org/packages/base/versions/3.6.1/topics/sum</a><a href="arrays.html#fnref10" class="footnote-back">↩</a></p></li>
+<li id="fn11"><p><a href="https://www.stat.berkeley.edu/~s133/factors.html" class="uri">https://www.stat.berkeley.edu/~s133/factors.html</a><a href="arrays.html#fnref11" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="prim.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="manip.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-arrays.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["intro-R.pdf", "intro-R.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

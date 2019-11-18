@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 5 Introdução ao Tidyverse | Introdução ao R</title>
+  <meta name="description" content="Apostila - Introdução ao R" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 5 Introdução ao Tidyverse | Introdução ao R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Apostila - Introdução ao R" />
+  <meta name="github-repo" content="ipassos/apostila-introR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 5 Introdução ao Tidyverse | Introdução ao R" />
+  
+  <meta name="twitter:description" content="Apostila - Introdução ao R" />
+  
+
+<meta name="author" content="Iara Passos" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="manip.html"/>
+<link rel="next" href="ggplot.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Apostila Introdução ao R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#o-que-é-a-linguagem-r"><i class="fa fa-check"></i><b>1.1</b> O que é a linguagem R?</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#comunidade"><i class="fa fa-check"></i><b>1.1.1</b> Comunidade</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#instalando-o-r"><i class="fa fa-check"></i><b>1.2</b> Instalando o R</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#instalando-o-rstudio"><i class="fa fa-check"></i><b>1.3</b> Instalando o RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="prim.html"><a href="prim.html"><i class="fa fa-check"></i><b>2</b> Primeiros Passos</a><ul>
+<li class="chapter" data-level="2.1" data-path="prim.html"><a href="prim.html#janela-de-comando-do-r"><i class="fa fa-check"></i><b>2.1</b> Janela de comando do R</a></li>
+<li class="chapter" data-level="2.2" data-path="prim.html"><a href="prim.html#o-r-como-uma-calculadora"><i class="fa fa-check"></i><b>2.2</b> O R como uma calculadora</a></li>
+<li class="chapter" data-level="2.3" data-path="prim.html"><a href="prim.html#objetos-e-classes-de-objetos"><i class="fa fa-check"></i><b>2.3</b> Objetos e classes de objetos</a></li>
+<li class="chapter" data-level="2.4" data-path="prim.html"><a href="prim.html#ambiente-do-rstudio"><i class="fa fa-check"></i><b>2.4</b> Ambiente do RStudio</a></li>
+<li class="chapter" data-level="2.5" data-path="prim.html"><a href="prim.html#pacotes"><i class="fa fa-check"></i><b>2.5</b> Pacotes</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="prim.html"><a href="prim.html#citando-pacotes"><i class="fa fa-check"></i><b>2.5.1</b> Citando pacotes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="prim.html"><a href="prim.html#como-conseguir-ajuda"><i class="fa fa-check"></i><b>2.6</b> Como conseguir ajuda</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="arrays.html"><a href="arrays.html"><i class="fa fa-check"></i><b>3</b> Trabalhando com arrays</a><ul>
+<li class="chapter" data-level="3.1" data-path="arrays.html"><a href="arrays.html#vetores"><i class="fa fa-check"></i><b>3.1</b> Vetores</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="arrays.html"><a href="arrays.html#nomeação-de-vetores"><i class="fa fa-check"></i><b>3.1.1</b> Nomeação de vetores</a></li>
+<li class="chapter" data-level="3.1.2" data-path="arrays.html"><a href="arrays.html#operações-com-vetores"><i class="fa fa-check"></i><b>3.1.2</b> Operações com vetores</a></li>
+<li class="chapter" data-level="3.1.3" data-path="arrays.html"><a href="arrays.html#selecionar-elementos-dentro-de-um-vetor"><i class="fa fa-check"></i><b>3.1.3</b> Selecionar elementos dentro de um vetor</a></li>
+<li class="chapter" data-level="3.1.4" data-path="arrays.html"><a href="arrays.html#comparações-de-vetores-e-entre-vetores"><i class="fa fa-check"></i><b>3.1.4</b> Comparações de vetores e entre vetores</a></li>
+<li class="chapter" data-level="3.1.5" data-path="arrays.html"><a href="arrays.html#adição-e-exclusão-de-valores-em-um-vetor"><i class="fa fa-check"></i><b>3.1.5</b> Adição e exclusão de valores em um vetor</a></li>
+<li class="chapter" data-level="3.1.6" data-path="arrays.html"><a href="arrays.html#funções-com-vetores"><i class="fa fa-check"></i><b>3.1.6</b> Funções com vetores</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="arrays.html"><a href="arrays.html#matrizes"><i class="fa fa-check"></i><b>3.2</b> Matrizes</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="arrays.html"><a href="arrays.html#seleção-de-elementos-matriz"><i class="fa fa-check"></i><b>3.2.1</b> Seleção de elementos matriz</a></li>
+<li class="chapter" data-level="3.2.2" data-path="arrays.html"><a href="arrays.html#operações-com-matrizes"><i class="fa fa-check"></i><b>3.2.2</b> Operações com matrizes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="arrays.html"><a href="arrays.html#factors"><i class="fa fa-check"></i><b>3.3</b> Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="arrays.html"><a href="arrays.html#dataframes"><i class="fa fa-check"></i><b>3.4</b> Dataframes</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="arrays.html"><a href="arrays.html#funções-básicas-para-data-frames"><i class="fa fa-check"></i><b>3.4.1</b> Funções básicas para data frames</a></li>
+<li class="chapter" data-level="3.4.2" data-path="arrays.html"><a href="arrays.html#selecionando-elementos-dentro-de-um-dataframe"><i class="fa fa-check"></i><b>3.4.2</b> Selecionando elementos dentro de um dataframe</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="arrays.html"><a href="arrays.html#listas"><i class="fa fa-check"></i><b>3.5</b> Listas</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="manip.html"><a href="manip.html"><i class="fa fa-check"></i><b>4</b> Manipulando e analisando data frames</a><ul>
+<li class="chapter" data-level="4.1" data-path="manip.html"><a href="manip.html#arrumando-o-banco-de-dados"><i class="fa fa-check"></i><b>4.1</b> Arrumando o banco de dados</a></li>
+<li class="chapter" data-level="4.2" data-path="manip.html"><a href="manip.html#criando-variáveis-novas"><i class="fa fa-check"></i><b>4.2</b> Criando variáveis novas</a></li>
+<li class="chapter" data-level="4.3" data-path="manip.html"><a href="manip.html#gráficos-base-do-r"><i class="fa fa-check"></i><b>4.3</b> Gráficos base do R</a></li>
+<li class="chapter" data-level="4.4" data-path="manip.html"><a href="manip.html#impor"><i class="fa fa-check"></i><b>4.4</b> Importação e exportação de bancos de dados</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tidy.html"><a href="tidy.html"><i class="fa fa-check"></i><b>5</b> Introdução ao Tidyverse</a><ul>
+<li class="chapter" data-level="5.1" data-path="tidy.html"><a href="tidy.html#verificação-de-nas"><i class="fa fa-check"></i><b>5.1</b> Verificação de NAs</a></li>
+<li class="chapter" data-level="5.2" data-path="tidy.html"><a href="tidy.html#criando-tidydata-com-o-pacote-tidyr"><i class="fa fa-check"></i><b>5.2</b> Criando tidydata com o pacote tidyr</a></li>
+<li class="chapter" data-level="5.3" data-path="tidy.html"><a href="tidy.html#manipulação-de-strings"><i class="fa fa-check"></i><b>5.3</b> Manipulação de strings</a></li>
+<li class="chapter" data-level="5.4" data-path="tidy.html"><a href="tidy.html#identificando-erros-no-banco"><i class="fa fa-check"></i><b>5.4</b> Identificando erros no banco</a></li>
+<li class="chapter" data-level="5.5" data-path="tidy.html"><a href="tidy.html#trabalhando-com-data-e-hora"><i class="fa fa-check"></i><b>5.5</b> Trabalhando com data e hora</a></li>
+<li class="chapter" data-level="5.6" data-path="tidy.html"><a href="tidy.html#ajustes-finais"><i class="fa fa-check"></i><b>5.6</b> Ajustes finais</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>6</b> Gráficos com ggplot2</a></li>
+<li class="chapter" data-level="7" data-path="mark.html"><a href="mark.html"><i class="fa fa-check"></i><b>7</b> Relatórios com Markdown</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução ao R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="tidy" class="section level1">
+<h1><span class="header-section-number">Capítulo 5</span> Introdução ao Tidyverse</h1>
+<p>Os pacotes <code>tidyverse</code> são uma coleção de pacotes criados por Hadley Wickham e sua equipe (na RStudio)<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> para facilitar o tratamento e visualização dos dados. Aqui, iremos ver alguns desses pacotes nos próximos capítulos. Para darmos início aos pacotes <code>tidyverse</code> precisamos instalá-los. Para instalar todos os pacotes do <code>tidyverse</code> utilize o comando <code>install.packages(&quot;tidyverse&quot;)</code> ou apenas os pacotes desejados. Aqui iremos utilizar os pacotes <code>tidyr</code>, <code>dplyr</code>, <code>stringr</code> e <code>lubridate</code>. Depois de instalados chame os pacotes com a função <code>library()</code>.</p>
+<p>Antes de começarmos vamos só entender o que os criadores do <code>tidyverse</code> consideram como <code>tidydata</code>. A ideia de um banco de dados “tidy” é um banco de dados que tem:</p>
+<p>1 - Cada variável forma uma coluna; <br>
+2 - Cada observação forma uma linha; <br>
+3 - Cada tipo de observação forma uma tabela (ou banco de dados) <br></p>
+<p>Parece um pouco óbvio isso, mas certamente você já viu bancos de dados assim:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Nome</th>
+<th align="center">Preto</th>
+<th align="center">Amarelo</th>
+<th align="center">Castanho</th>
+<th align="center">Outro</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Joao</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Luiz</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Fabiana</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Marcela</td>
+<td align="center">1</td>
+<td align="center">0</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<p>Esse mesmo banco em um formato <code>tidy</code> ficaria:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Nome</th>
+<th align="center">Cor de cabelo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Joao</td>
+<td align="center">Amarelo</td>
+</tr>
+<tr class="even">
+<td align="center">Luiz</td>
+<td align="center">Preto</td>
+</tr>
+<tr class="odd">
+<td align="center">Fabiana</td>
+<td align="center">Castanho</td>
+</tr>
+<tr class="even">
+<td align="center">Marcela</td>
+<td align="center">Preto</td>
+</tr>
+</tbody>
+</table>
+<p>Aqui iremos apresentar algumas das ferramentas dos pacotes do <code>tidyverse</code> para transformar os bancos em <code>tidydata</code>.</p>
+<p>Primeiramente, iremos utilizar o banco <a href="https://raw.githubusercontent.com/ipassos/material-introR/master/banco.csv">Países</a>. Salve o arquivo <code>.csv</code> em seu computador e importe-o para o R sem considerar strings como factors e lendo as cédulas em branco como NA (no subcapítulo <a href="manip.html#impor">4.4</a> há algumas instruções para importação de banco de dados).</p>
+<p>Após importar o banco <code>Países</code> veja a estrutura e o resumo do banco.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb150-1" data-line-number="1"><span class="kw">summary</span>(paises)</a></code></pre></div>
+<pre><code>##      pais              codigo           continente            X1970      
+##  Length:249         Length:249         Length:249         Min.   :201.0  
+##  Class :character   Class :character   Class :character   1st Qu.:354.0  
+##  Mode  :character   Mode  :character   Mode  :character   Median :501.0  
+##                                                           Mean   :508.1  
+##                                                           3rd Qu.:668.0  
+##                                                           Max.   :794.0  
+##                                                                          
+##      X1971           X1972           X1973         X1974      
+##  Min.   :200.0   Min.   :200.0   Min.   :202   Min.   :201.0  
+##  1st Qu.:325.0   1st Qu.:350.0   1st Qu.:396   1st Qu.:338.5  
+##  Median :505.0   Median :495.0   Median :544   Median :481.0  
+##  Mean   :495.2   Mean   :496.7   Mean   :529   Mean   :495.9  
+##  3rd Qu.:642.0   3rd Qu.:644.0   3rd Qu.:658   3rd Qu.:656.5  
+##  Max.   :798.0   Max.   :800.0   Max.   :799   Max.   :800.0  
+##  NA&#39;s   :4                       NA&#39;s   :4     NA&#39;s   :1      
+##      X1975           X1976           X1977           X1978      
+##  Min.   :202.0   Min.   :200.0   Min.   :202.0   Min.   :200.0  
+##  1st Qu.:358.0   1st Qu.:339.0   1st Qu.:360.0   1st Qu.:338.0  
+##  Median :501.0   Median :512.0   Median :503.0   Median :492.0  
+##  Mean   :495.4   Mean   :497.5   Mean   :505.5   Mean   :491.5  
+##  3rd Qu.:631.5   3rd Qu.:641.0   3rd Qu.:667.0   3rd Qu.:637.0  
+##  Max.   :798.0   Max.   :796.0   Max.   :791.0   Max.   :800.0  
+##  NA&#39;s   :1                       NA&#39;s   :4       NA&#39;s   :2      
+##      X1979           X1980           X1981            X1982      
+##  Min.   :201.0   Min.   :207.0   Min.   : 200.0   Min.   :204.0  
+##  1st Qu.:335.8   1st Qu.:384.5   1st Qu.: 365.0   1st Qu.:369.0  
+##  Median :492.5   Median :530.0   Median : 509.0   Median :508.0  
+##  Mean   :487.6   Mean   :514.3   Mean   : 531.3   Mean   :511.5  
+##  3rd Qu.:626.8   3rd Qu.:645.0   3rd Qu.: 629.0   3rd Qu.:671.0  
+##  Max.   :789.0   Max.   :799.0   Max.   :7520.0   Max.   :800.0  
+##  NA&#39;s   :1       NA&#39;s   :1       NA&#39;s   :2                       
+##      X1983           X1984            X1985           X1986       
+##  Min.   :201.0   Min.   : 200.0   Min.   :202.0   Min.   : 200.0  
+##  1st Qu.:354.0   1st Qu.: 345.0   1st Qu.:383.0   1st Qu.: 374.5  
+##  Median :487.0   Median : 490.0   Median :515.0   Median : 514.5  
+##  Mean   :494.8   Mean   : 519.5   Mean   :518.7   Mean   : 531.6  
+##  3rd Qu.:648.0   3rd Qu.: 651.0   3rd Qu.:674.0   3rd Qu.: 659.5  
+##  Max.   :800.0   Max.   :7000.0   Max.   :800.0   Max.   :5150.0  
+##                                                   NA&#39;s   :3       
+##      X1987           X1988            X1989           X1990      
+##  Min.   :200.0   Min.   : 200.0   Min.   :200.0   Min.   :201.0  
+##  1st Qu.:357.5   1st Qu.: 346.0   1st Qu.:351.2   1st Qu.:351.0  
+##  Median :485.0   Median : 498.0   Median :510.0   Median :501.5  
+##  Mean   :499.7   Mean   : 528.9   Mean   :508.4   Mean   :498.1  
+##  3rd Qu.:641.5   3rd Qu.: 656.2   3rd Qu.:680.5   3rd Qu.:635.8  
+##  Max.   :798.0   Max.   :7550.0   Max.   :800.0   Max.   :800.0  
+##  NA&#39;s   :2       NA&#39;s   :1        NA&#39;s   :1       NA&#39;s   :1      
+##      X1991           X1992           X1993           X1994      
+##  Min.   :202.0   Min.   :203.0   Min.   :201.0   Min.   :200.0  
+##  1st Qu.:356.5   1st Qu.:351.0   1st Qu.:364.5   1st Qu.:353.0  
+##  Median :520.5   Median :481.0   Median :518.0   Median :494.0  
+##  Mean   :512.2   Mean   :494.6   Mean   :507.3   Mean   :506.6  
+##  3rd Qu.:666.0   3rd Qu.:646.0   3rd Qu.:648.2   3rd Qu.:666.0  
+##  Max.   :794.0   Max.   :799.0   Max.   :800.0   Max.   :800.0  
+##  NA&#39;s   :3                       NA&#39;s   :1                      
+##      X1995           X1996           X1997         X1998      
+##  Min.   :203.0   Min.   :201.0   Min.   :200   Min.   :203.0  
+##  1st Qu.:372.0   1st Qu.:338.0   1st Qu.:345   1st Qu.:335.5  
+##  Median :530.0   Median :470.0   Median :492   Median :508.0  
+##  Mean   :518.3   Mean   :484.1   Mean   :502   Mean   :503.3  
+##  3rd Qu.:668.0   3rd Qu.:627.0   3rd Qu.:669   3rd Qu.:673.0  
+##  Max.   :800.0   Max.   :799.0   Max.   :800   Max.   :799.0  
+##  NA&#39;s   :4       NA&#39;s   :1                     NA&#39;s   :2      
+##      X1999           X2000           date          
+##  Min.   :200.0   Min.   :201.0   Length:249        
+##  1st Qu.:356.5   1st Qu.:358.0   Class :character  
+##  Median :504.5   Median :476.0   Mode  :character  
+##  Mean   :505.0   Mean   :495.7                     
+##  3rd Qu.:664.2   3rd Qu.:634.0                     
+##  Max.   :797.0   Max.   :799.0                     
+##  NA&#39;s   :3</code></pre>
+<div id="verificação-de-nas" class="section level2">
+<h2><span class="header-section-number">5.1</span> Verificação de NAs</h2>
+<p>Primeiro iremos verificar se o R identificou se há <code>missings</code> (NAs) no nosso banco (lembre-se que importamos as cédulas em branco como NAs). Para isso iremos utilizar 3 funções. A função <code>is.na()</code> retorna <code>TRUE</code> (quando não é NA) e <code>FALSE</code> (quando é NA) para todos elementos do banco. Não é muito útil, mas poderemos utilizá-la combinada com outras funções. Combinando com a função <code>any()</code> descobrimos se há algum NA no nosso banco:</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" data-line-number="1"><span class="kw">any</span>(<span class="kw">is.na</span>(paises))</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Mas seria melhor se tivéssemos mais informações. Combinando <code>is.na()</code> com a função <code>sum()</code> descobrimos quantos NAs temos no nosso banco:</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb154-1" data-line-number="1"><span class="kw">sum</span>(<span class="kw">is.na</span>(paises))</a></code></pre></div>
+<pre><code>## [1] 42</code></pre>
+</div>
+<div id="criando-tidydata-com-o-pacote-tidyr" class="section level2">
+<h2><span class="header-section-number">5.2</span> Criando tidydata com o pacote tidyr</h2>
+<p>O nosso banco países tem um grande problema: temos diversas variáveis com nomes de anos fazendo com que o nosso banco tenha muitas variáveis. Lembrando do exemplo do começo do capítulo o certo seria termos uma variável <code>ano</code> com o número do ano correspondente e uma varíavel <code>valor</code> com o valor correspondente do ano. Isso faria com que a quantidade de linhas do nosso banco seja multiplicada por 30 pois iremos repetir cada país 30 vezes (uma para cada ano).</p>
+<p>Poderíamos fazer essa alteração na mão utilizando editores de planilhas ou, com linguagens de programação, usando laços lógicos e de repetição. Por sorte, o pacote <code>tidyr</code> nos ajuda nesse sentido. A função <code>gather()</code> faz exatamente o que queremos. O primeiro argumento da função <code>gather</code> é o banco que iremos transformar. Depois, o nome da coluna em que juntaremos todas as outras (as 30 colunas com informações dos anos, no nosso caso) e o nome da coluna que tem os valores correspondentes da coluna anterior (no caso criamos a coluna <code>valor</code>). Por fim, informamos quais são as colunas que não irão sofrer alteração com a seguinte sintaxe: <code>-c(coluna1, coluna2)</code>. A seguir fazemos a transformação atribuindo ao banco <code>pais_tidy</code>:</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" data-line-number="1">pais_tidy &lt;-<span class="st"> </span><span class="kw">gather</span>(paises, ano, valor, <span class="op">-</span><span class="kw">c</span>(pais, codigo, continente, date))</a></code></pre></div>
+<p>Veja como o nosso banco <code>pais_tidy</code> ficou:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb157-1" data-line-number="1"><span class="kw">summary</span>(pais_tidy)</a></code></pre></div>
+<pre><code>##      pais              codigo           continente       
+##  Length:7719        Length:7719        Length:7719       
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##                                                          
+##      date               ano                valor       
+##  Length:7719        Length:7719        Min.   : 200.0  
+##  Class :character   Class :character   1st Qu.: 354.0  
+##  Mode  :character   Mode  :character   Median : 503.0  
+##                                        Mean   : 506.1  
+##                                        3rd Qu.: 654.0  
+##                                        Max.   :7550.0  
+##                                        NA&#39;s   :42</code></pre>
+<p>Agora temos um banco <code>tidy</code>. Veja a diferença entre as dimensões do banco <code>paises</code> e do banco <code>pais_tidy</code>:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">paises</th>
+<th align="left">pais_tidy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>n_rows</td>
+<td align="left">249</td>
+<td align="left">7719</td>
+</tr>
+<tr class="even">
+<td>n_cols</td>
+<td align="left">35</td>
+<td align="left">6</td>
+</tr>
+</tbody>
+</table>
+<p>Bom, também podemos fazer o processo inverso de transformar o banco em um <code>tidydata</code>. No caso, revertiríamos ao que era originalmente o nosso banco <code>paises</code>. Para isso utilizamos a função <code>spread()</code>. Nela, informamos no primeiro argumento o banco que iremos retirar as nossas informações (no caso é o banco <code>pais_tidy</code>). Depois informamos qual a colunas que iremos separar e várias colunas (<code>ano</code> no nosso caso) e a coluna que contem os valores dessa coluna (<code>valor</code> no nosso caso):</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb159-1" data-line-number="1">pais_wide &lt;-<span class="st"> </span><span class="kw">spread</span>(pais_tidy, ano, valor)</a></code></pre></div>
+<p>Veja a primeira linha do nosso banco <code>pais_wide</code>:</p>
+<pre><code>##                                                  pais codigo continente
+## 1                                            Dominica    DM          NA
+##       date X1970 X1971 X1972 X1973 X1974 X1975 X1976 X1977 X1978 X1979
+## 1 23/05/17   769   501   597   212   307   258   529   550   206   280
+##   X1980 X1981 X1982 X1983 X1984 X1985 X1986 X1987 X1988 X1989 X1990 X1991
+## 1   221   578   503   686   374   416    NA   572   561   638   559   294
+##   X1992 X1993 X1994 X1995 X1996 X1997 X1998 X1999 X2000
+## 1   777   579   634   560   583   783   674   667   521</code></pre>
+<p>Outras funcionalidades do <code>tidyr</code> é criar bancos unindo e separando colunas de um banco já existente. Por exemplo, se eu quero um banco que tenha as colunas <code>pais</code> e <code>codigo</code> do meu banco <code>paises</code> unidas em uma coluna só posso unir essas colunas utilizando a função <code>unite()</code>. Informo no primeiro argumento o nome do meu banco original, depois o nome da coluna nova (a união das colunas) e as colunas que quero unir na sequência desejada. Depois informo com qual símbolo devo separar as informações na nova coluna.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" data-line-number="1">pais_unido &lt;-<span class="st"> </span><span class="kw">unite</span>(paises, pais_cod, pais, codigo, <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>)</a></code></pre></div>
+<p>A primeira linha do meu banco:</p>
+<pre><code>##                           pais_cod continente X1970 X1971 X1972 X1973
+## 1                  Afganistán/ AF          AS   335   263   366   757
+##   X1974 X1975 X1976 X1977 X1978 X1979 X1980 X1981 X1982 X1983 X1984 X1985
+## 1   603   266   571   336   480   402   552   526   228   463   211   593
+##   X1986 X1987 X1988 X1989 X1990 X1991 X1992 X1993 X1994 X1995 X1996 X1997
+## 1   568   346   495   341   212   399   364   333   340   460   374   674
+##   X1998 X1999 X2000     date
+## 1   490   665   443 07/09/14</code></pre>
+<p>Para fazer o processo contrário da função <code>unite()</code> utilizo a função <code>separate()</code>. Primeiro informo qual banco será separado, depois o nome da coluna a ser separada (argumento <code>col =</code>), depois o nome das colunas a serem criadas no argumento <code>into = c()</code> e o caracter na qual a função irá separar a coluna no argumento <code>sep =</code> (no caso é o símbolo <code>/</code>):</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" data-line-number="1">pais_sep &lt;-<span class="st"> </span><span class="kw">separate</span>(pais_unido, <span class="dt">col =</span> pais_cod, <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;pais&quot;</span>, <span class="st">&quot;cod&quot;</span>), <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>)</a></code></pre></div>
+<p>A primeira linha do nosso banco:</p>
+<pre><code>##                          pais  cod continente X1970 X1971 X1972 X1973
+## 1                  Afganistán  AF          AS   335   263   366   757
+##   X1974 X1975 X1976 X1977 X1978 X1979 X1980 X1981 X1982 X1983 X1984 X1985
+## 1   603   266   571   336   480   402   552   526   228   463   211   593
+##   X1986 X1987 X1988 X1989 X1990 X1991 X1992 X1993 X1994 X1995 X1996 X1997
+## 1   568   346   495   341   212   399   364   333   340   460   374   674
+##   X1998 X1999 X2000     date
+## 1   490   665   443 07/09/14</code></pre>
+</div>
+<div id="manipulação-de-strings" class="section level2">
+<h2><span class="header-section-number">5.3</span> Manipulação de strings</h2>
+<p>O pacote <code>stringr</code> tem várias ferramentas para nos ajudar na manipulação de strings. O nosso banco <code>paises</code> veio com vários erros na coluna <code>pais</code>. Alguns nomes de países tem espaços antes e/ou depois do nome do país. A função <code>str_trim()</code> ajuda a retirar esses espaços de forma automatizada. Atribuímos o resultado da função ao próprio banco.</p>
+<blockquote>
+<p>Preste muita atenção ao realizar funções sobrescrevendo o banco original</p>
+</blockquote>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" data-line-number="1">pais_tidy<span class="op">$</span>pais &lt;-<span class="st"> </span><span class="kw">str_trim</span>(pais_tidy<span class="op">$</span>pais)</a></code></pre></div>
+<p>Veja que a função limpou os nomes dos países no banco <code>pais_tidy</code>.</p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-135" class="exercise"><strong>Exercício 5.1  </strong></span>Realize a limpeza dos nomes nos outros bancos criados a partir do banco <code>paises</code>.
+</div>
+
+<p>Uma outra função útil é a <code>str_pad()</code>, que adiciona strings a uma coluna de um banco de dados. Por exemplo, se quisermos adicionar o caracter <code>X</code> depois das siglas do continente na coluna <code>continente</code> do banco <code>pais_unido</code>. Atribuímos a coluna do banco desejado a função <code>str_pad()</code> com o primeiro argumento a referência da coluna desejada, depois no argumento <code>width =</code> informamos qual vai ser o tamanho dessa nova <code>string</code> (no caso as siglas já tinham o tamanho 2, com a adição de um novo caracter era irá passar a ter tamanho 3), o argumento <code>side =</code> informa onde a string irá (left ou right) e o argumento <code>pad =</code> informa qual a sequência de caracteres que iremos adicionar:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" data-line-number="1">pais_unido<span class="op">$</span>continente &lt;-<span class="st"> </span><span class="kw">str_pad</span>(pais_unido<span class="op">$</span>continente, <span class="dt">width =</span> <span class="dv">3</span>, <span class="dt">side =</span> <span class="st">&quot;right&quot;</span>, <span class="dt">pad =</span> <span class="st">&quot;X&quot;</span>)</a></code></pre></div>
+<p>Resultando em:</p>
+<pre><code>##                           pais_cod continente X1970 X1971 X1972 X1973
+## 1                  Afganistán/ AF         ASX   335   263   366   757
+## 2  Albania                   / AL         EUX   516   270   403   450
+##   X1974 X1975 X1976 X1977 X1978 X1979 X1980 X1981 X1982 X1983 X1984 X1985
+## 1   603   266   571   336   480   402   552   526   228   463   211   593
+## 2   236   314   668   412   549   468   729   297   706   729   401   364
+##   X1986 X1987 X1988 X1989 X1990 X1991 X1992 X1993 X1994 X1995 X1996 X1997
+## 1   568   346   495   341   212   399   364   333   340   460   374   674
+## 2   263   628   709   729   352   506   253   705   278   515   645   689
+##   X1998 X1999 X2000     date
+## 1   490   665   443 07/09/14
+## 2   676   439   795 08/09/14</code></pre>
+<p>Outra funcionalidade é detectar onde em um banco uma série de caracteres se encontra com a função <code>str_detect()</code>:</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" data-line-number="1"><span class="kw">str_detect</span>(pais_sep<span class="op">$</span>continente, <span class="st">&quot;NA&quot;</span>)</a></code></pre></div>
+<pre><code>##   [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE
+##  [12] FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE
+##  [23] FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [34] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+##  [45] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE
+##  [56]  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+##  [67] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+##  [78]  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+##  [89] FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [100] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+## [111] FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE
+## [122] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [133] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [144] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+## [155] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+## [166] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+## [177] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
+## [188] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE FALSE
+## [199]  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+## [210] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [221] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [232] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [243] FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<p>Podemos também substituir uma série de caracteres com a função <code>str_replace()</code>. Por exemplo, substituíremos na coluna <code>continente</code> do banco <code>pais_sep</code> todas os lugares que forem <code>NA</code> por <code>North America</code>:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" data-line-number="1">pais_sep<span class="op">$</span>continente &lt;-<span class="st"> </span><span class="kw">str_replace</span>(pais_sep<span class="op">$</span>continente, <span class="st">&quot;NA&quot;</span>, <span class="st">&quot;North America&quot;</span>)</a></code></pre></div>
+<p>Por fim, precisamos retirar da coluna <code>ano</code> em <code>pais_tidy</code> a string <code>X</code> que foi herdada do nome das colunas de <code>pais</code>. Para isso utilizamos a função <code>str_remove()</code>:</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb171-1" data-line-number="1">pais_tidy<span class="op">$</span>ano &lt;-<span class="st"> </span><span class="kw">str_remove</span>(pais_tidy<span class="op">$</span>ano, <span class="st">&quot;X&quot;</span>)</a></code></pre></div>
+<blockquote>
+<p>A função <code>str_remove</code> remove apenas o primeiro correspondente que ela encontra. Se a coluna tivesse mais de um “X” e quiséssemos remover todos os “X” da coluna deveríamos utilizar a função <code>str_remove_all()</code>.</p>
+</blockquote>
+<p>Por fim, nas funções <code>base</code> do R temos duas funções que nos são úteis para tratar com strings: <code>tolower()</code> e <code>toupper()</code>. A primeira faz com que todos os caracteres sejam transformados em caixa baixa e a segunda em caixa alta.</p>
+<p>Veja a função <code>tolower()</code> na coluna <code>continente</code> do banco <code>pais_wide</code>:</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" data-line-number="1">pais_wide<span class="op">$</span>continente &lt;-<span class="st"> </span><span class="kw">tolower</span>(pais_wide<span class="op">$</span>continente) </a>
+<a class="sourceLine" id="cb172-2" data-line-number="2"><span class="kw">head</span>(pais_wide)</a></code></pre></div>
+<pre><code>##                                                  pais codigo continente
+## 1                                            Dominica    DM          na
+## 2                                        Burkina Faso    BF          af
+## 3                                              Brasil    BR          sa
+## 4                                           Guadalupe    GP          na
+## 5                              Emiratos Árabes Unidos    AE          as
+## 6                                          Afganistán    AF          as
+##       date X1970 X1971 X1972 X1973 X1974 X1975 X1976 X1977 X1978 X1979
+## 1 23/05/17   769   501   597   212   307   258   529   550   206   280
+## 2 19/09/14   382   527   350   694   771   671   260   489   316   227
+## 3 12/06/17   426   239   616   532   467   439   361   242   650   493
+## 4 15/10/15   726   467   399   534   589   542   482   722   533   414
+## 5 19/05/17   700   330   607   593   670   780   417   718   628   498
+## 6 07/09/14   335   263   366   757   603   266   571   336   480   402
+##   X1980 X1981 X1982 X1983 X1984 X1985 X1986 X1987 X1988 X1989 X1990 X1991
+## 1   221   578   503   686   374   416    NA   572   561   638   559   294
+## 2   234   612   754   735   599   661   771   319   291   208   471   385
+## 3   615   286   273   661   781   654   425   776   317   582   464   288
+## 4   435   224   572   745   239   242   657   684   429   463   520   367
+## 5   662   462   752   212   374   677   651   720   676   333   591   566
+## 6   552   526   228   463   211   593   568   346   495   341   212   399
+##   X1992 X1993 X1994 X1995 X1996 X1997 X1998 X1999 X2000
+## 1   777   579   634   560   583   783   674   667   521
+## 2   623   513   730   764   413   480   247   507   488
+## 3   583   538   537   456   784   694   774   343   356
+## 4   471   672   718   651   475   788   534   522   391
+## 5   612   315   529   699   296   471   215   745   365
+## 6   364   333   340   460   374   674   490   665   443</code></pre>
+<p>E a função <code>toupper()</code> na coluna <code>pais</code> do banco <code>pais_sep</code>:</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb174-1" data-line-number="1">pais_sep<span class="op">$</span>pais &lt;-<span class="st"> </span><span class="kw">toupper</span>(pais_sep<span class="op">$</span>pais)</a>
+<a class="sourceLine" id="cb174-2" data-line-number="2"><span class="kw">head</span>(pais_sep)</a></code></pre></div>
+<pre><code>##                           pais  cod    continente X1970 X1971 X1972 X1973
+## 1                   AFGANISTÁN  AF             AS   335   263   366   757
+## 2   ALBANIA                     AL             EU   516   270   403   450
+## 3                     ALEMANIA  DE             EU   505   309   787   635
+## 4                      ANDORRA  AD             EU   749   400   636   414
+## 5                       ANGOLA  AO             AF   310    NA   399   594
+## 6 ANGUILA                       AI  North America   348   254   613   621
+##   X1974 X1975 X1976 X1977 X1978 X1979 X1980 X1981 X1982 X1983 X1984 X1985
+## 1   603   266   571   336   480   402   552   526   228   463   211   593
+## 2   236   314   668   412   549   468   729   297   706   729   401   364
+## 3   566   298   748   657   263   612   464   605   736   387   764   278
+## 4   264   556   766   362   645   427   600   258   516   355   410   375
+## 5   273   441   519   597   794   436   553   592   791   255   763   551
+## 6   481   254   645   388   279   589   579   800   502   389   359   434
+##   X1986 X1987 X1988 X1989 X1990 X1991 X1992 X1993 X1994 X1995 X1996 X1997
+## 1   568   346   495   341   212   399   364   333   340   460   374   674
+## 2   263   628   709   729   352   506   253   705   278   515   645   689
+## 3   253   359   389   714   339   707   631   648   780   637   286   311
+## 4   681   218   203   222   676   251   671   784   796   225   439   460
+## 5   770   399   422   235   223   622   502   491   458   292   741   249
+## 6   428   389   768   580   782   792   770   511   670   672   364   216
+##   X1998 X1999 X2000     date
+## 1   490   665   443 07/09/14
+## 2   676   439   795 08/09/14
+## 3   769   533   787 09/09/14
+## 4   795   446   256 10/09/14
+## 5   269   399   526 11/09/14
+## 6   260   461   477 12/09/14</code></pre>
+</div>
+<div id="identificando-erros-no-banco" class="section level2">
+<h2><span class="header-section-number">5.4</span> Identificando erros no banco</h2>
+<p>Alguns dos valores do nosso banco estão com erros (provavelmente por erro de digitação). Vamos dar uma olhada no <code>boxplot</code> da coluna valor:</p>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
+<p>Os valores das colunas do banco <code>paises</code> foram gerados entre <code>200</code> e <code>800</code>. Portanto, a partir do boxplot podemos ver que há algo errado com o nosso banco. Vamos dar uma olhada no resumo das variáveis:</p>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA&#39;s 
+##   200.0   354.0   503.0   506.1   654.0  7550.0      42</code></pre>
+<blockquote>
+<p>O banco <code>paises</code> foi criado para ilustração dessa apostila. Ainda que pareça muito simples o exemplo podemos ter casos na realidade de situações em que idade de indivíduos, por exemplo, aparece como <code>200</code> no lugar de <code>20</code>.</p>
+</blockquote>
+<p>Vamos verificar quais são esses elementos:</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb177-1" data-line-number="1"><span class="kw">subset</span>(pais_tidy, pais_tidy<span class="op">$</span>valor <span class="op">&gt;</span><span class="st"> </span><span class="dv">800</span>)</a></code></pre></div>
+<pre><code>##                                  pais codigo continente     date  ano
+## 2751                          Armenia    AM          AS 14/06/17 1981
+## 3512 Bolivia, Estado Plurinacional de    BO          SA 03/06/17 1984
+## 4004                           Baréin    BH          AS 02/09/14 1986
+## 4495                            Aruba    AW          NA 15/06/17 1988
+##      valor
+## 2751  7520
+## 3512  7000
+## 4004  5150
+## 4495  7550</code></pre>
+<p>Bom, pelo que podemos ver aparentemente foi um erro de digitação. Todos os casos tem um <code>0</code> a mais. Como estamos tratando de números e é simplesmente um <code>0</code> no final, vamos dividir todos os casos por <code>10</code>. Primeiro criamos um vetor com um endereço dos elementos que correspondem a busca (<code>pais_tidy$valor &gt; 800</code>). Depois, substituímos esses valores por eles mesmos dividos por 10:</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb179-1" data-line-number="1">replace &lt;-<span class="st"> </span><span class="kw">which</span>(pais_tidy<span class="op">$</span>valor <span class="op">&gt;</span><span class="st"> </span><span class="dv">800</span>)</a>
+<a class="sourceLine" id="cb179-2" data-line-number="2">pais_tidy<span class="op">$</span>valor[<span class="kw">c</span>(replace)] &lt;-<span class="st"> </span>pais_tidy<span class="op">$</span>valor[<span class="kw">c</span>(replace)]<span class="op">/</span><span class="dv">10</span></a></code></pre></div>
+<p>Vamos ver como eles ficaram?</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" data-line-number="1">pais_tidy[<span class="kw">c</span>(replace), ]</a></code></pre></div>
+<pre><code>##                                  pais codigo continente     date  ano
+## 2751                          Armenia    AM          AS 14/06/17 1981
+## 3512 Bolivia, Estado Plurinacional de    BO          SA 03/06/17 1984
+## 4004                           Baréin    BH          AS 02/09/14 1986
+## 4495                            Aruba    AW          NA 15/06/17 1988
+##      valor
+## 2751   752
+## 3512   700
+## 4004   515
+## 4495   755</code></pre>
+<p>E como será que o boxplot estará agora?</p>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
+<p>Pronto! Eliminamos todos os erros da variável <code>ano</code>.</p>
+</div>
+<div id="trabalhando-com-data-e-hora" class="section level2">
+<h2><span class="header-section-number">5.5</span> Trabalhando com data e hora</h2>
+<p>O <code>tidyverse</code> também possui ótimas ferramentas para trabalharmos com datas e hora. O pacote <code>lubridate</code> agrega essas ferramentas. A coluna <code>date</code> do nosso banco <code>pais_tidy</code> não está sendo lida pelo R como uma data, mas sim como um conjunto de caracteres:</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb182-1" data-line-number="1"><span class="kw">class</span>(pais_tidy<span class="op">$</span>date)</a></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>Bom, isso é um problema para análises futuras. Vamos então indicar para o R qual formato está a data do nosso banco. Se você der uma olhada no banco <code>pais_tidy</code> verá que as datas estão da seguinte maneira: dd/mm/aa (em português). Para o R entender que isso é um formato de data precisamos indicar para ele. Assim, utilizamos as funções de formato de data do pacote <code>lubridate</code>. No caso, a função será <code>dmy</code> indicando que o formato é <code>day</code>, <code>month</code> e <code>year</code>:</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1">pais_tidy<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">dmy</span>(pais_tidy<span class="op">$</span>date) </a></code></pre></div>
+<p>Veja agora como está a estrutura da nossa variável <code>date</code>:</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb185-1" data-line-number="1"><span class="kw">str</span>(pais_tidy)</a></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    7719 obs. of  6 variables:
+##  $ pais      : chr  &quot;Afganistán&quot; &quot;Albania&quot; &quot;Alemania&quot; &quot;Andorra&quot; ...
+##  $ codigo    : chr  &quot; AF &quot; &quot; AL &quot; &quot; DE &quot; &quot; AD &quot; ...
+##  $ continente: chr  &quot;AS&quot; &quot;EU&quot; &quot;EU&quot; &quot;EU&quot; ...
+##  $ date      : Date, format: &quot;2014-09-07&quot; &quot;2014-09-08&quot; ...
+##  $ ano       : chr  &quot;1970&quot; &quot;1970&quot; &quot;1970&quot; &quot;1970&quot; ...
+##  $ valor     : num  335 516 505 749 310 348 249 378 325 329 ...</code></pre>
+<p>Agora as datas foram convertidas para o formato que o R entende como data:</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb187-1" data-line-number="1"><span class="kw">class</span>(pais_tidy<span class="op">$</span>date)</a></code></pre></div>
+<pre><code>## [1] &quot;Date&quot;</code></pre>
+<p>Veja o resumo das nossas variáveis:</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb189-1" data-line-number="1"><span class="kw">summary</span>(pais_tidy)</a></code></pre></div>
+<pre><code>##      pais              codigo           continente       
+##  Length:7719        Length:7719        Length:7719       
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##                                                          
+##       date                ano                valor      
+##  Min.   :2014-08-05   Length:7719        Min.   :200.0  
+##  1st Qu.:2014-10-06   Class :character   1st Qu.:354.0  
+##  Median :2017-04-28   Mode  :character   Median :503.0  
+##  Mean   :2016-05-21                      Mean   :502.9  
+##  3rd Qu.:2017-06-29                      3rd Qu.:653.0  
+##  Max.   :2018-05-08                      Max.   :800.0  
+##                                          NA&#39;s   :42</code></pre>
+<p>Podemos também informar outros formatos de datas. Utilizando a mesma função mas com a abreviação do mês:</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb191-1" data-line-number="1"><span class="kw">dmy</span>(<span class="st">&quot;17 Nov 2015&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;2015-11-17&quot;</code></pre>
+<p>Utilizando o formato com as horas, minutos e segundos:</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb193-1" data-line-number="1"><span class="kw">mdy_hms</span>(<span class="st">&quot;July 15, 2012 12:56:09&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;2012-07-15 12:56:09 UTC&quot;</code></pre>
+<blockquote>
+<p>Trabalhar com datas é bem mais complicado do que foi demonstrado aqui. Para mais informações veja o capítulo sobre datas e hora do livro <a href="https://r4ds.had.co.nz/dates-and-times.html">“R for Data Science”</a></p>
+</blockquote>
+</div>
+<div id="ajustes-finais" class="section level2">
+<h2><span class="header-section-number">5.6</span> Ajustes finais</h2>
+<p>Depois de todas essas alterações, para o nosso banco ficar pronto para análise vamos converter as variáveis <code>pais</code>, <code>codigo</code>, <code>continente</code> e <code>ano</code>. As três primeiras iremos transformar em <code>factor</code>:</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb195-1" data-line-number="1">pais_tidy<span class="op">$</span>pais &lt;-<span class="st"> </span><span class="kw">factor</span>(pais_tidy<span class="op">$</span>pais)</a>
+<a class="sourceLine" id="cb195-2" data-line-number="2">pais_tidy<span class="op">$</span>codigo &lt;-<span class="st"> </span><span class="kw">factor</span>(pais_tidy<span class="op">$</span>codigo)</a>
+<a class="sourceLine" id="cb195-3" data-line-number="3">pais_tidy<span class="op">$</span>continente &lt;-<span class="st"> </span><span class="kw">factor</span>(pais_tidy<span class="op">$</span>continente)</a></code></pre></div>
+<p>Por fim, vamos criar uma variável <code>ano2</code> (cópia de <code>ano</code>) que será convertida em <code>factor</code> e vamos converter a variável <code>ano</code> em <code>numeric</code>:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb196-1" data-line-number="1">pais_tidy<span class="op">$</span>ano2 &lt;-<span class="st"> </span>pais_tidy<span class="op">$</span>ano</a>
+<a class="sourceLine" id="cb196-2" data-line-number="2">pais_tidy<span class="op">$</span>ano2 &lt;-<span class="st"> </span><span class="kw">factor</span>(pais_tidy<span class="op">$</span>ano2)</a>
+<a class="sourceLine" id="cb196-3" data-line-number="3">pais_tidy<span class="op">$</span>ano &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(pais_tidy<span class="op">$</span>ano)</a></code></pre></div>
+<p>Agora o nosso banco estará assim:</p>
+<pre><code>##          pais          codigo     continente      date           
+##  Afganistán:  31    AD    :  31   AF:1798    Min.   :2014-08-05  
+##  Albania   :  31    AE    :  31   AN: 155    1st Qu.:2014-10-06  
+##  Alemania  :  31    AF    :  31   AS:1643    Median :2017-04-28  
+##  Andorra   :  31    AG    :  31   EU:1612    Mean   :2016-05-21  
+##  Angola    :  31    AI    :  31   NA:1271    3rd Qu.:2017-06-29  
+##  Anguila   :  31    AL    :  31   OC: 806    Max.   :2018-05-08  
+##  (Other)   :7533   (Other):7533   SA: 434                        
+##       ano           valor            ano2     
+##  Min.   :1970   Min.   :200.0   1970   : 249  
+##  1st Qu.:1977   1st Qu.:354.0   1971   : 249  
+##  Median :1985   Median :503.0   1972   : 249  
+##  Mean   :1985   Mean   :502.9   1973   : 249  
+##  3rd Qu.:1993   3rd Qu.:653.0   1974   : 249  
+##  Max.   :2000   Max.   :800.0   1975   : 249  
+##                 NA&#39;s   :42      (Other):6225</code></pre>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="13">
+<li id="fn13"><p>Tidy Data: <a href="https://vita.had.co.nz/papers/tidy-data.html" class="uri">https://vita.had.co.nz/papers/tidy-data.html</a><a href="tidy.html#fnref13" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="manip.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ggplot.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-tidy.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["intro-R.pdf", "intro-R.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

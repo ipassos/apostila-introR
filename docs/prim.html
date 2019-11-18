@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 2 Primeiros Passos | Introdução ao R</title>
+  <meta name="description" content="Apostila - Introdução ao R" />
+  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 2 Primeiros Passos | Introdução ao R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Apostila - Introdução ao R" />
+  <meta name="github-repo" content="ipassos/apostila-introR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 2 Primeiros Passos | Introdução ao R" />
+  
+  <meta name="twitter:description" content="Apostila - Introdução ao R" />
+  
+
+<meta name="author" content="Iara Passos" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="arrays.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Apostila Introdução ao R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introdução</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#o-que-é-a-linguagem-r"><i class="fa fa-check"></i><b>1.1</b> O que é a linguagem R?</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#comunidade"><i class="fa fa-check"></i><b>1.1.1</b> Comunidade</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#instalando-o-r"><i class="fa fa-check"></i><b>1.2</b> Instalando o R</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#instalando-o-rstudio"><i class="fa fa-check"></i><b>1.3</b> Instalando o RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="prim.html"><a href="prim.html"><i class="fa fa-check"></i><b>2</b> Primeiros Passos</a><ul>
+<li class="chapter" data-level="2.1" data-path="prim.html"><a href="prim.html#janela-de-comando-do-r"><i class="fa fa-check"></i><b>2.1</b> Janela de comando do R</a></li>
+<li class="chapter" data-level="2.2" data-path="prim.html"><a href="prim.html#o-r-como-uma-calculadora"><i class="fa fa-check"></i><b>2.2</b> O R como uma calculadora</a></li>
+<li class="chapter" data-level="2.3" data-path="prim.html"><a href="prim.html#objetos-e-classes-de-objetos"><i class="fa fa-check"></i><b>2.3</b> Objetos e classes de objetos</a></li>
+<li class="chapter" data-level="2.4" data-path="prim.html"><a href="prim.html#ambiente-do-rstudio"><i class="fa fa-check"></i><b>2.4</b> Ambiente do RStudio</a></li>
+<li class="chapter" data-level="2.5" data-path="prim.html"><a href="prim.html#pacotes"><i class="fa fa-check"></i><b>2.5</b> Pacotes</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="prim.html"><a href="prim.html#citando-pacotes"><i class="fa fa-check"></i><b>2.5.1</b> Citando pacotes</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="prim.html"><a href="prim.html#como-conseguir-ajuda"><i class="fa fa-check"></i><b>2.6</b> Como conseguir ajuda</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="arrays.html"><a href="arrays.html"><i class="fa fa-check"></i><b>3</b> Trabalhando com arrays</a><ul>
+<li class="chapter" data-level="3.1" data-path="arrays.html"><a href="arrays.html#vetores"><i class="fa fa-check"></i><b>3.1</b> Vetores</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="arrays.html"><a href="arrays.html#nomeação-de-vetores"><i class="fa fa-check"></i><b>3.1.1</b> Nomeação de vetores</a></li>
+<li class="chapter" data-level="3.1.2" data-path="arrays.html"><a href="arrays.html#operações-com-vetores"><i class="fa fa-check"></i><b>3.1.2</b> Operações com vetores</a></li>
+<li class="chapter" data-level="3.1.3" data-path="arrays.html"><a href="arrays.html#selecionar-elementos-dentro-de-um-vetor"><i class="fa fa-check"></i><b>3.1.3</b> Selecionar elementos dentro de um vetor</a></li>
+<li class="chapter" data-level="3.1.4" data-path="arrays.html"><a href="arrays.html#comparações-de-vetores-e-entre-vetores"><i class="fa fa-check"></i><b>3.1.4</b> Comparações de vetores e entre vetores</a></li>
+<li class="chapter" data-level="3.1.5" data-path="arrays.html"><a href="arrays.html#adição-e-exclusão-de-valores-em-um-vetor"><i class="fa fa-check"></i><b>3.1.5</b> Adição e exclusão de valores em um vetor</a></li>
+<li class="chapter" data-level="3.1.6" data-path="arrays.html"><a href="arrays.html#funções-com-vetores"><i class="fa fa-check"></i><b>3.1.6</b> Funções com vetores</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="arrays.html"><a href="arrays.html#matrizes"><i class="fa fa-check"></i><b>3.2</b> Matrizes</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="arrays.html"><a href="arrays.html#seleção-de-elementos-matriz"><i class="fa fa-check"></i><b>3.2.1</b> Seleção de elementos matriz</a></li>
+<li class="chapter" data-level="3.2.2" data-path="arrays.html"><a href="arrays.html#operações-com-matrizes"><i class="fa fa-check"></i><b>3.2.2</b> Operações com matrizes</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="arrays.html"><a href="arrays.html#factors"><i class="fa fa-check"></i><b>3.3</b> Factors</a></li>
+<li class="chapter" data-level="3.4" data-path="arrays.html"><a href="arrays.html#dataframes"><i class="fa fa-check"></i><b>3.4</b> Dataframes</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="arrays.html"><a href="arrays.html#funções-básicas-para-data-frames"><i class="fa fa-check"></i><b>3.4.1</b> Funções básicas para data frames</a></li>
+<li class="chapter" data-level="3.4.2" data-path="arrays.html"><a href="arrays.html#selecionando-elementos-dentro-de-um-dataframe"><i class="fa fa-check"></i><b>3.4.2</b> Selecionando elementos dentro de um dataframe</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="arrays.html"><a href="arrays.html#listas"><i class="fa fa-check"></i><b>3.5</b> Listas</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="manip.html"><a href="manip.html"><i class="fa fa-check"></i><b>4</b> Manipulando e analisando data frames</a><ul>
+<li class="chapter" data-level="4.1" data-path="manip.html"><a href="manip.html#arrumando-o-banco-de-dados"><i class="fa fa-check"></i><b>4.1</b> Arrumando o banco de dados</a></li>
+<li class="chapter" data-level="4.2" data-path="manip.html"><a href="manip.html#criando-variáveis-novas"><i class="fa fa-check"></i><b>4.2</b> Criando variáveis novas</a></li>
+<li class="chapter" data-level="4.3" data-path="manip.html"><a href="manip.html#gráficos-base-do-r"><i class="fa fa-check"></i><b>4.3</b> Gráficos base do R</a></li>
+<li class="chapter" data-level="4.4" data-path="manip.html"><a href="manip.html#impor"><i class="fa fa-check"></i><b>4.4</b> Importação e exportação de bancos de dados</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="tidy.html"><a href="tidy.html"><i class="fa fa-check"></i><b>5</b> Introdução ao Tidyverse</a><ul>
+<li class="chapter" data-level="5.1" data-path="tidy.html"><a href="tidy.html#verificação-de-nas"><i class="fa fa-check"></i><b>5.1</b> Verificação de NAs</a></li>
+<li class="chapter" data-level="5.2" data-path="tidy.html"><a href="tidy.html#criando-tidydata-com-o-pacote-tidyr"><i class="fa fa-check"></i><b>5.2</b> Criando tidydata com o pacote tidyr</a></li>
+<li class="chapter" data-level="5.3" data-path="tidy.html"><a href="tidy.html#manipulação-de-strings"><i class="fa fa-check"></i><b>5.3</b> Manipulação de strings</a></li>
+<li class="chapter" data-level="5.4" data-path="tidy.html"><a href="tidy.html#identificando-erros-no-banco"><i class="fa fa-check"></i><b>5.4</b> Identificando erros no banco</a></li>
+<li class="chapter" data-level="5.5" data-path="tidy.html"><a href="tidy.html#trabalhando-com-data-e-hora"><i class="fa fa-check"></i><b>5.5</b> Trabalhando com data e hora</a></li>
+<li class="chapter" data-level="5.6" data-path="tidy.html"><a href="tidy.html#ajustes-finais"><i class="fa fa-check"></i><b>5.6</b> Ajustes finais</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>6</b> Gráficos com ggplot2</a></li>
+<li class="chapter" data-level="7" data-path="mark.html"><a href="mark.html"><i class="fa fa-check"></i><b>7</b> Relatórios com Markdown</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução ao R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="prim" class="section level1">
+<h1><span class="header-section-number">Capítulo 2</span> Primeiros Passos</h1>
+<div id="janela-de-comando-do-r" class="section level2">
+<h2><span class="header-section-number">2.1</span> Janela de comando do R</h2>
+<p>Abra o R no seu computador. Essa janela é a nossa comunicação com o R. É nesse local que passamos as informações para que sejam interpretadas pela linguagem. A aparência desse ambiente é de um <em>prompt</em> de comando, em que comandos são digitados pelo usuário e ao apertar a tecla <code>enter</code> esses comandos são enviados para o R e processados. Ao finalizar o processamento do comando, se o comando solicitar algum retorno, o R pode: a) retornar a saída do comando ou b) retornar uma mensagem de erro (se há algum erro na sintaxe do comando).</p>
+<blockquote>
+<p>Isso é comum em todas as linguagens de programação. O que realmente acontece é que enviamos os comandos em uma linguagem de alto nível (mais próxima do usuário) e o programa traduz esses comandos para uma linguagem de baixo nível na qual a máquina consegue interpretar. O R, por ser uma linguagem interpretativa, faz esse processo diretamente sem que seja necessária a utilização de compiladores mediando essa tradução. Isso facilita a comunicação com o usuário</p>
+</blockquote>
+<p>Digite qualquer número na linha de comando e aperte <code>enter</code>. Como a seguir:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dv">1456</span></a></code></pre></div>
+<pre><code>## [1] 1456</code></pre>
+<p>O R processou essa informação e retornou um resultado. Como apenas inserimos um número, sem nenhum comando ou cálculo, ele retornou apenas o próprio número.</p>
+<blockquote>
+<p>O que é importante entendermos aqui é que essa tela de comando é dinâmica, de modo que cada linha é uma entrada e corresponde a uma comunicação com o computador. Dessa forma, não podemos voltar e alterar a linha anterior pois aquele comando já foi enviado e processado.</p>
+</blockquote>
+<p>Se você está em uma linha nova você pode utilizar as setas para cima e para baixo do seu teclado para navegar entre os comandos já utilizados. E, caso queira, apertar <code>enter</code> para enviar o comando novamente.</p>
+</div>
+<div id="o-r-como-uma-calculadora" class="section level2">
+<h2><span class="header-section-number">2.2</span> O R como uma calculadora</h2>
+<p>O R, como outras linguagens de programação, pode funcionar como uma calculadora interativa. Assim, podemos fazer contas no console. Por exemplo, para fazer uma soma:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="dv">9</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span> </a></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<p>Agora ele nos retornou o resultado da soma que solicitamos. Teste outras contas básicas utilizando os seguintes símbolos:</p>
+<ul>
+<li>“+” adição</li>
+<li>“-” subtração</li>
+<li>&quot;*&quot; multiplicação</li>
+<li>“/” divisão</li>
+<li>“^” potência</li>
+</ul>
+<blockquote>
+<p>Se você digitar um comando incompleto, como 5 +, e apertar <code>enter</code>, o R mostrará um +, o que não tem nada a ver com somar alguma coisa. Isso significa que o R está esperando que você complete o seu comando. Termine o seu comando ou aperte <code>esc</code> para recomeçar.</p>
+</blockquote>
+<p>O R ainda tem outros símbolos relacionados a contas matemáticas. A seguinte sequência de caracteres <code>%%</code> irá retornar o resto da divisão entre dois números. Por exemplo:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="dv">5</span> <span class="op">%%</span><span class="st"> </span><span class="dv">3</span></a></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>Como a divisão de 5 por 3 não é exata, ao solicitarmos o resto da divisão com símbolo <code>%%</code> o R retorna 2. Teste uma divisão exata. O que ele retorna?</p>
+<p>Por fim, a sequência <code>%%</code> retorna a parte inteira da divisão de X por Y. Tente novamente na divisão de 5 por 3. O que aconteceu? Qual a diferença?</p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-4" class="exercise"><strong>Exercício 2.1  </strong></span>Faça cálculos mais complexos, com várias operações combinadas.
+</div>
+
+<p><strong>Importante:</strong> Tente entender como o R faz essas operações. <strong>Atenção nos parênteses!!</strong></p>
+<blockquote>
+<p><strong><span style="color:red">ERROS</span></strong> Se você digitar um comando que o R não reconhece, ele retornará uma mensagem de erro.
+<strong><span style="color:red">NÃO ENTRE EM PÂNICO!</span></strong> Ele só está avisando que não conseguiu interpretar o comando. Você pode digitar outro comando normalmente em seguida ou corrigir o anterior.</p>
+</blockquote>
+<p>Aprender esse tipo de funcionalidade no R, apesar de bem básico, é bastante útil para começarmos a aprender as primeiras interações com a linguagem. Porém, obviamente, não é para isso que queremos aprender alguma linguagem de programação, mas sim para automatizar processos, evitar repetições desnecessárias e realizar análises mais avançadas do que operações de soma e multiplicação.</p>
+</div>
+<div id="objetos-e-classes-de-objetos" class="section level2">
+<h2><span class="header-section-number">2.3</span> Objetos e classes de objetos</h2>
+<p>Já enviamos informações de números para o R e fizemos operações básicas com ele. Mas e se agora nós enviarmos uma letra ou palavra para ele? Tente fazer isso.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">a</a></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;a&#39; not found</code></pre>
+<p>Ele retorna o erro. Preste bem atenção no que está escrito no erro. No caso, ele está nos informando que o objeto <code>a</code> não foi encontrado. Para entendermos isso, precisamos entender o que é um <strong>objeto</strong>.</p>
+<p>Um <strong>objeto</strong><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>, em termos da ciência da computação, é um valor armazenado na memória do computador. Ele pode assumir a forma de variáveis, funções<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> ou estruturas de dados<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>. O objeto que importa para nós, por ora, são aqueles que representam variáveis. Nas próximas etapas do curso, trabalharemos com funções mas não iremos considerá-las como objetos.</p>
+<blockquote>
+<p>Basicamente, no R, funções são ações realizadas em objetos. Porém, como tudo o que existe no R é um objeto, funções são objetos também.</p>
+</blockquote>
+<p>Então, se um objeto armazena valores, conseguiremos fazer processos mais avançados e evitar repetições nos nossos códigos daqui pra frente. O objeto mais simples que encontramos no R é aquele que armazena apenas uma informação na memória.</p>
+<p>A primeira coisa que precisamos definir é um nome para esse objeto (ou variável) e para isso precisamos seguir algumas preceitos - obrigatórios ou aconselhados.</p>
+<ul>
+<li><p><strong>Nomes válidos</strong> para variáveis (obrigatório)<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<ol style="list-style-type: decimal">
+<li><strong>TEM QUE COMEÇAR COM UMA LETRA OU UM PONTO (.)</strong>
+<ul>
+<li>exemplo <code>nome</code>, <code>genero23</code>, <code>.name</code> são nomes <span style="color:green">válidos</span></li>
+</ul></li>
+<li><strong>NÃO PODE COMEÇAR COM NÚMEROS</strong>
+<ul>
+<li>exemplo <code>1x</code> <code>0meunome</code> são nomes <span style="color:red">inválidos</span></li>
+</ul></li>
+<li><strong>SE O PONTO (.) FOR O PRIMEIRO DÍGITO, ELE NÃO PODE SER SEGUIDO DE UM NÚMERO</strong>
+<ul>
+<li>exemplo: <code>.23bananas</code>, <code>.45ois</code> são nomes <span style="color:red">inválidos</span></li>
+</ul></li>
+<li>**PODE CONTER UNDERSCORE _, DESDE QUE NÃO SEJA O PRIMEIRO DíGITO**
+<ul>
+<li>exemplo: <code>meu_nome</code>, <code>hello_world</code> são nomes <span style="color:green">válidos</span></li>
+</ul></li>
+<li><strong>NÃO PODE CONTER ESPAÇO EM BRANCO</strong>
+<ul>
+<li>exemplo: <code>meu nome</code>, <code>idade jovens</code> são nomes <span style="color:red">inválidos</span></li>
+</ul></li>
+<li><strong>NÃO PODE SER UMA DAS PALAVRAS RESERVADAS DA LINGUAGEM</strong>
+<ul>
+<li>Palavras reservadas<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> são: <code>if</code> <code>else</code> <code>repeat</code> <code>while</code> <code>function</code> <code>for</code> <code>in</code> <code>next</code> <code>break</code> <code>TRUE</code> <code>FALSE</code> <code>NULL</code> <code>Inf</code> <code>NaN</code> <code>NA</code> <code>NA_integer_</code> <code>NA_real_</code> <code>NA_complex_</code> <code>NA_character_</code> são nomes <span style="color:red">inválidos</span></li>
+</ul></li>
+</ol>
+<p> </p></li>
+<li><p><strong>Boas práticas</strong> para criação de variáveis</p>
+<ol style="list-style-type: decimal">
+<li><strong>CAIXA BAIXA</strong> <br>
+R é <code>case sensitive</code>, de modo que ele interpreta como variáveis diferentes <code>Meu_nome</code>, <code>MEU_NOME</code>, <code>meu_nome</code>, <code>MeU_NoMe</code> e qualquer outra variação possível. Portanto é recomendado que sejam criadas apenas variáveis em caixa baixa, para evitar confusão.</li>
+<li><strong>VARIÁVEIS COM PONTOS</strong> <br>
+Ainda que seja permitido pela linguagem, é recomendável evitar variáveis como <code>meu.nome</code> pois diversos pacotes utilizam <code>.</code> no nome das funções. Para fazer com que seu código seja mais fácil de ser lido por você e por outras pessoas, é bom evitar esse tipo de sintaxe no nome das variáveis.</li>
+<li><strong>VARIÁVEIS COM NOMES DE FUNÇÕES</strong> <br>
+Também para evitar confusões, evite utilizar nomes de funções do R como nomes de variáveis, como <code>mean</code>, <code>sum</code>, etc.</li>
+</ol>
+<p> </p>
+<p>Iremos indicar outras <strong>boas práticas</strong> mais adiante no curso.</p></li>
+</ul>
+<p>Bom, agora que já sabemos como podemos nomear nossos objetos, vamos criar nosso primeiro objeto. Para criar um objeto precisamos armazenar algo dentro dele. Para que o R entenda que queremos armazenar algo em uma variável, utilizamos o símbolo <code>&lt;-</code>.</p>
+<blockquote>
+<p>O R aceita o <code>=</code> como atribuição de variável, mas não é recomendado, por poder ser confundido com operadores lógicos e argumentos de funções.</p>
+</blockquote>
+<p>O R interpreta como o nome da variável o lado para o qual a seta está apontando e como valor atribuído o que está no lado oposto. Assim, atribuímos valores a variável x de qualquer um dos modos: <code>x &lt;- 5</code> ou <code>5 -&gt; x</code>. Porém, para evitar confusão, usaremos aqui sempre o primeiro formato</p>
+<p>Sendo assim, criemos x:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<p>Como só realizamos a atribuição da variável o R não retornou nada no <em>prompt</em> de comando. Para que ele retorne o que está armazenado dentro de uma variável precisamos pedir para que ele faça isso. Por sorte, a sintaxe do R possibilita que façamos isso de forma simples: apenas digitando o nome da variável e apertando <code>enter</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">x</a></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>Pronto! Agora pedimos para o R nos mostrar o que é x ou, equivalentemente, o que está armazenado na variável x.
+Dessa forma, podemos fazer cálculos com x. Por exemplo:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">x <span class="op">*</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<pre><code>## [1] 25</code></pre>
+<p>E vejam só, podemos armazenar esse resultado em uma nova variável.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">y &lt;-<span class="st"> </span>x <span class="op">*</span><span class="st"> </span><span class="dv">5</span></a></code></pre></div>
+<p>Agora temos duas variáveis: uma <code>x</code>, que tem armazenada o número 5, e <code>y</code>, que tem armazenada o resultado da operação <code>x</code> * 5.</p>
+<p>Podemos ir além e criar uma variável <code>z</code> que armazena a divisão de <code>x</code> por <code>y</code>. Qual valor estará armazenado em <code>z</code>?</p>
+<p>Certo! Mas e se agora digitarmos <code>x &lt;- 10</code> quanto vai valer x? O que aconteceu?</p>
+<blockquote>
+<p>ATENÇÃO! Chegamos em uma parte muito importante do curso. Quando re-atribuímos uma variável já existente nós apagamos o valor que estava dentro dela e escrevemos um valor novo.</p>
+</blockquote>
+<p>Ok! Já sabemos como criar, substituir e fazer contas com variáveis. Só que até agora só trabalhamos com números, mas variáveis podem - e devem - armazenar outros tipos de dados.</p>
+<p>Neste caso precisamos de objetos diferentes, ou seja, de classes e formas de armazenamentos diferentes. O R apresenta <strong>quatro</strong> principais classes de objetos: <code>integer</code>, <code>numeric</code>, <code>character</code> e <code>logical</code>. Vamos ver cada uma delas:</p>
+<ul>
+<li><p><code>integer</code> <br>
+Um objeto de classe <code>integer</code> é uma variável numérica que armazena apenas números inteiros (sem pontos flutuantes - os decimais). A diferença para a classe numeric é que a classe integer armazenam números com menos casas e não consegue fazer cálculos com casas decimais. Porem, quando declaramos uma variável numérica o R automaticamente a armazena como tipo <code>numeric</code>. É possível forçar a alteração dessa variável para <code>integer</code> se a sua variável não for ser utilizada para fazer cálculos e for necessário ocupar menos espaço de armazenamento (por exemplo - ID number). Abreviação: <strong>int</strong></p></li>
+<li><p><code>numeric</code> <br>
+Classe padrão para objetos numéricos. Armazena núumeros inteiros e do tipo double (ou float), ou seja, com casas decimais. Necessários para realização de cálculos matemáticos. Abreviação: <strong>num</strong></p></li>
+<li><p><code>character</code> <br>
+Classe do tipo string que armazena dados textuais. Mesmo que haja uma sequência de números os dados serão lidos como textos. Não é possível fazer operações matemáticas e aplicar funções de variáveis numéricas. Abreviação: <strong>char</strong></p></li>
+<li><p><code>logical</code> <br>
+Classe do tipo lógica (booleana), permite apenas armazenamentos de dados lógicos (TRUE ou FALSE). Utilizada para fazer operações lógicas com os dados. Também pode ser utilizada como variável binária. Abreviação: <strong>logi</strong></p></li>
+</ul>
+<blockquote>
+<p>Ainda há uma classe de variável para números complexos, utilizada para análises matemáticas mais avançadas mas não utilizaremos nesse curso.</p>
+</blockquote>
+<p>Agora que já sabemos as classes de objetos. Vamos criar objetos para cada classe. Para criar objetos <code>integer</code> basta criar uma variável com números, assim como a variável da classe <code>numeric</code>. Porém, automaticamente o R cria variáveis numéricas como da classe <code>numeric</code>. Entao, para que forcermos o R a armazenar um número como <code>integer</code>, é necessario colocar no final do número a letra L. Assim, <code>inteiro &lt;- 8L</code> será do tipo <code>integer</code> e não <code>numeric</code>. O L só entra para avisar o R que queremos que aquela variável seja de outra classe. Se pedirmos para ele nos retornar a variável armazenada ele irá retornar apenas a parte numérica da variável (sem o <code>L</code>).</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">inteiro &lt;-<span class="st"> </span>8L</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">inteiro</a></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<p>Para criar variáveis de classe <code>character</code> também precisamos avisar para o R que aquela variável não é do tipo numérico. Sendo assim, não podemos criar a variável da seguinte forma:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">string &lt;-<span class="st"> </span>texto</a></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;texto&#39; not found</code></pre>
+<p>Para que o R identifique que a variável é da classe <code>character</code> precisamos definir o valor entre aspas (&quot; &quot;):</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">string &lt;-<span class="st"> &quot;texto&quot;</span></a></code></pre></div>
+<p>Agora sim, o R interpreta o que está dentro dos parênteses como uma sequência de caracteres. Qualquer sequência de caracteres dentro das aspas será interpretada como um objeto da classe <code>character</code>, inclusive números, espaços e caracteres especiais.</p>
+<p>Por fim, para criar uma variável do tipo lógica (que so aceitam <code>TRUE</code> e <code>FALSE</code>) é necessário atribuir valores <code>TRUE</code>, <code>T</code>, <code>FALSE</code> OU <code>F</code>. Atenção: não podem estar entre aspas, se não o R interpreta como <code>character</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">log &lt;-<span class="st"> </span><span class="ot">FALSE</span></a></code></pre></div>
+<p>Uma outra forma de utilizar os objetos booleanos é comparando variáveis a partir de <code>operadores relacionais</code>. Podemos perguntar para o R se uma variável é <strong>igual</strong> a outra (<code>==</code>), <strong>diferente</strong> (<code>!=</code>), <strong>maior</strong> ou <strong>menor</strong> (<code>&gt;</code> ou <code>&lt;</code>) ou <strong>maior/menor ou igual</strong> (<code>&lt;=</code> ou <code>&gt;=</code>). Como é uma pergunta utilizando sinais de comparação a resposta vai sempre ser do tipo <code>logical</code>, ou seja, <code>TRUE</code> e <code>FALSE</code>.</p>
+<p>Assim, podemos perguntar para o R se x é maior que y:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">x <span class="op">&gt;</span><span class="st"> </span>y</a></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<blockquote>
+<p>O <code>!</code> pode ser combinado com qualquer outro operador: <code>&gt;!</code> (não é maior)</p>
+</blockquote>
+<p>O R nos retorna a resposta <code>FALSE</code>, pois x não é maior que y. ( <code>x</code> já havia sido definido anteriormente como <code>5</code> e <code>y</code> como <code>25</code>).</p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-15" class="exercise"><strong>Exercício 2.2  </strong></span>Utilize os outros operadores relacionais para comparar outras variáveis.
+</div>
+
+<p>Há ainda os operadores lógicos, que baseiam-se na Teoria dos Conjuntos. São eles: <code>&amp;&amp;</code> (<strong>AND/E</strong>), <code>||</code> (<strong>OR/OU</strong>). Utilizando esses operadores podemos combinar perguntas para o R. A seguir, pergunto para o R se x é maior que y <strong>E</strong> se y é maior que 10. De modo que o R irá retornar <code>FALSE</code> se pelo menos uma das condições é <span style="color:red">falsa</span> e ira retornar <code>TRUE</code> se, e somente se, as duas forem <span style="color:green">verdadeiras</span>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">x <span class="op">&gt;</span><span class="st"> </span>y <span class="op">||</span><span class="st"> </span>y <span class="op">&gt;</span><span class="st"> </span><span class="dv">10</span></a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-17" class="exercise"><strong>Exercício 2.3  </strong></span>Utilize o operador lógico “OU”. Em quais condições o R retorna <code>FALSE</code> e em quais ele retorna <code>TRUE</code>?
+</div>
+
+<p>Por fim, se definirmos uma variável e queremos saber como o R a armazenou podemos utilizar a função <code>class()</code> para descobrir a classe do objeto.</p>
+<blockquote>
+<p>Atenção! Essa é a primeira vez que utilizamos uma função no R. Funções tem uma sintaxe bem definida e argumentos obrigatórios e opcionais.</p>
+</blockquote>
+<p>A função <code>class()</code> necessita apenas que seja inserido dentro dos parênteses o objeto que queremos saber a classe. Assim,</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1"><span class="kw">class</span>(x)</a></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Perguntamos para o R qual era a classe de x, no qual ele respondeu que x é da classe <code>numeric</code>. Faça isso com objetos de outras classes.</p>
+<p>Ainda que possamos fazer várias coisas interessantes com o esse tipo mais simples de objeto, trabalhar com objetos mais complexos nos abre mais possibilidades para análises de dados. Porém, antes de avançarmos nos tipos de objetos, vamos ver algumas outras coisinhas que podem nos ajudar no aprendizado aqui para frente.</p>
+</div>
+<div id="ambiente-do-rstudio" class="section level2">
+<h2><span class="header-section-number">2.4</span> Ambiente do RStudio</h2>
+<p>Até agora trabalhamos apenas com o console do R. A vantagem dele é que ele é mais dinâmico e mais rápido, mas temos dificuldades de, por exemplo, ver quais variáveis já temos atribuídas e armazenadas na memória. De fato, se entrarmos com a função <code>ls()</code> o R irá retornar todas as variáveis já atribuídas e armazenadas. Porém, isso dificulta um pouco o trabalho da análise de dados pois temos que ficar solicitando a função toda vez que precisamos saber as variáveis armazenadas.</p>
+<p>Para ajudar a comunicação com o usuário foram criadas IDEs (do inglês, <em>Integrated Development Environment</em>) para que facilitem algumas visualizações. Após a implementação e disponibilização dessas ferramentas o uso de várias linguagens de programação, inclusive o R, aumentou consideravelmente. Uma delas é o RStudio, software da empresa do mesmo nome que tem desempenhado um papel muito importante dentro da comunidade, criando documentação e ferramentas de aprendizagem para aumentar a utilização do R.</p>
+<p>O ambiente do RStudio dispõe de 4 janelas principais. A janela <code>console</code> é a mesma que estávamos trabalhando antes. Ao clicarmos em <code>File &gt; New File &gt; R Script</code> criamos um arquivo de <code>script</code>. Esse arquivo funciona como um bloco de notas, o R só irá lê-lo se selecionarmos as linhas com os comandos e apertarmos <code>ctrl+enter</code>. é importante salvar os arquivos em seu computador com a extensão <code>.R</code>.</p>
+<p>Na janela <code>Environment</code> são mostradas as variáveis que já estão atribuídas na memória. Por fim, a última janela (canto inferior direito) apresenta na aba <code>Files</code> os arquivos que estão na pasta raiz do projeto, na aba <code>Plots</code> os gráficos quando solicitamos que o R imprima gráficos na tela, na aba <code>Packages</code> os pacotes instalados no computador e na aba <code>Help</code> podemos ver a documentação das funções e pacotes (esse precisa de conexão na internet).</p>
+</div>
+<div id="pacotes" class="section level2">
+<h2><span class="header-section-number">2.5</span> Pacotes</h2>
+<p>Quando instalamos o R no computador, apesar de vir com várias funções básicas, essa instalação inicial não comporta todas as possibilidades de funcionalidade do R. Para tanto, existem os pacotes, que são bibliotecas de funções e até mesmo dados que possibilitam complementar ou otimizar tarefas.
+Há uma infinidade de pacotes criados pela comunidade de usuários (você pode criar um pacote se quiser) que são disponibilizados no site <a href="https://cran.r-project.org/">CRAN</a>. Para instalar um pacote você precisa utilizar o comando <code>install.packages(&quot;nome_pacote&quot;)</code>.
+Mesmo após a instalação é necessário que toda vez que você vai utilizar o pacote utilize o comando <code>library(nome_pacote)</code>. As IDEs possibilitam que a busca e a instalação desses pacotes tambem seja mais prática.</p>
+<div id="citando-pacotes" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Citando pacotes</h3>
+<p>Toda vez que você utilizar algum dos pacotes do R em seu trabalho, relatório ou artigo cite o pacote utilizado. Para ver como citar cada pacote utilize a função <code>citation(pacote)</code>:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">citation</span>(<span class="st">&quot;data.table&quot;</span>)</a></code></pre></div>
+<pre><code>## 
+## To cite package &#39;data.table&#39; in publications use:
+## 
+##   Matt Dowle and Arun Srinivasan (2019). data.table: Extension of
+##   `data.frame`. http://r-datatable.com,
+##   https://Rdatatable.gitlab.io/data.table,
+##   https://github.com/Rdatatable/data.table.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {data.table: Extension of `data.frame`},
+##     author = {Matt Dowle and Arun Srinivasan},
+##     year = {2019},
+##     note = {http://r-datatable.com, https://Rdatatable.gitlab.io/data.table,
+## https://github.com/Rdatatable/data.table},
+##   }</code></pre>
+</div>
+</div>
+<div id="como-conseguir-ajuda" class="section level2">
+<h2><span class="header-section-number">2.6</span> Como conseguir ajuda</h2>
+<p>Para buscar ajuda você pode ir na aba <code>Help</code> do RStudio e procurar o nome da função ou pacote na documentação disponível do R ou ir diretamente no console e digitar <code>?funçao</code> (onde função é o nome da função desejada).</p>
+<p>Faça buscas na internet e em sites especializados (como o Stackoverflow) para encontrar documentação referente as funções e funcionalidades do R.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>Para mais informações sobre objetos: <a href="https://pt.stackoverflow.com/questions/205482/em-programa%C3%A7%C3%A3o-o-que-%C3%A9-um-objeto" class="uri">https://pt.stackoverflow.com/questions/205482/em-programa%C3%A7%C3%A3o-o-que-%C3%A9-um-objeto</a><a href="prim.html#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p><a href="https://pt.wikipedia.org/wiki/M%C3%A9todo_(programa%C3%A7%C3%A3o)" class="uri">https://pt.wikipedia.org/wiki/M%C3%A9todo_(programa%C3%A7%C3%A3o)</a><a href="prim.html#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn7"><p><a href="https://pt.wikipedia.org/wiki/Estrutura_de_dados" class="uri">https://pt.wikipedia.org/wiki/Estrutura_de_dados</a><a href="prim.html#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn8"><p><a href="https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-are-valid-names_003f" class="uri">https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-are-valid-names_003f</a><a href="prim.html#fnref8" class="footnote-back">↩</a></p></li>
+<li id="fn9"><p><a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html" class="uri">https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html</a><a href="prim.html#fnref9" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="arrays.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-prim.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["intro-R.pdf", "intro-R.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
