@@ -5,9 +5,10 @@ library(tidyr)
 library(dplyr)
 library(stringr)
 library(lubridate)
+library(kableExtra)
 ```
 
-Os pacotes `tidyverse` são uma coleção de pacotes criados por Hadley Wickham e sua equipe (na RStudio)^[Tidy Data: https://vita.had.co.nz/papers/tidy-data.html] para facilitar o tratamento e visualização dos dados. Aqui, iremos ver alguns desses pacotes nos próximos capítulos. Para darmos início aos pacotes `tidyverse` precisamos instalá-los. Para instalar todos os pacotes do `tidyverse` utilize o comando `install.packages("tidyverse")` ou apenas os pacotes desejados. Aqui iremos utilizar os pacotes `tidyr`, `dplyr`, `stringr` e `lubridate`. Depois de instalados chame os pacotes com a função `library()`. 
+Os pacotes `tidyverse` são uma coleção de pacotes criados por Hadley Wickham e sua equipe (na RStudio)^[Tidy Data: https://vita.had.co.nz/papers/tidy-data.html] para facilitar o tratamento e visualização dos dados (*data wrangling*). Aqui, iremos ver alguns desses pacotes nos próximos capítulos. Para darmos início aos pacotes `tidyverse` precisamos instalá-los. Para instalar todos os pacotes do `tidyverse` utilize o comando `install.packages("tidyverse")` ou apenas os pacotes desejados. Aqui iremos utilizar os pacotes `tidyr`, `dplyr`, `stringr` e `lubridate`. Depois de instalados chame os pacotes com a função `library()`. 
 
 Antes de começarmos vamos só entender o que os criadores do `tidyverse` consideram como `tidydata`. A ideia de um banco de dados "tidy" é um banco de dados que tem:
 
@@ -23,7 +24,6 @@ Parece um pouco óbvio isso, mas certamente você já viu bancos de dados assim:
 |   Luiz  |   1   |    0    |     0    |   0   |
 | Fabiana |   0   |    0    |     1    |   0   |
 | Marcela |   1   |    0    |     0    |   0   |
-
 
 Esse mesmo banco em um formato `tidy` ficaria: 
 
@@ -147,7 +147,10 @@ pais_unido$continente <- str_pad(pais_unido$continente, width = 3, side = "right
 Resultando em:
 
 ```{r echo=FALSE}
-head(pais_unido, n = 2)
+library(kableExtra)
+table1 <- head(pais_unido, n = 2)
+kable(table1) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
 Outra funcionalidade é detectar onde em um banco uma série de caracteres se encontra com a função `str_detect()`: 
@@ -304,6 +307,100 @@ Agora o nosso banco estará assim:
 summary(pais_tidy)
 ```
 
+## O pacote `dplyr`
+
+Agora que arrumamos nosso banco podemos utilizar o pacote [`dplyr`](https://dplyr.tidyverse.org/) para manipular os dados. O pacote `dplyr` tem como estrutura principal verbos para ajudar na manipulação do banco de dados: 
+
+* [mutate()](https://dplyr.tidyverse.org/reference/mutate.html) - para adicionar variáveis que são funções de outras variáveis
+* [select()](https://dplyr.tidyverse.org/reference/select.html) - para selecionar variáveis
+* [filter()](https://dplyr.tidyverse.org/reference/filter.html) - para selecionar casos baseados em seus valores
+* [summarise()](https://dplyr.tidyverse.org/reference/summarise.html) - para reduzir diversos valores em um resumo
+* [arrange()](https://dplyr.tidyverse.org/reference/arrange.html) - para mudar a ordem das linhas
+
+Porém, o pacote exige a seguinte sintaxe com o operador `pipe` (`%>%`):
+
+> nome_banco %>%   
+      funçao()
+
+Se quisermos selecionar apenas algumas variáveis do nosso banco utilizamos a função `select()`. Para selecionarmos apenas as colunas `pais`, `ano` e `valor`:
+
+```{r}
+pais_tidy %>%
+  select(pais, ano, valor)
+```
+
+Para ordenar o banco a partir de uma variável específica utilizamos a função `arrange()`:
+
+```{r}
+pais_tidy %>% 
+  arrange(continente)
+```
+
+> Note que em nenhum dos exemplos estamos atribuindo os resultados em uma nova variável. 
+
+Podemos utilizar as funções combinadas entre si: 
+
+```{r}
+pais_tidy %>%
+  filter(ano > 1990) %>% 
+  filter(valor > 500) %>%
+  arrange(desc(continente))
+```
+
+> O argumento `desc()` dentro da função arrange() faz com que sejam ordenados em ordem decrescente.
+
+Para contarmos quantos elementos de cada categoria aparece em uma variável utilizamos a função count()
+
+```{r}
+pais_tidy %>% 
+  count(pais)
+```
+
+Podemos adicionar ma função `count()` o argumento `wt` que adiciona uma outra variável para contar como "peso" para função ordenando o resultado a partir dessa variável escolhida. 
+
+```{r}
+pais_tidy %>% 
+  count(pais, wt = valor, sort = TRUE)
+```
+
+Com a função `group_by()` é possível agrupar por variáveis.  
+
+```{r}
+pais_tidy %>% 
+  group_by(ano2, pais)
+```
+
+A função `group_by()` é muito útil quando utilizada juntamente com a função `summarize()`. Por exemplo, podemos agrupar (group_by) por continente e por país e depois realizar algumas funções com esses dados (summarize). Como a seguir: 
+
+```{r}
+pais_tidy %>% 
+  group_by(continente, pais) %>% 
+  summarize(total = sum(valor, na.rm = TRUE), 
+            media_valor = mean(valor, na.rm = TRUE),
+            min = min(valor, na.rm = TRUE),
+            max = max(valor, na.rm = TRUE))
+```
+
+
+> Note que a função `summarize()` acima agrega as funções `sum()`, `mean()`, `min()` e `max()` e que é necessário utilizar o argumento `na.rm` em todas elas. 
+
+Por fim, a função `top_n()` apresenta o(s) `n` maiores valor(es) da variável desejada. Por exemplo, se quisermos o maior valor de cada país agrupamos por `pais` e depois pedimos o valor `1` da variável `valor` na função `top_n()`:  
+
+```{r}
+pais_tidy %>% 
+   group_by(pais) %>% 
+   top_n(1, valor)
+```
+
+
+Unindo as funções `group_by()`, `summarize()` e `top_n()` conseguimos mostrar o país com a maior média em cada continente:
+
+```{r}
+pais_tidy %>% 
+  group_by(continente, pais) %>% 
+  summarize(media = mean(valor)) %>% 
+  top_n(1, media)
+```
 
 
 
