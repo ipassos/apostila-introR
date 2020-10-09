@@ -1,1 +1,270 @@
 # Gráficos com ggplot2 {#ggplot}
+
+O pacote `ggplot2`^[[H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.](https://www.springer.com/gp/book/9783319242750)] foi criado em 2007 por Hadley Wickham com base no livro "The Grammar of Graphics" de Leland Wilkinson^[[L. Wilkinson. The Grammar of Graphics. Springer-Verlag New York, 1999.](https://www.springer.com/gp/book/9781475731002)] de 1999. A ideia é que a confecção de gráficos seja realizada a partir de camadas e que o gráfico seja lido pelo R como um objeto (e não como uma imagem como nos pacotes básicos do R). Assim, esse objeto (gráfico) pode ser reutilizado como qualquer outro objeto (vetores, matrizes, data.frames, etc) do R. 
+
+Além disso, até hoje já foram cridas mais de 60 extensões para o ggplot2 que podem ser visualizadas no site [ggplot2 extensions](https://www.ggplot2-exts.org/index.html).
+
+Para aprendermos elementos básicos do ggplot2 iremos utilizar os pacotes `ggplot2`, `dplyr` e `gapminder`. O pacote `gapminder` possui o banco de dados *gapminder* que iremos utilizar daqui pra frente. 
+
+```{r include=FALSE}
+library(dplyr)
+library(ggplot2)
+library(gapminder)
+```
+
+Bom, vamos ver como é esse banco que iremos trabalhar:
+
+```{r}
+summary(gapminder)
+```
+
+```{r}
+str(gapminder)
+```
+
+Certo! Vamos criar um banco apenas com os anos relacionados à Argentina e um outro relacionado às entradas do ano 1962:
+
+```{r}
+ar <- gapminder %>% 
+  filter(country == "Argentina")
+```
+
+```{r include=FALSE}
+ano62 <- gapminder %>% 
+  filter(year == 1962)
+```
+
+&nbsp;
+```{exercise} 
+Crie o banco do ano 1962.
+```
+
+&nbsp;
+
+## Camadas básicas do ggplot2
+
+
+Para criarmos qualquer gráfico com o ggplot2 precisamos obrigatóriamente de três camadas:
+
+* data - onde indicamos nossos dados;
+* aesthetics (aes) - onde indicamos as variáveis; 
+* geometries (geom) - onde indicamos o tipo de geometria que desejamos para visualizar os gráficos
+
+Assim, para criarmos um gráfico de dispersão entre a variável `gdpPercap` e `lifeExp` com os dados da Argentina fazemos:
+
+```{r}
+ggplot(ar, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()
+```
+
+> Teste, por exemplo, criar um gráfico sem a camada `geom_point()`. O que acontece?
+
+Podemos criar um gráfico de dispersão dos dados do anos de 1962 (com as variáveis `gdpPercap` e `lifeExp`) mas para auxiliar na apresentação e melhorar a análise podemos colorir os pontos (cada país, no caso) pela varíavel categórica dos continentes (`continent`). Para isso, adicionamos o argumento `colour` dentro da nossa camada `aes()`, como a seguir: 
+
+```{r}
+ggplot(ano62, aes(x = gdpPercap, y = lifeExp, colour = continent)) + 
+  geom_point()
+```
+
+
+Da mesma forma que podemos definir a cor por outras variáveis também podemos definir outros atributos do gráfico, como a forma dos pontos (`shape`) e o tamanho dos mesmos (`size`). 
+
+```{r}
+ggplot(ano62, aes(x = gdpPercap, y = lifeExp, shape = continent)) + 
+  geom_point()
+```
+
+&nbsp;
+```{exercise} 
+Defina o tamanho dos pontos a partir da variável `pop` no gráfico colorido por continente .
+```
+
+&nbsp;
+
+Quando adicionamos um atributo dentro da camada `aesthetics` (aes) indicamos uma categoria. Se, por outro lado, queremos mudar a cor (ou outro atributo) de todos os pontos (sem distinção), devemos alterar no argumento `color` dentro da camada geométrica (`geom_point`, no caso). Assim como outras alterações relacionadas a todas os pontos por igual:
+
+```{r}
+ggplot(ano62, aes(x = gdpPercap, y = lifeExp)) +
+ geom_point(color = "blue")
+```
+
+Outras alterações que podem ser feitas na camada `geom_point()`:
+
+* alpha - a transparência dos pontos (de 0 a 1)
+* shape - as formas dos pontos (verificar documentação para possibilidades)
+* size - tamanho dos pontos
+* fill - preenchimento dos pontos
+
+Podemos ainda adicionar legendas no nome dos casos. Para isso precisamos adicionar uma camada `geom_text()` e ainda o argumento `label` dentro da camada `aes()`:
+
+
+```{r}
+ggplot(ano62, aes(x = gdpPercap, y = lifeExp, label = country)) +
+  geom_point() + geom_text()
+```
+
+> Como temos muitos nomes de países no nosso banco, as legendas ficam sobrepostas. Há algumas configurações e extensões para o ggplot2 que auxiliam nesses casos.
+
+## Camadas opcionais
+
+Além das três camadas obrigatórias ainda podemos utilizar mais quatro camadas opcionais: 
+
+* facets - gerar gráficos facetados por categorias
+* statistics - medidas estatísticas anexadas nos gráficos
+* coordinates - alterações nas coordenadas dos gráficos
+* themes - alterações na aparência do gráfico (como um todo)
+
+Iremos ver aqui alguns exemplos de cada uma dessas camadas. 
+
+Podemos utilizar a camada `facets_grid()` para dividir nosso gráfico diferentes gráficos para cada continente (variável categórica):
+
+```{r}
+ggplot(ano62, aes(x = gdpPercap, y = lifeExp)) +  geom_point() + facet_grid(.~ continent)
+```
+
+Podemos também adicionar camadas com medidas estatísticas, na camada `statistics`. Como, por exemplo, adicionar uma linha de regressão no gráfico: 
+
+```{r}
+ggplot(ano62, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() +
+  stat_smooth()
+```
+
+é possível adicionar outras medidas, como médias, densidades, etc. 
+
+A camada `coordinates` permite fazer alterações nos eixos das coordenadas. Podemos, por exemplo, alterar os limites dos eixos x e y. A seguir, o mesmo gráfico que trabalhamos anteriormente mas com o eixo y indo de 20 a 80:
+
+```{r}
+ggplot(ano62, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() +
+  coord_cartesian(ylim = c(20, 80))
+```
+
+é possível também, transformar o plano do gráfico. Por exemplo, com a função `coord_polar()` transformamos o gráfico do plano cartesiano utilizamos um plano circular (como os círculos polares da Terra): 
+
+
+```{r}
+ggplot(ano62, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point() +
+  coord_polar("x")
+```
+
+Por fim, a camada `themes` caracteriza-se por alterções nos elementos "não-dados" do gráfico. Por exemplo, se temos um gráfico com as legendas e título (aproveitamos e já aprendemos como fazer a legenda e o título do gráfico):
+
+```{r}
+pib62 <- ggplot(ano62, aes(x = gdpPercap, y = lifeExp, colour = continent)) + 
+  geom_point() +
+  coord_cartesian(ylim = c(20, 80)) +
+  labs(
+    x = "Pib per capita",
+    y = "Expectativa de vida",
+    colour = "Continentes",
+    title = "Relação expectativa de vida e PIB dos países em 1962" 
+  ) +
+  scale_colour_brewer(palette = "Set2")
+
+pib62
+```
+
+> No gráfico anterior, ainda alteramos a paleta de cores do gráfico com a função `scale_colour_brewer()`. 
+
+Agora queremos fazer alterações estéticas no gráfico, como o plano de fundo, a localização do título, o tamanho e tipo da fonte, etc. A seguir, um exemplo de alteração no tema (`theme_dark()`) e nos elementos do gráfico (`title`, `legend`, `axis` e `panel.grid`):
+
+```{r}
+pib62 + 
+  theme_dark() +
+  theme(
+    plot.title = element_text(face = "bold", size = 12),
+    legend.background = element_rect(fill = "white", size = 4, colour = "white"),
+    legend.justification = c(0, 1),
+    axis.ticks = element_line(colour = "grey70", size = 0.2),
+    panel.grid.major = element_line(colour = "grey70", size = 0.2),
+    panel.grid.minor = element_blank()
+  ) 
+```
+
+> Para outras configurações de tema, consulte: [Chapter 15, ggplot2: Elegant graphics for data analysis](https://ggplot2-book.org/polishing.html).
+
+## Outros tipos de gráficos
+
+Até aqui vimos os gráficos de dispersão, mas o `ggplo2` nos permite fazer uma infinidade de tipos de gráficos (inclusive mapas!). Assim, iremos deixar de usar a camada `geom_point()` e passaremos a usar camadas correspondentes para cada tipo de gráfico. Iremos aqui ver algumas possibilidades, mas vendo apenas suas funcionalidades básicas, para outras alterações é necessário consultar a documentação de cada tipo de gráfico ou os livros de ggplot2 recomendados.
+
+### Histogramas e barras 
+
+Para os histogramas utilizamos a camada `geom_histogram()`. Por padrão a função de criação do gráfico utiliza a posição das barras no método `stacked`, mas pode ser alterado o argumento `position` (conforme o gráfico seguinte).
+
+```{r}
+ggplot(ano62, aes(lifeExp, fill = continent)) +
+  geom_histogram(binwidth = 1)
+```
+
+Gráfico alterando a posição das barras. O argumento `binwidth` altera o tamanho das barras: 
+
+```{r}
+ggplot(ano62, aes(lifeExp, fill = continent)) +
+  geom_histogram(binwidth = 0.5, position = "identity")
+```
+
+Para realizar os gráficos de barra utilizaremos o banco `mtcars`^[https://www.rdocumentation.org/packages/datasets/versions/3.4.3/topics/mtcars] , que possui informações sobre 32 modelos de carros (1973-74). O primeiro gráfico que faremos é da variável `cyl` (número de cilindros) com as corres das barras dividas entre a varia'vel categórica `am` (tipo de transmissão do carro - 0 para automática e 1 para manual).
+
+
+```{r}
+ggplot(mtcars, aes(x = cyl, fill = factor(am))) +
+  geom_bar() 
+```
+
+O argumento `position` vem como padrão o modelo `stack` na função `geom_bar()`, podemos alterá-lo:
+
+```{r}
+ggplot(mtcars, aes(x = cyl, fill = factor(am))) + 
+  geom_bar(position = "dodge") 
+
+ggplot(mtcars, aes(x = cyl, fill = factor(am))) +
+  geom_bar(position = "identity") 
+```
+
+### Polígonos
+
+Podemos utilizar a função `geom_polygon()` para criar graficos de polígonos. é possível criar um gráfico de polígonos apenas com coordenadas cartesianas, como a seguir^[Adaptado de: http://sape.inf.usi.ch/quick-reference/ggplot2/geom_polygon]:
+
+```{r}
+pol <- data.frame(x=c(1,2,3, 3,4,5), y=c(1,1,2, 2,2,3), t=c("a", "a", "a",  "b", "b", "b"))
+ggplot(pol) +
+  geom_polygon(mapping=aes(x=x, y=y, group=t, fill = t)) +
+  geom_point(data=pol, aes(x=x, y=y, color=t)) 
+```
+
+Porém, também podemos utilizar nossos dados para fazer esse tipo de gráfico: 
+
+```{r}
+ggplot(ano62, aes(lifeExp, color = continent)) +
+  geom_freqpoly(binwidth = 0.5) 
+```
+
+
+### Boxplot
+
+Para criamos os boxplots utilizamos a função `geom_boxplot()`. Podemos criar um gráfico com boxplots para cada continente:
+
+```{r}
+ggplot(ano62, aes(continent, lifeExp)) +
+  geom_boxplot()
+```
+
+Para alterar a cor dos `outliers` e do preenchimento do gráfico alteramos dentro da camada geom:
+
+```{r}
+ggplot(ano62, aes(continent, lifeExp)) +
+  geom_boxplot(outlier.color = "red", fill = "blue", show.legend = FALSE) 
+```
+
+
+### Linhas 
+
+Por fim, utilizamos a função `geom_line()` para criar gráficos de linha (séries temporais, por exemplo), como no gráfico a seguir que mostra a variável `gdpPercap` na Argentina ao longo dos anos disponíveis no banco de dados:  
+
+```{r}
+ggplot(ar, aes(x = year, y = gdpPercap)) +
+  geom_line()
+```
+
