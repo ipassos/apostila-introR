@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 6 Gráficos com ggplot2 | Introdução ao R</title>
   <meta name="description" content="Apostila - Introdução ao R" />
-  <meta name="generator" content="bookdown 0.15 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 6 Gráficos com ggplot2 | Introdução ao R" />
   <meta property="og:type" content="book" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="tidy.html"/>
-<link rel="next" href="mark.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -49,12 +49,14 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -63,14 +65,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -79,9 +83,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -180,9 +184,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.4" data-path="tidy.html"><a href="tidy.html#identificando-erros-no-banco"><i class="fa fa-check"></i><b>5.4</b> Identificando erros no banco</a></li>
 <li class="chapter" data-level="5.5" data-path="tidy.html"><a href="tidy.html#trabalhando-com-data-e-hora"><i class="fa fa-check"></i><b>5.5</b> Trabalhando com data e hora</a></li>
 <li class="chapter" data-level="5.6" data-path="tidy.html"><a href="tidy.html#ajustes-finais"><i class="fa fa-check"></i><b>5.6</b> Ajustes finais</a></li>
+<li class="chapter" data-level="5.7" data-path="tidy.html"><a href="tidy.html#o-pacote-dplyr"><i class="fa fa-check"></i><b>5.7</b> O pacote <code>dplyr</code></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>6</b> Gráficos com ggplot2</a></li>
-<li class="chapter" data-level="7" data-path="mark.html"><a href="mark.html"><i class="fa fa-check"></i><b>7</b> Relatórios com Markdown</a></li>
+<li class="chapter" data-level="6" data-path="ggplot.html"><a href="ggplot.html"><i class="fa fa-check"></i><b>6</b> Gráficos com ggplot2</a><ul>
+<li class="chapter" data-level="6.1" data-path="ggplot.html"><a href="ggplot.html#camadas-básicas-do-ggplot2"><i class="fa fa-check"></i><b>6.1</b> Camadas básicas do ggplot2</a></li>
+<li class="chapter" data-level="6.2" data-path="ggplot.html"><a href="ggplot.html#camadas-opcionais"><i class="fa fa-check"></i><b>6.2</b> Camadas opcionais</a></li>
+<li class="chapter" data-level="6.3" data-path="ggplot.html"><a href="ggplot.html#outros-tipos-de-gráficos"><i class="fa fa-check"></i><b>6.3</b> Outros tipos de gráficos</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="ggplot.html"><a href="ggplot.html#histogramas-e-barras"><i class="fa fa-check"></i><b>6.3.1</b> Histogramas e barras</a></li>
+<li class="chapter" data-level="6.3.2" data-path="ggplot.html"><a href="ggplot.html#polígonos"><i class="fa fa-check"></i><b>6.3.2</b> Polígonos</a></li>
+<li class="chapter" data-level="6.3.3" data-path="ggplot.html"><a href="ggplot.html#boxplot"><i class="fa fa-check"></i><b>6.3.3</b> Boxplot</a></li>
+<li class="chapter" data-level="6.3.4" data-path="ggplot.html"><a href="ggplot.html#linhas"><i class="fa fa-check"></i><b>6.3.4</b> Linhas</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -205,15 +218,254 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ggplot" class="section level1">
 <h1><span class="header-section-number">Capítulo 6</span> Gráficos com ggplot2</h1>
+<p>O pacote <code>ggplot2</code><a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> foi criado em 2007 por Hadley Wickham com base no livro “The Grammar of Graphics” de Leland Wilkinson<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> de 1999. A ideia é que a confecção de gráficos seja realizada a partir de camadas e que o gráfico seja lido pelo R como um objeto (e não como uma imagem como nos pacotes básicos do R). Assim, esse objeto (gráfico) pode ser reutilizado como qualquer outro objeto (vetores, matrizes, data.frames, etc) do R.</p>
+<p>Além disso, até hoje já foram cridas mais de 60 extensões para o ggplot2 que podem ser visualizadas no site <a href="https://www.ggplot2-exts.org/index.html">ggplot2 extensions</a>.</p>
+<p>Para aprendermos elementos básicos do ggplot2 iremos utilizar os pacotes <code>ggplot2</code>, <code>dplyr</code> e <code>gapminder</code>. O pacote <code>gapminder</code> possui o banco de dados <em>gapminder</em> que iremos utilizar daqui pra frente.</p>
+<p>Bom, vamos ver como é esse banco que iremos trabalhar:</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="ggplot.html#cb221-1"></a><span class="kw">summary</span>(gapminder)</span></code></pre></div>
+<pre><code>##         country        continent        year         lifeExp     
+##  Afghanistan:  12   Africa  :624   Min.   :1952   Min.   :23.60  
+##  Albania    :  12   Americas:300   1st Qu.:1966   1st Qu.:48.20  
+##  Algeria    :  12   Asia    :396   Median :1980   Median :60.71  
+##  Angola     :  12   Europe  :360   Mean   :1980   Mean   :59.47  
+##  Argentina  :  12   Oceania : 24   3rd Qu.:1993   3rd Qu.:70.85  
+##  Australia  :  12                  Max.   :2007   Max.   :82.60  
+##  (Other)    :1632                                                
+##       pop              gdpPercap       
+##  Min.   :6.001e+04   Min.   :   241.2  
+##  1st Qu.:2.794e+06   1st Qu.:  1202.1  
+##  Median :7.024e+06   Median :  3531.8  
+##  Mean   :2.960e+07   Mean   :  7215.3  
+##  3rd Qu.:1.959e+07   3rd Qu.:  9325.5  
+##  Max.   :1.319e+09   Max.   :113523.1  
+## </code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="ggplot.html#cb223-1"></a><span class="kw">str</span>(gapminder)</span></code></pre></div>
+<pre><code>## tibble [1,704 × 6] (S3: tbl_df/tbl/data.frame)
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : int [1:1704] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ lifeExp  : num [1:1704] 28.8 30.3 32 34 36.1 ...
+##  $ pop      : int [1:1704] 8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
+##  $ gdpPercap: num [1:1704] 779 821 853 836 740 ...</code></pre>
+<p>Certo! Vamos criar um banco apenas com os anos relacionados à Argentina e um outro relacionado às entradas do ano 1962:</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="ggplot.html#cb225-1"></a>ar &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb225-2"><a href="ggplot.html#cb225-2"></a><span class="st">  </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &quot;Argentina&quot;</span>)</span></code></pre></div>
+ 
 
+<div class="exercise">
+<span id="exr:unnamed-chunk-173" class="exercise"><strong>Exercício 6.1  </strong></span>Crie o banco do ano 1962.
+</div>
+
+<p> </p>
+<div id="camadas-básicas-do-ggplot2" class="section level2">
+<h2><span class="header-section-number">6.1</span> Camadas básicas do ggplot2</h2>
+<p>Para criarmos qualquer gráfico com o ggplot2 precisamos obrigatóriamente de três camadas:</p>
+<ul>
+<li>data - onde indicamos nossos dados;</li>
+<li>aesthetics (aes) - onde indicamos as variáveis;</li>
+<li>geometries (geom) - onde indicamos o tipo de geometria que desejamos para visualizar os gráficos</li>
+</ul>
+<p>Assim, para criarmos um gráfico de dispersão entre a variável <code>gdpPercap</code> e <code>lifeExp</code> com os dados da Argentina fazemos:</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="ggplot.html#cb226-1"></a><span class="kw">ggplot</span>(ar, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp)) <span class="op">+</span></span>
+<span id="cb226-2"><a href="ggplot.html#cb226-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-174-1.png" width="672" /></p>
+<blockquote>
+<p>Teste, por exemplo, criar um gráfico sem a camada <code>geom_point()</code>. O que acontece?</p>
+</blockquote>
+<p>Podemos criar um gráfico de dispersão dos dados do anos de 1962 (com as variáveis <code>gdpPercap</code> e <code>lifeExp</code>) mas para auxiliar na apresentação e melhorar a análise podemos colorir os pontos (cada país, no caso) pela varíavel categórica dos continentes (<code>continent</code>). Para isso, adicionamos o argumento <code>colour</code> dentro da nossa camada <code>aes()</code>, como a seguir:</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="ggplot.html#cb227-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp, <span class="dt">colour =</span> continent)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb227-2"><a href="ggplot.html#cb227-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-175-1.png" width="672" /></p>
+<p>Da mesma forma que podemos definir a cor por outras variáveis também podemos definir outros atributos do gráfico, como a forma dos pontos (<code>shape</code>) e o tamanho dos mesmos (<code>size</code>).</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="ggplot.html#cb228-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp, <span class="dt">shape =</span> continent)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb228-2"><a href="ggplot.html#cb228-2"></a><span class="st">  </span><span class="kw">geom_point</span>()</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-176-1.png" width="672" /></p>
+ 
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-177" class="exercise"><strong>Exercício 6.2  </strong></span>Defina o tamanho dos pontos a partir da variável <code>pop</code> no gráfico colorido por continente .
+</div>
+
+<p> </p>
+<p>Quando adicionamos um atributo dentro da camada <code>aesthetics</code> (aes) indicamos uma categoria. Se, por outro lado, queremos mudar a cor (ou outro atributo) de todos os pontos (sem distinção), devemos alterar no argumento <code>color</code> dentro da camada geométrica (<code>geom_point</code>, no caso). Assim como outras alterações relacionadas a todas os pontos por igual:</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="ggplot.html#cb229-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp)) <span class="op">+</span></span>
+<span id="cb229-2"><a href="ggplot.html#cb229-2"></a><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-178-1.png" width="672" /></p>
+<p>Outras alterações que podem ser feitas na camada <code>geom_point()</code>:</p>
+<ul>
+<li>alpha - a transparência dos pontos (de 0 a 1)</li>
+<li>shape - as formas dos pontos (verificar documentação para possibilidades)</li>
+<li>size - tamanho dos pontos</li>
+<li>fill - preenchimento dos pontos</li>
+</ul>
+<p>Podemos ainda adicionar legendas no nome dos casos. Para isso precisamos adicionar uma camada <code>geom_text()</code> e ainda o argumento <code>label</code> dentro da camada <code>aes()</code>:</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="ggplot.html#cb230-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp, <span class="dt">label =</span> country)) <span class="op">+</span></span>
+<span id="cb230-2"><a href="ggplot.html#cb230-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">geom_text</span>()</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-179-1.png" width="672" /></p>
+<blockquote>
+<p>Como temos muitos nomes de países no nosso banco, as legendas ficam sobrepostas. Há algumas configurações e extensões para o ggplot2 que auxiliam nesses casos.</p>
+</blockquote>
+</div>
+<div id="camadas-opcionais" class="section level2">
+<h2><span class="header-section-number">6.2</span> Camadas opcionais</h2>
+<p>Além das três camadas obrigatórias ainda podemos utilizar mais quatro camadas opcionais:</p>
+<ul>
+<li>facets - gerar gráficos facetados por categorias</li>
+<li>statistics - medidas estatísticas anexadas nos gráficos</li>
+<li>coordinates - alterações nas coordenadas dos gráficos</li>
+<li>themes - alterações na aparência do gráfico (como um todo)</li>
+</ul>
+<p>Iremos ver aqui alguns exemplos de cada uma dessas camadas.</p>
+<p>Podemos utilizar a camada <code>facets_grid()</code> para dividir nosso gráfico diferentes gráficos para cada continente (variável categórica):</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="ggplot.html#cb231-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp)) <span class="op">+</span><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_grid</span>(.<span class="op">~</span><span class="st"> </span>continent)</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-180-1.png" width="672" /></p>
+<p>Podemos também adicionar camadas com medidas estatísticas, na camada <code>statistics</code>. Como, por exemplo, adicionar uma linha de regressão no gráfico:</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="ggplot.html#cb232-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp)) <span class="op">+</span></span>
+<span id="cb232-2"><a href="ggplot.html#cb232-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb232-3"><a href="ggplot.html#cb232-3"></a><span class="st">  </span><span class="kw">stat_smooth</span>()</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-181-1.png" width="672" /></p>
+<p>é possível adicionar outras medidas, como médias, densidades, etc.</p>
+<p>A camada <code>coordinates</code> permite fazer alterações nos eixos das coordenadas. Podemos, por exemplo, alterar os limites dos eixos x e y. A seguir, o mesmo gráfico que trabalhamos anteriormente mas com o eixo y indo de 20 a 80:</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="ggplot.html#cb234-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp)) <span class="op">+</span></span>
+<span id="cb234-2"><a href="ggplot.html#cb234-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb234-3"><a href="ggplot.html#cb234-3"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">80</span>))</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-182-1.png" width="672" /></p>
+<p>é possível também, transformar o plano do gráfico. Por exemplo, com a função <code>coord_polar()</code> transformamos o gráfico do plano cartesiano utilizamos um plano circular (como os círculos polares da Terra):</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="ggplot.html#cb235-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp)) <span class="op">+</span></span>
+<span id="cb235-2"><a href="ggplot.html#cb235-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb235-3"><a href="ggplot.html#cb235-3"></a><span class="st">  </span><span class="kw">coord_polar</span>(<span class="st">&quot;x&quot;</span>)</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-183-1.png" width="672" /></p>
+<p>Por fim, a camada <code>themes</code> caracteriza-se por alterções nos elementos “não-dados” do gráfico. Por exemplo, se temos um gráfico com as legendas e título (aproveitamos e já aprendemos como fazer a legenda e o título do gráfico):</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="ggplot.html#cb236-1"></a>pib62 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(<span class="dt">x =</span> gdpPercap, <span class="dt">y =</span> lifeExp, <span class="dt">colour =</span> continent)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb236-2"><a href="ggplot.html#cb236-2"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb236-3"><a href="ggplot.html#cb236-3"></a><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">20</span>, <span class="dv">80</span>)) <span class="op">+</span></span>
+<span id="cb236-4"><a href="ggplot.html#cb236-4"></a><span class="st">  </span><span class="kw">labs</span>(</span>
+<span id="cb236-5"><a href="ggplot.html#cb236-5"></a>    <span class="dt">x =</span> <span class="st">&quot;Pib per capita&quot;</span>,</span>
+<span id="cb236-6"><a href="ggplot.html#cb236-6"></a>    <span class="dt">y =</span> <span class="st">&quot;Expectativa de vida&quot;</span>,</span>
+<span id="cb236-7"><a href="ggplot.html#cb236-7"></a>    <span class="dt">colour =</span> <span class="st">&quot;Continentes&quot;</span>,</span>
+<span id="cb236-8"><a href="ggplot.html#cb236-8"></a>    <span class="dt">title =</span> <span class="st">&quot;Relação expectativa de vida e PIB dos países em 1962&quot;</span> </span>
+<span id="cb236-9"><a href="ggplot.html#cb236-9"></a>  ) <span class="op">+</span></span>
+<span id="cb236-10"><a href="ggplot.html#cb236-10"></a><span class="st">  </span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set2&quot;</span>)</span>
+<span id="cb236-11"><a href="ggplot.html#cb236-11"></a></span>
+<span id="cb236-12"><a href="ggplot.html#cb236-12"></a>pib62</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-184-1.png" width="672" /></p>
+<blockquote>
+<p>No gráfico anterior, ainda alteramos a paleta de cores do gráfico com a função <code>scale_colour_brewer()</code>.</p>
+</blockquote>
+<p>Agora queremos fazer alterações estéticas no gráfico, como o plano de fundo, a localização do título, o tamanho e tipo da fonte, etc. A seguir, um exemplo de alteração no tema (<code>theme_dark()</code>) e nos elementos do gráfico (<code>title</code>, <code>legend</code>, <code>axis</code> e <code>panel.grid</code>):</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="ggplot.html#cb237-1"></a>pib62 <span class="op">+</span><span class="st"> </span></span>
+<span id="cb237-2"><a href="ggplot.html#cb237-2"></a><span class="st">  </span><span class="kw">theme_dark</span>() <span class="op">+</span></span>
+<span id="cb237-3"><a href="ggplot.html#cb237-3"></a><span class="st">  </span><span class="kw">theme</span>(</span>
+<span id="cb237-4"><a href="ggplot.html#cb237-4"></a>    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>, <span class="dt">size =</span> <span class="dv">12</span>),</span>
+<span id="cb237-5"><a href="ggplot.html#cb237-5"></a>    <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>, <span class="dt">colour =</span> <span class="st">&quot;white&quot;</span>),</span>
+<span id="cb237-6"><a href="ggplot.html#cb237-6"></a>    <span class="dt">legend.justification =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb237-7"><a href="ggplot.html#cb237-7"></a>    <span class="dt">axis.ticks =</span> <span class="kw">element_line</span>(<span class="dt">colour =</span> <span class="st">&quot;grey70&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>),</span>
+<span id="cb237-8"><a href="ggplot.html#cb237-8"></a>    <span class="dt">panel.grid.major =</span> <span class="kw">element_line</span>(<span class="dt">colour =</span> <span class="st">&quot;grey70&quot;</span>, <span class="dt">size =</span> <span class="fl">0.2</span>),</span>
+<span id="cb237-9"><a href="ggplot.html#cb237-9"></a>    <span class="dt">panel.grid.minor =</span> <span class="kw">element_blank</span>()</span>
+<span id="cb237-10"><a href="ggplot.html#cb237-10"></a>  ) </span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-185-1.png" width="672" /></p>
+<blockquote>
+<p>Para outras configurações de tema, consulte: <a href="https://ggplot2-book.org/polishing.html">Chapter 15, ggplot2: Elegant graphics for data analysis</a>.</p>
+</blockquote>
+</div>
+<div id="outros-tipos-de-gráficos" class="section level2">
+<h2><span class="header-section-number">6.3</span> Outros tipos de gráficos</h2>
+<p>Até aqui vimos os gráficos de dispersão, mas o <code>ggplo2</code> nos permite fazer uma infinidade de tipos de gráficos (inclusive mapas!). Assim, iremos deixar de usar a camada <code>geom_point()</code> e passaremos a usar camadas correspondentes para cada tipo de gráfico. Iremos aqui ver algumas possibilidades, mas vendo apenas suas funcionalidades básicas, para outras alterações é necessário consultar a documentação de cada tipo de gráfico ou os livros de ggplot2 recomendados.</p>
+<div id="histogramas-e-barras" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Histogramas e barras</h3>
+<p>Para os histogramas utilizamos a camada <code>geom_histogram()</code>. Por padrão a função de criação do gráfico utiliza a posição das barras no método <code>stacked</code>, mas pode ser alterado o argumento <code>position</code> (conforme o gráfico seguinte).</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="ggplot.html#cb238-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(lifeExp, <span class="dt">fill =</span> continent)) <span class="op">+</span></span>
+<span id="cb238-2"><a href="ggplot.html#cb238-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-186-1.png" width="672" /></p>
+<p>Gráfico alterando a posição das barras. O argumento <code>binwidth</code> altera o tamanho das barras:</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="ggplot.html#cb239-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(lifeExp, <span class="dt">fill =</span> continent)) <span class="op">+</span></span>
+<span id="cb239-2"><a href="ggplot.html#cb239-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>, <span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-187-1.png" width="672" /></p>
+<p>Para realizar os gráficos de barra utilizaremos o banco <code>mtcars</code><a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> , que possui informações sobre 32 modelos de carros (1973-74). O primeiro gráfico que faremos é da variável <code>cyl</code> (número de cilindros) com as corres das barras dividas entre a varia’vel categórica <code>am</code> (tipo de transmissão do carro - 0 para automática e 1 para manual).</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="ggplot.html#cb240-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> cyl, <span class="dt">fill =</span> <span class="kw">factor</span>(am))) <span class="op">+</span></span>
+<span id="cb240-2"><a href="ggplot.html#cb240-2"></a><span class="st">  </span><span class="kw">geom_bar</span>() </span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-188-1.png" width="672" /></p>
+<p>O argumento <code>position</code> vem como padrão o modelo <code>stack</code> na função <code>geom_bar()</code>, podemos alterá-lo:</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="ggplot.html#cb241-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> cyl, <span class="dt">fill =</span> <span class="kw">factor</span>(am))) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb241-2"><a href="ggplot.html#cb241-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) </span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-189-1.png" width="672" /></p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="ggplot.html#cb242-1"></a><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> cyl, <span class="dt">fill =</span> <span class="kw">factor</span>(am))) <span class="op">+</span></span>
+<span id="cb242-2"><a href="ggplot.html#cb242-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">position =</span> <span class="st">&quot;identity&quot;</span>) </span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-189-2.png" width="672" /></p>
+</div>
+<div id="polígonos" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Polígonos</h3>
+<p>Podemos utilizar a função <code>geom_polygon()</code> para criar graficos de polígonos. é possível criar um gráfico de polígonos apenas com coordenadas cartesianas, como a seguir<a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a>:</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="ggplot.html#cb243-1"></a>pol &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>, <span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>, <span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">t=</span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>, <span class="st">&quot;a&quot;</span>,  <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;b&quot;</span>))</span>
+<span id="cb243-2"><a href="ggplot.html#cb243-2"></a><span class="kw">ggplot</span>(pol) <span class="op">+</span></span>
+<span id="cb243-3"><a href="ggplot.html#cb243-3"></a><span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">mapping=</span><span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">group=</span>t, <span class="dt">fill =</span> t)) <span class="op">+</span></span>
+<span id="cb243-4"><a href="ggplot.html#cb243-4"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>pol, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">color=</span>t)) </span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-190-1.png" width="672" /></p>
+<p>Porém, também podemos utilizar nossos dados para fazer esse tipo de gráfico:</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="ggplot.html#cb244-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(lifeExp, <span class="dt">color =</span> continent)) <span class="op">+</span></span>
+<span id="cb244-2"><a href="ggplot.html#cb244-2"></a><span class="st">  </span><span class="kw">geom_freqpoly</span>(<span class="dt">binwidth =</span> <span class="fl">0.5</span>) </span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-191-1.png" width="672" /></p>
+</div>
+<div id="boxplot" class="section level3">
+<h3><span class="header-section-number">6.3.3</span> Boxplot</h3>
+<p>Para criamos os boxplots utilizamos a função <code>geom_boxplot()</code>. Podemos criar um gráfico com boxplots para cada continente:</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="ggplot.html#cb245-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(continent, lifeExp)) <span class="op">+</span></span>
+<span id="cb245-2"><a href="ggplot.html#cb245-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-192-1.png" width="672" /></p>
+<p>Para alterar a cor dos <code>outliers</code> e do preenchimento do gráfico alteramos dentro da camada geom:</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="ggplot.html#cb246-1"></a><span class="kw">ggplot</span>(ano62, <span class="kw">aes</span>(continent, lifeExp)) <span class="op">+</span></span>
+<span id="cb246-2"><a href="ggplot.html#cb246-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">outlier.color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) </span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-193-1.png" width="672" /></p>
+</div>
+<div id="linhas" class="section level3">
+<h3><span class="header-section-number">6.3.4</span> Linhas</h3>
+<p>Por fim, utilizamos a função <code>geom_line()</code> para criar gráficos de linha (séries temporais, por exemplo), como no gráfico a seguir que mostra a variável <code>gdpPercap</code> na Argentina ao longo dos anos disponíveis no banco de dados:</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="ggplot.html#cb247-1"></a><span class="kw">ggplot</span>(ar, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> gdpPercap)) <span class="op">+</span></span>
+<span id="cb247-2"><a href="ggplot.html#cb247-2"></a><span class="st">  </span><span class="kw">geom_line</span>()</span></code></pre></div>
+<p><img src="intro-R_files/figure-html/unnamed-chunk-194-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="14">
+<li id="fn14"><p><a href="https://www.springer.com/gp/book/9783319242750">H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.</a><a href="ggplot.html#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn15"><p><a href="https://www.springer.com/gp/book/9781475731002">L. Wilkinson. The Grammar of Graphics. Springer-Verlag New York, 1999.</a><a href="ggplot.html#fnref15" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p><a href="https://www.rdocumentation.org/packages/datasets/versions/3.4.3/topics/mtcars" class="uri">https://www.rdocumentation.org/packages/datasets/versions/3.4.3/topics/mtcars</a><a href="ggplot.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p>Adaptado de: <a href="http://sape.inf.usi.ch/quick-reference/ggplot2/geom_polygon" class="uri">http://sape.inf.usi.ch/quick-reference/ggplot2/geom_polygon</a><a href="ggplot.html#fnref17" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="tidy.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="mark.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tidy.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -229,6 +481,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": true,
 "twitter": true,
 "linkedin": false,
@@ -247,6 +500,10 @@ gitbook.start({
 "text": "Edit"
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
